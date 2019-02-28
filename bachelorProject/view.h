@@ -1,0 +1,8 @@
+//
+// Created by 김유진 on 2019-02-28.
+//
+
+#ifndef BACHELORPROJECT_VIEW_H
+#define BACHELORPROJECT_VIEW_H
+
+#endif //BACHELORPROJECT_VIEW_H
