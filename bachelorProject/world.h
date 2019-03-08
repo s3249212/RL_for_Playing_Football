@@ -6,13 +6,35 @@
 #define BACHELORPROJECT_WORLD_H
 
 #include "player.h"
+#include "observable.h"
+#include <vector>
+#include <iostream>
 
-class World{
+typedef struct Ball{
+    int x;
+    int y;
+    int owner;
+}Ball;
+
+class World: public Observable {
     private:
-        Player *players;
+        vector<Player> players;
+        //Ball ball;
+        int nTrainingPerCycle;
+        int nTestPerCycle;
+        int nCycles;
 
     public:
-        virtual void simulate();
+        void train();
+        World(int nplayers, int algorithm);
+        virtual void runTrainingMatch();
+        virtual void runTestMatch();
+        void addPlayer(Player p);
+        vector<Player> getPlayers();
+
+    friend ostream & operator << (ostream &out, const World &w);
+    friend istream & operator >> (istream &in, World &w);
+
 };
 
 

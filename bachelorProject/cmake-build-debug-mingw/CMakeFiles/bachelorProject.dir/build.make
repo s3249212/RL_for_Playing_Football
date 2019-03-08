@@ -95,11 +95,81 @@ CMakeFiles/bachelorProject.dir/controller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/controller.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\controller.cpp -o CMakeFiles\bachelorProject.dir\controller.cpp.s
 
+CMakeFiles/bachelorProject.dir/world.cpp.obj: CMakeFiles/bachelorProject.dir/flags.make
+CMakeFiles/bachelorProject.dir/world.cpp.obj: ../world.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bachelorProject.dir/world.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\bachelorProject.dir\world.cpp.obj -c C:\Users\user\CLionProjects\bachelorProject\world.cpp
+
+CMakeFiles/bachelorProject.dir/world.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bachelorProject.dir/world.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\user\CLionProjects\bachelorProject\world.cpp > CMakeFiles\bachelorProject.dir\world.cpp.i
+
+CMakeFiles/bachelorProject.dir/world.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/world.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\world.cpp -o CMakeFiles\bachelorProject.dir\world.cpp.s
+
+CMakeFiles/bachelorProject.dir/player.cpp.obj: CMakeFiles/bachelorProject.dir/flags.make
+CMakeFiles/bachelorProject.dir/player.cpp.obj: ../player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/bachelorProject.dir/player.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\bachelorProject.dir\player.cpp.obj -c C:\Users\user\CLionProjects\bachelorProject\player.cpp
+
+CMakeFiles/bachelorProject.dir/player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bachelorProject.dir/player.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\user\CLionProjects\bachelorProject\player.cpp > CMakeFiles\bachelorProject.dir\player.cpp.i
+
+CMakeFiles/bachelorProject.dir/player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/player.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\player.cpp -o CMakeFiles\bachelorProject.dir\player.cpp.s
+
+CMakeFiles/bachelorProject.dir/team.cpp.obj: CMakeFiles/bachelorProject.dir/flags.make
+CMakeFiles/bachelorProject.dir/team.cpp.obj: ../team.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/bachelorProject.dir/team.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\bachelorProject.dir\team.cpp.obj -c C:\Users\user\CLionProjects\bachelorProject\team.cpp
+
+CMakeFiles/bachelorProject.dir/team.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bachelorProject.dir/team.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\user\CLionProjects\bachelorProject\team.cpp > CMakeFiles\bachelorProject.dir\team.cpp.i
+
+CMakeFiles/bachelorProject.dir/team.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/team.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\team.cpp -o CMakeFiles\bachelorProject.dir\team.cpp.s
+
+CMakeFiles/bachelorProject.dir/observable.cpp.obj: CMakeFiles/bachelorProject.dir/flags.make
+CMakeFiles/bachelorProject.dir/observable.cpp.obj: ../observable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/bachelorProject.dir/observable.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\bachelorProject.dir\observable.cpp.obj -c C:\Users\user\CLionProjects\bachelorProject\observable.cpp
+
+CMakeFiles/bachelorProject.dir/observable.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bachelorProject.dir/observable.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\user\CLionProjects\bachelorProject\observable.cpp > CMakeFiles\bachelorProject.dir\observable.cpp.i
+
+CMakeFiles/bachelorProject.dir/observable.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/observable.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\observable.cpp -o CMakeFiles\bachelorProject.dir\observable.cpp.s
+
+CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj: CMakeFiles/bachelorProject.dir/flags.make
+CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj: ../gridWorld.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\bachelorProject.dir\gridWorld.cpp.obj -c C:\Users\user\CLionProjects\bachelorProject\gridWorld.cpp
+
+CMakeFiles/bachelorProject.dir/gridWorld.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bachelorProject.dir/gridWorld.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\user\CLionProjects\bachelorProject\gridWorld.cpp > CMakeFiles\bachelorProject.dir\gridWorld.cpp.i
+
+CMakeFiles/bachelorProject.dir/gridWorld.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bachelorProject.dir/gridWorld.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\user\CLionProjects\bachelorProject\gridWorld.cpp -o CMakeFiles\bachelorProject.dir\gridWorld.cpp.s
+
 # Object files for target bachelorProject
 bachelorProject_OBJECTS = \
 "CMakeFiles/bachelorProject.dir/main.cpp.obj" \
 "CMakeFiles/bachelorProject.dir/view.cpp.obj" \
-"CMakeFiles/bachelorProject.dir/controller.cpp.obj"
+"CMakeFiles/bachelorProject.dir/controller.cpp.obj" \
+"CMakeFiles/bachelorProject.dir/world.cpp.obj" \
+"CMakeFiles/bachelorProject.dir/player.cpp.obj" \
+"CMakeFiles/bachelorProject.dir/team.cpp.obj" \
+"CMakeFiles/bachelorProject.dir/observable.cpp.obj" \
+"CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj"
 
 # External object files for target bachelorProject
 bachelorProject_EXTERNAL_OBJECTS =
@@ -107,11 +177,16 @@ bachelorProject_EXTERNAL_OBJECTS =
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/main.cpp.obj
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/view.cpp.obj
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/controller.cpp.obj
+bachelorProject.exe: CMakeFiles/bachelorProject.dir/world.cpp.obj
+bachelorProject.exe: CMakeFiles/bachelorProject.dir/player.cpp.obj
+bachelorProject.exe: CMakeFiles/bachelorProject.dir/team.cpp.obj
+bachelorProject.exe: CMakeFiles/bachelorProject.dir/observable.cpp.obj
+bachelorProject.exe: CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/build.make
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/linklibs.rsp
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/objects1.rsp
 bachelorProject.exe: CMakeFiles/bachelorProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bachelorProject.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\user\CLionProjects\bachelorProject\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable bachelorProject.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\bachelorProject.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -88,16 +88,43 @@
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/controller.h">
 			<Option target="bachelorProject"/>
 		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/gridWorld.cpp">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/gridWorld.h">
+			<Option target="bachelorProject"/>
+		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/main.cpp">
 			<Option target="bachelorProject"/>
 		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/observable.cpp">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/observable.h">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/observer.h">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/player.cpp">
+			<Option target="bachelorProject"/>
+		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/player.h">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/team.cpp">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/team.h">
 			<Option target="bachelorProject"/>
 		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/view.cpp">
 			<Option target="bachelorProject"/>
 		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/view.h">
+			<Option target="bachelorProject"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/world.cpp">
 			<Option target="bachelorProject"/>
 		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/bachelorProject/world.h">

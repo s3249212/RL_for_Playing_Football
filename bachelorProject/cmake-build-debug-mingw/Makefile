@@ -149,6 +149,33 @@ controller.cpp.s:
 	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/controller.cpp.s
 .PHONY : controller.cpp.s
 
+gridWorld.obj: gridWorld.cpp.obj
+
+.PHONY : gridWorld.obj
+
+# target to build an object file
+gridWorld.cpp.obj:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/gridWorld.cpp.obj
+.PHONY : gridWorld.cpp.obj
+
+gridWorld.i: gridWorld.cpp.i
+
+.PHONY : gridWorld.i
+
+# target to preprocess a source file
+gridWorld.cpp.i:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/gridWorld.cpp.i
+.PHONY : gridWorld.cpp.i
+
+gridWorld.s: gridWorld.cpp.s
+
+.PHONY : gridWorld.s
+
+# target to generate assembly for a file
+gridWorld.cpp.s:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/gridWorld.cpp.s
+.PHONY : gridWorld.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -175,6 +202,87 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+observable.obj: observable.cpp.obj
+
+.PHONY : observable.obj
+
+# target to build an object file
+observable.cpp.obj:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/observable.cpp.obj
+.PHONY : observable.cpp.obj
+
+observable.i: observable.cpp.i
+
+.PHONY : observable.i
+
+# target to preprocess a source file
+observable.cpp.i:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/observable.cpp.i
+.PHONY : observable.cpp.i
+
+observable.s: observable.cpp.s
+
+.PHONY : observable.s
+
+# target to generate assembly for a file
+observable.cpp.s:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/observable.cpp.s
+.PHONY : observable.cpp.s
+
+player.obj: player.cpp.obj
+
+.PHONY : player.obj
+
+# target to build an object file
+player.cpp.obj:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/player.cpp.obj
+.PHONY : player.cpp.obj
+
+player.i: player.cpp.i
+
+.PHONY : player.i
+
+# target to preprocess a source file
+player.cpp.i:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/player.cpp.i
+.PHONY : player.cpp.i
+
+player.s: player.cpp.s
+
+.PHONY : player.s
+
+# target to generate assembly for a file
+player.cpp.s:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/player.cpp.s
+.PHONY : player.cpp.s
+
+team.obj: team.cpp.obj
+
+.PHONY : team.obj
+
+# target to build an object file
+team.cpp.obj:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/team.cpp.obj
+.PHONY : team.cpp.obj
+
+team.i: team.cpp.i
+
+.PHONY : team.i
+
+# target to preprocess a source file
+team.cpp.i:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/team.cpp.i
+.PHONY : team.cpp.i
+
+team.s: team.cpp.s
+
+.PHONY : team.s
+
+# target to generate assembly for a file
+team.cpp.s:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/team.cpp.s
+.PHONY : team.cpp.s
 
 view.obj: view.cpp.obj
 
@@ -203,6 +311,33 @@ view.cpp.s:
 	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/view.cpp.s
 .PHONY : view.cpp.s
 
+world.obj: world.cpp.obj
+
+.PHONY : world.obj
+
+# target to build an object file
+world.cpp.obj:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/world.cpp.obj
+.PHONY : world.cpp.obj
+
+world.i: world.cpp.i
+
+.PHONY : world.i
+
+# target to preprocess a source file
+world.cpp.i:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/world.cpp.i
+.PHONY : world.cpp.i
+
+world.s: world.cpp.s
+
+.PHONY : world.s
+
+# target to generate assembly for a file
+world.cpp.s:
+	$(MAKE) -f CMakeFiles\bachelorProject.dir\build.make CMakeFiles/bachelorProject.dir/world.cpp.s
+.PHONY : world.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -215,12 +350,27 @@ help:
 	@echo ... controller.obj
 	@echo ... controller.i
 	@echo ... controller.s
+	@echo ... gridWorld.obj
+	@echo ... gridWorld.i
+	@echo ... gridWorld.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... observable.obj
+	@echo ... observable.i
+	@echo ... observable.s
+	@echo ... player.obj
+	@echo ... player.i
+	@echo ... player.s
+	@echo ... team.obj
+	@echo ... team.i
+	@echo ... team.s
 	@echo ... view.obj
 	@echo ... view.i
 	@echo ... view.s
+	@echo ... world.obj
+	@echo ... world.i
+	@echo ... world.s
 .PHONY : help
 
 

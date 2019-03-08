@@ -10,6 +10,7 @@
 using namespace std;
 
 class Player{
+
     public:
         virtual vector<double> act(vector<double> input, vector<double> reward);
 };
