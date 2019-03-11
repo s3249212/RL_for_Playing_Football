@@ -12,7 +12,14 @@ using namespace std;
 class Player{
 
     public:
+        Player();
+        ~Player();
         virtual vector<double> act(vector<double> input, vector<double> reward);
+
+
+
+
+
 };
 
 

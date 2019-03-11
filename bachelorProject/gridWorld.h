@@ -12,6 +12,7 @@
 typedef struct PlayerInfo{
     int x;
     int y;
+    double reward;
     int team;
 }PlayerInfo;
 
@@ -20,8 +21,13 @@ class GridWorld : public World {
         vector<Player> players;
 
     public:
-        virtual void generateReward(Player p, int playerIndex);
+        virtual void generateReward(Player p, PlayerInfo info, int playerIndex);
         virtual vector<double> generateInputVector(Player p, int playerIndex);
+        PlayerInfo GetPos(PlayerInfo p);
+
+        void SetPos(PlayerInfo p, int x, int y);
+
+        void SetTeam(PlayerInfo p, int t);
 };
 
 

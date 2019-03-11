@@ -1,6 +1,3 @@
-//
-// Created by 김유진 on 2019-03-07.
-//
 
 //
 // Created by 김유진 on 2019-03-01.
@@ -10,13 +7,25 @@
 
 
 
-GridWorld::GridWorld() :
-
-{
+GridWorld::GridWorld(){
 
 }
 
-void GridWorld::generateReward(Player p, int playerIndex){
+PlayerInfo GetPos(PlayerInfo p){
+    return p;
+}
+
+
+void SetPos(PlayerInfo p, int x, int y){
+    p.x = x;
+    p.y = y;
+}
+
+void SetTeam(PlayerInfo p, int t){
+    p.team = t;
+}
+
+void GridWorld::generateReward(Player p, PlayerInfo info, int playerIndex){
 
 }
 

@@ -4,6 +4,10 @@
 #include "world.h"
 #include "controller.h"
 
+enum RL_Algorithm_Type{
+    1 = q_learning;
+};
+
 int main() {
 
     std::vector<double> v;

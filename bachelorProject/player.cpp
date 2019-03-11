@@ -3,5 +3,18 @@
 //
 #include "player.h"
 
-Player::Player :
+Player::Player(){
+
+}
+
+Player::~Player() {
+
+}
+
+bool Player::init(){
+    p_x = 0;
+    p_y = 0;
+
+    return true;
+}
 

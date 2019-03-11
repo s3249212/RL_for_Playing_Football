@@ -31,6 +31,7 @@ class World: public Observable {
         virtual void runTestMatch();
         void addPlayer(Player p);
         vector<Player> getPlayers();
+        void update(World w);
 
     friend ostream & operator << (ostream &out, const World &w);
     friend istream & operator >> (istream &in, World &w);

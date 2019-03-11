@@ -3,26 +3,28 @@
 //
 #include "world.h"
 #include <iostream>
+#include "observable.h"
 
 using namespace std;
 
 
-World::World(int nplayers, int algorithm) :
+World::World(int nplayers, int algorithm){
 
-    {
-
-    }
+}
 
 void World::addPlayer(Player p) {
     players.push_back(p);
+}
+
+void World::update(World w) {
+    notifyObservers();
 }
 
 vector<Player> World::getPlayers() {
     return players;
 }
 
-ostream & oeprator << (ostream &out, const World & w){
-    out
+ostream & operator << (ostream &out, const World & w){
 }
 
 void World::train(){
