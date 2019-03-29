@@ -14,7 +14,7 @@
 #include "ball.h"
 #include "goal.h"
 #include "../view.h"
-#include "../../World/GridWorld/gridworld.h"
+#include "../../World/Gridworld/gridworld.h"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ class GridworldView : public View
 private:
     QGraphicsScene* scene;
 
-    Gridworld* world;
+    Gridworld* gridworld;
 
     vector<GridworldView_Agent*> blueteam;
     vector<GridworldView_Agent*> redteam;
@@ -39,7 +39,7 @@ private:
     void draw();
 
 public:
-    GridworldView(Gridworld& gridworld);
+    GridworldView(Gridworld* gridworld);
 };
 
 #endif // GRIDWORLDVIEW_H

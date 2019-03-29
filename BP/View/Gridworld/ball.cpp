@@ -1,8 +1,8 @@
-#include <QtCore>
+#include <QBrush>
 
 #include "ball.h"
 
 GridworldView_Ball::GridworldView_Ball()
 {
-    setBrush(QBrush(QtCore.Qt.white, style = QtCore.Qt.SolidPattern);
+    setBrush(QBrush(QColor(1, 1, 1)));
 }

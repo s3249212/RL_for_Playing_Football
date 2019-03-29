@@ -1,18 +1,18 @@
-#include <QtCore>
+#include <QBrush>
 
 #include "agent.h"
 
-GridworldView_Agent::GridworldView_Agent(Color color):
+GridworldView_Agent::GridworldView_Agent(Color color)
 {
-    QtGlobalColor c;
+    QColor c;
     switch(color){
     case BLUE:
-        c = QtCore.Qt.blue;
+        c.setRgb(0, 0, 1);
         break;
     case RED:
-        c = QtCore.Qt.red;
+        c.setRgb(1, 0, 0);
         break;
     }
 
-    setBrush(QBrush(c, style = QtCore.Qt.SolidPattern);
+    setBrush(QBrush(c));
 }

@@ -30,7 +30,7 @@ public:
     vector<array<int, 2>> getBlueTeam();
     vector<array<int, 2>> getRedTeam();
 
-    int* getBall();
+    array<int, 2> getBall();
     int getGoalLength();
 };
 

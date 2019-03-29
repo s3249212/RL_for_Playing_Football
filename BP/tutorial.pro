@@ -21,12 +21,12 @@ SOURCES += main.cpp \
     score.cpp \
     health.cpp \
     View/Gridworld/gridworldview.cpp \
-    World/GridWorld/gridworld.cpp \
+    World/Gridworld/gridworld.cpp \
     mainwindow.cpp \
     View/view.cpp \
     View/Gridworld/agent.cpp \
     View/Gridworld/ball.cpp \
-    View/Gridworld/goal.cpp
+    View/Gridworld/goal.cpp \
 
 HEADERS  += \
     bullet.h \
@@ -36,13 +36,13 @@ HEADERS  += \
     score.h \
     health.h \
     View/Gridworld/gridworldview.h \
-    World/GridWorld/gridworld.h \
+    World/Gridworld/gridworld.h \
     World/world.h \
     mainwindow.h \
     View/view.h \
     View/Gridworld/agent.h \
     View/Gridworld/ball.h \
-    View/Gridworld/goal.h
+    View/Gridworld/goal.h \
 
 FORMS    += \
     mainwindow.ui

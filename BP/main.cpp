@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QApplication>
+#include "World/Gridworld/gridworld.h"
 #include "View/Gridworld/gridworldview.h"
 
 World* world;
