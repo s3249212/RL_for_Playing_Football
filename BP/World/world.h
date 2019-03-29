@@ -8,7 +8,7 @@ class World
 public:
     World();
 
-    virtual View getView();
+    virtual View* getView();
 };
 
 #endif // WORLD_H

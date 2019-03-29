@@ -3,14 +3,16 @@
 #include <QApplication>
 #include "View/Gridworld/gridworldview.h"
 
-Game* game;
+World* world;
+View* view;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    game = new Game();
-    game->show();
+    world = new Gridworld();
+    view = world->getView();
+    view->show();
 
 
     return a.exec();

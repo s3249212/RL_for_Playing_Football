@@ -7,13 +7,31 @@
 #include "player.h"
 #include "score.h"
 #include "health.h"*/
-#include "../world.h"
+#include <array>
+#include <vector>
 
+#include "../world.h"
+#include "../../View/view.h"
+
+using namespace std;
 
 class Gridworld : public World
 {
+private:
+    View* view;
+
 public:
     Gridworld();
+
+    View* getView();
+    int getHeight();
+    int getWidth();
+
+    vector<array<int, 2>> getBlueTeam();
+    vector<array<int, 2>> getRedTeam();
+
+    int* getBall();
+    int getGoalLength();
 };
 
 #endif // GRIDWORLD_H

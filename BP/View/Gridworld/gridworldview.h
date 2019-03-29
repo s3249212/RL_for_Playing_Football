@@ -1,7 +1,7 @@
 #ifndef GRIDWORLDVIEW_H
 #define GRIDWORLDVIEW_H
 
-#include "../../World/GridWorld/gridworld.h"
+
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
@@ -14,27 +14,32 @@
 #include "ball.h"
 #include "goal.h"
 #include "../view.h"
+#include "../../World/GridWorld/gridworld.h"
 
+using namespace std;
 
 class GridworldView : public View
 {
 private:
     QGraphicsScene* scene;
 
-    Gridworld world;
+    Gridworld* world;
 
-    vector<Agent*> agents;
-    Ball* ball;
-    Goal* goal0;
-    Goal* goal1;
+    vector<GridworldView_Agent*> blueteam;
+    vector<GridworldView_Agent*> redteam;
+    GridworldView_Ball* ball;
+
+    double blockSize;
+
+    int borderSize = 10;
+
+    void setupViewCoordinates();
+    array<int, 2> toViewCoord(int x, int y);
+
+    void draw();
 
 public:
     GridworldView(Gridworld& gridworld);
-
-
-    /*Player* player;
-    Score* score;
-    Health* health;*/
 };
 
 #endif // GRIDWORLDVIEW_H

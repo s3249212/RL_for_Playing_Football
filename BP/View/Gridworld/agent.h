@@ -1,14 +1,18 @@
 #ifndef GRIDWORLDVIEW_AGENT_H
 #define GRIDWORLDVIEW_AGENT_H
 
-#include <QGraphicsPixmapItem>
+#include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 #include <QObject>
 
-class GridworldView_Agent: public QObject, public QGraphicsPixmapItem{
+enum Color{
+    BLUE, RED
+};
+
+class GridworldView_Agent: public QObject, public QGraphicsEllipseItem{
     Q_OBJECT
 public:
-    GridworldView_Agent();
+    GridworldView_Agent(Color color);
 };
 
 
