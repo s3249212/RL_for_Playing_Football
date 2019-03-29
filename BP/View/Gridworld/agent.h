@@ -1,15 +1,15 @@
-#ifndef AGENT_H
-#define AGENT_H
+#ifndef GRIDWORLDVIEW_AGENT_H
+#define GRIDWORLDVIEW_AGENT_H
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QObject>
 
-class Agent: public QObject, public QGraphicsPixmapItem{
+class GridworldView_Agent: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    Agent();
+    GridworldView_Agent();
 };
 
 
-#endif //MYRECT
+#endif //GRIDWORLDVIEW_H
