@@ -1,7 +1,9 @@
 #include "gridworldview.h"
+#include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
+#include <QWidget>
 #include <QtCore>
 #include <QBrush>
 #include <QImage>
@@ -25,18 +27,18 @@ void GridworldView::setupViewCoordinates(){
 }
 
 array<int, 2> GridworldView::toViewCoord(int x, int y){
-    double centreX = (double) width() / 2;
-    double centreY = (double) height() / 2;
+    double centreX = static_cast<double> (width()) / 2;
+    double centreY = static_cast<double> (height()) / 2;
 
-    double originX = centreX - (double)gridworld->getWidth() / 2 * blockSize;
-    double originY = centreY - (double)gridworld->getHeight() / 2 * blockSize;
+    double originX = centreX - static_cast<double> (gridworld->getWidth()) / 2 * blockSize;
+    double originY = centreY - static_cast<double> (gridworld->getHeight()) / 2 * blockSize;
 
     double viewX = originX + blockSize * x;
     double viewY = originY + blockSize * y;
 
     array<int, 2> coord;
-    coord[0] = (int) viewX;
-    coord[1] = (int) viewY;
+    coord[0] = static_cast<int> (viewX);
+    coord[1] = static_cast<int> (viewY);
 
     return coord;
 }
@@ -136,6 +138,7 @@ GridworldView::GridworldView(Gridworld* gridworld):
     line->setRect(gridworld->getHeight() - 1, 0, gridworld->getWidth() * blockSize, blockSize);
     line->setBrush(QBrush(white));
     scene->addItem(line);
+
 }
 
 void GridworldView::draw(){
@@ -155,5 +158,4 @@ void GridworldView::draw(){
 
     array<int, 2> ballcoords = gridworld->getBall();
 }
-
 

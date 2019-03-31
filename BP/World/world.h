@@ -5,9 +5,10 @@
 
 class World
 {
+
 public:
     World();
-
+    View* viewWorld;
     virtual View* getView();
 };
 

@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QWidget>
 
+
 class View : public QGraphicsView
 {
 private:
@@ -12,7 +13,7 @@ private:
 public:
     View(QWidget* parent = 0);
 
-    virtual void draw();
+    virtual void draw() { };
     void update();
     void setRendering(bool boolean);
 };

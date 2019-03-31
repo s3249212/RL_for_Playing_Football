@@ -16,7 +16,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     bullet.cpp \
     enemy.cpp \
-    game.cpp \
     player.cpp \
     score.cpp \
     health.cpp \
@@ -27,11 +26,11 @@ SOURCES += main.cpp \
     View/Gridworld/agent.cpp \
     View/Gridworld/ball.cpp \
     View/Gridworld/goal.cpp \
+    World/world.cpp
 
 HEADERS  += \
     bullet.h \
     enemy.h \
-    game.h \
     player.h \
     score.h \
     health.h \
@@ -42,7 +41,7 @@ HEADERS  += \
     View/view.h \
     View/Gridworld/agent.h \
     View/Gridworld/ball.h \
-    View/Gridworld/goal.h \
+    View/Gridworld/goal.h
 
 FORMS    += \
     mainwindow.ui

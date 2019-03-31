@@ -7,6 +7,9 @@
 
 class GridworldView_Ball: public QObject, public QGraphicsEllipseItem{
     Q_OBJECT
+
+private:
+
 public:
     GridworldView_Ball();
 };

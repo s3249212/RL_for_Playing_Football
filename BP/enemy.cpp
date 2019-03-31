@@ -3,9 +3,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <stdlib.h>
-#include "game.h"
 
-extern Game* game;
 
 Enemy::Enemy(QGraphicsItem* parent): QObject(), QGraphicsPixmapItem(parent){
     setPixmap(QPixmap(":/images/neuer.png").scaled(100,100));
@@ -26,7 +24,7 @@ void Enemy::move(){
     if(y() > 600){
         scene()->removeItem(this);
         delete this;
-        game->health->decrease();
+
         qDebug() << "Enemy deleted";
     }
 }
