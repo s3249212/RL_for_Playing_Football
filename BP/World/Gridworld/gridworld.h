@@ -32,6 +32,9 @@ public:
 
     array<int, 2> getBall();
     int getGoalLength();
+    View *v = new View();
+
+
 };
 
 #endif // GRIDWORLD_H
