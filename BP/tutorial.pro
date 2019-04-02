@@ -23,10 +23,11 @@ SOURCES += main.cpp \
     World/Gridworld/gridworld.cpp \
     mainwindow.cpp \
     View/view.cpp \
-    View/Gridworld/agent.cpp \
-    View/Gridworld/ball.cpp \
-    View/Gridworld/goal.cpp \
-    World/world.cpp
+    World/world.cpp \
+    View/Gridworld/gridworldview_agent.cpp \
+    View/Gridworld/gridworldview_ball.cpp \
+    World/Gridworld/gridworld_agent.cpp \
+    World/Gridworld/gridworld_ball.cpp
 
 HEADERS  += \
     bullet.h \
@@ -39,9 +40,10 @@ HEADERS  += \
     World/world.h \
     mainwindow.h \
     View/view.h \
-    View/Gridworld/agent.h \
-    View/Gridworld/ball.h \
-    View/Gridworld/goal.h
+    View/Gridworld/gridworldview_agent.h \
+    View/Gridworld/gridworldview_ball.h \
+    World/Gridworld/gridworld_agent.h \
+    World/Gridworld/gridworld_ball.h
 
 FORMS    += \
     mainwindow.ui
@@ -50,3 +52,6 @@ RESOURCES += \
     res.qrc
 
 CONFIG += c++11
+
+DISTFILES += \
+    tutorial.pro.user.ad5f1f3.4.8-pre1

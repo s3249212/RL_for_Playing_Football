@@ -1,18 +1,20 @@
 #include <QBrush>
+#include <QPen>
 
-#include "agent.h"
+#include "gridworldview_agent.h"
 
 GridworldView_Agent::GridworldView_Agent(Color color)
 {
     QColor c;
     switch(color){
     case BLUE:
-        c.setRgb(0, 0, 1);
+        c.setRgb(0, 0, 255);
         break;
     case RED:
-        c.setRgb(1, 0, 0);
+        c.setRgb(255, 0, 0);
         break;
     }
 
+    setPen(QPen(c));
     setBrush(QBrush(c));
 }

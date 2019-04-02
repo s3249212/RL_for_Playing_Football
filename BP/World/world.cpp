@@ -5,5 +5,5 @@ World::World(){
 }
 
 View* World::getView(){
-    return viewWorld;
+    return view;
 }

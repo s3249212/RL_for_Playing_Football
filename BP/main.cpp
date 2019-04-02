@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
     world = new Gridworld();
     view = world->getView();
     view->show();
+    view->draw();
+    //view->update();
 
 
     return a.exec();

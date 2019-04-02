@@ -1,29 +1,37 @@
 #ifndef GRIDWORLD_H
 #define GRIDWORLD_H
 
-/*#include <QGraphicsView>
-#include <QWidget>
-#include <QGraphicsScene>
-#include "player.h"
-#include "score.h"
-#include "health.h"*/
 #include <array>
 #include <vector>
 
 #include "../world.h"
 #include "../../View/view.h"
+#include "gridworld_agent.h"
+#include "gridworld_ball.h"
 
 using namespace std;
+
+class Gridworld_Agent;
+class Gridworld_Ball;
 
 class Gridworld : public World
 {
 private:
-    View* view;
+    int height = 30;
+    int width = 50;
 
+
+    vector<Gridworld_Agent*> redTeam;
+    vector<Gridworld_Agent*> blueTeam;
+
+    Gridworld_Ball* ball;
+
+    //vector<Player*> players;*/
 public:
     Gridworld();
 
-    View* getView();
+    void run();
+
     int getHeight();
     int getWidth();
 
@@ -32,9 +40,6 @@ public:
 
     array<int, 2> getBall();
     int getGoalLength();
-    View *v = new View();
-
-
 };
 
 #endif // GRIDWORLD_H

@@ -5,11 +5,17 @@
 
 class World
 {
+protected:
+    View* view;
 
 public:
     World();
-    View* viewWorld;
-    virtual View* getView();
+    View* getView();
+
+    void run();
+    //void setPaused(int boolean);
+
+    /*save load delete restart start (= run)*/
 };
 
 #endif // WORLD_H

@@ -7,12 +7,8 @@
 #include <QGraphicsScene>
 #include <vector>
 
-/*#include "player.h"
-#include "score.h"
-#include "health.h"*/
-#include "agent.h"
-#include "ball.h"
-#include "goal.h"
+#include "gridworldview_agent.h"
+#include "gridworldview_ball.h"
 #include "../view.h"
 #include "../../World/Gridworld/gridworld.h"
 

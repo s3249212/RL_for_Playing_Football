@@ -1,5 +1,6 @@
 #include "gridworldview.h"
 #include <QApplication>
+#include <QDebug>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
@@ -9,7 +10,7 @@
 #include <QImage>
 #include <array>
 #include <vector>
-#include "agent.h"
+#include "gridworldview_agent.h"
 
 using namespace std;
 
@@ -17,11 +18,11 @@ void GridworldView::setupViewCoordinates(){
     int w = width();
     int h = height();
 
-    w -= borderSize;
-    h -= borderSize;
+    w -= 2 * borderSize;
+    h -= 2 * borderSize;
 
-    double blockSizeWidth = w / (gridworld->getWidth() + 2);
-    double blockSizeHeight = h / (gridworld->getHeight());
+    double blockSizeWidth = static_cast<double> (w) / (gridworld->getWidth() + 2);
+    double blockSizeHeight = static_cast<double> (h) / (gridworld->getHeight());
 
     blockSize = blockSizeWidth < blockSizeHeight? blockSizeWidth: blockSizeHeight;
 }
@@ -67,12 +68,14 @@ GridworldView::GridworldView(Gridworld* gridworld):
     QGraphicsScene* scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600);
 
-    setBackgroundBrush(QBrush(QImage(":/images/field.png").scaled(800,600)));
+    //setBackgroundBrush(QBrush(QImage(":/images/field.png").scaled(800,600)));
+    QColor darkgreen(0.7 * 255, 1 * 255, 0.6 * 255);
+    setBackgroundBrush(QBrush(darkgreen));
     setScene(scene);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(800,600);
+    setFixedSize(800, 600);
 
     setupViewCoordinates();
 
@@ -93,69 +96,103 @@ GridworldView::GridworldView(Gridworld* gridworld):
     ball = new GridworldView_Ball();
     scene->addItem(ball);
 
+    QColor black(0,0,0);
+    QBrush blackBrush(black);
+    //whiteBrush.setColor(Qt::white);
+    QPen blackPen;
+    blackPen.setColor(Qt::black);
     int goalsize = gridworld->getGoalLength();
 
     int goalY = gridworld->getHeight() / 2 - goalsize + gridworld->getHeight() % 2;
     array<int, 2> coord = toViewCoord(-1, goalY);
     QGraphicsRectItem* goal = new QGraphicsRectItem();
-    goal->setRect(coord[0], coord[1], 2 * blockSize, (2 * goalsize - gridworld->getHeight() % 2) * blockSize);
+    goal->setRect(coord[0], coord[1], 2 * blockSize, (2 * goalsize - gridworld->getHeight() % 2) * blockSize - 1);
+    goal->setBrush(blackBrush);
+    goal->setPen(blackPen);
     scene->addItem(goal);
 
     coord = toViewCoord(gridworld->getWidth() - 1, goalY);
     goal = new QGraphicsRectItem();
-    goal->setRect(coord[0], coord[1], 2 * blockSize, (2 * goalsize - gridworld->getHeight() % 2) * blockSize);
+    goal->setRect(coord[0], coord[1], 2 * blockSize, (2 * goalsize - gridworld->getHeight() % 2) * blockSize - 1);
+    goal->setBrush(blackBrush);
+    goal->setPen(blackPen);
     scene->addItem(goal);
 
-    QColor white(1,1,1);
+    QColor white(255,255,255);
+    QBrush whiteBrush(white);
+    //whiteBrush.setColor(Qt::white);
+    QPen whitePen;
+    whitePen.setColor(Qt::white);
+
     QGraphicsRectItem* line = new QGraphicsRectItem();
-    line->setRect(0, 0, gridworld->getWidth() * blockSize, blockSize);
-    line->setBrush(QBrush(white));
+    coord = toViewCoord(0, 0);
+    line->setRect(coord[0], coord[1], gridworld->getWidth() * blockSize, blockSize);
+    line->setBrush(whiteBrush);
+    line->setPen(whitePen);
     scene->addItem(line);
 
     line = new QGraphicsRectItem();
-    line->setRect(0, 1, blockSize, (goalY - 1) * blockSize);
+    coord = toViewCoord(0, 1);
+    line->setRect(coord[0], coord[1], blockSize, (goalY - 1) * blockSize - 1);
     line->setBrush(QBrush(white));
+    line->setPen(whitePen);
     scene->addItem(line);
 
     line = new QGraphicsRectItem();
-    line->setRect(gridworld->getWidth() - 1, 1, blockSize, (goalY - 1) * blockSize);
+    coord = toViewCoord(gridworld->getWidth() - 1, 1);
+    line->setRect(coord[0], coord[1], blockSize, (goalY - 1) * blockSize - 1);
     line->setBrush(QBrush(white));
+    line->setPen(whitePen);
     scene->addItem(line);
 
     int goalY2 = goalY + 2 * goalsize - gridworld->getHeight() % 2;
     coord = toViewCoord(0, goalY2);
     line = new QGraphicsRectItem();
-    line->setRect(0, coord[1], blockSize, (goalY - 1) * blockSize);
+    line->setRect(coord[0], coord[1], blockSize, (goalY - 1) * blockSize);
     line->setBrush(QBrush(white));
+    line->setPen(whitePen);
     scene->addItem(line);
 
     line = new QGraphicsRectItem();
-    line->setRect(gridworld->getWidth() - 1, coord[1], blockSize, (goalY - 1) * blockSize);
+    coord = toViewCoord(gridworld->getWidth() - 1, goalY2);
+    line->setRect(coord[0], coord[1], blockSize, (goalY - 1) * blockSize);
     line->setBrush(QBrush(white));
+    line->setPen(whitePen);
     scene->addItem(line);
 
     line = new QGraphicsRectItem();
-    line->setRect(gridworld->getHeight() - 1, 0, gridworld->getWidth() * blockSize, blockSize);
+    coord = toViewCoord(0, gridworld->getHeight() - 1);
+    line->setRect(coord[0], coord[1], gridworld->getWidth() * blockSize, blockSize);
     line->setBrush(QBrush(white));
+    line->setPen(whitePen);
     scene->addItem(line);
 
 }
 
 void GridworldView::draw(){
+    qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
+    qDebug() << "Blue team" << gw_agents.size();
     for(unsigned i = 0; i < blueteam.size(); i++){
         array<int, 2> gw_a = gw_agents.at(i);
+        qDebug() << "Blue team" << gw_a[0] << gw_a[1];
         array<int, 2> viewCoord = toViewCoord(gw_a[0], gw_a[1]);
-        blueteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
+        //blueteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
+        blueteam.at(i)->setRect(viewCoord[0], viewCoord[1], blockSize, blockSize);
     }
 
     gw_agents = gridworld->getRedTeam();
+    qDebug() << "Red team" << gw_agents.size();
     for(unsigned i = 0; i < gw_agents.size(); i++){
         array<int, 2> gw_a = gw_agents.at(i);
+        qDebug() << "Red team" << gw_agents.size();
         array<int, 2> viewCoord = toViewCoord(gw_a[0], gw_a[1]);
-        redteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
+        //redteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
+        redteam.at(i)->setRect(viewCoord[0], viewCoord[1], blockSize, blockSize);
     }
 
     array<int, 2> ballcoords = gridworld->getBall();
+    array<int, 2> coord = toViewCoord(ballcoords[0], ballcoords[1]);
+    ball->setRect(coord[0], coord[1], blockSize, blockSize);
 }
 
