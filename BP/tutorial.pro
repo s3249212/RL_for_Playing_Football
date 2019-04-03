@@ -30,7 +30,9 @@ SOURCES += main.cpp \
     World/Gridworld/interactionhandler.cpp \
     World/Gridworld/ih_oneagentperplayer.cpp \
     Player/player.cpp \
-    World/Gridworld/gridworld_event.cpp
+    World/Gridworld/gridworld_event.cpp \
+    World/Gridworld/gridworld_ih.cpp \
+    Player/randomplayer.cpp
 
 HEADERS  += \
     bullet.h \
@@ -49,7 +51,9 @@ HEADERS  += \
     World/Gridworld/interactionhandler.h \
     World/Gridworld/ih_oneagentperplayer.h \
     Player/player.h \
-    World/Gridworld/gridworld_event.h
+    World/Gridworld/gridworld_event.h \
+    World/Gridworld/gridworld_ih.h \
+    Player/randomplayer.h
 
 FORMS    += \
     mainwindow.ui

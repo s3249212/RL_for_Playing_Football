@@ -7,10 +7,6 @@ using namespace std;
 
 Gridworld::Gridworld(){
     view = new GridworldView(this);
-    for(int i = 0; i < 10; i++){
-        redTeam.push_back(new Gridworld_Agent(this, {i + 1, 1}));
-        blueTeam.push_back(new Gridworld_Agent(this, {width - i - 2, 1}));
-    }
     ball = new Gridworld_Ball(this);
     view = new GridworldView(this);
 }
@@ -37,16 +33,20 @@ array<int, 2> Gridworld::getBall(){
 
 vector<array<int,2>> Gridworld::getBlueTeam(){
     vector <array <int, 2>> blue;
-    for(auto b: blueTeam){
-        blue.push_back(b->getCoord());
+    for(auto b: agents){
+        if(b->getTeam() == 0){
+            blue.push_back(b->getCoord());
+        }
     }
     return blue;
 }
 
 vector<array<int,2>> Gridworld::getRedTeam(){
     vector <array <int, 2>> red;
-    for(auto r: redTeam){
-        red.push_back(r->getCoord());
+    for(auto r: agents){
+        if(r->getTeam() == 1){
+            red.push_back(r->getCoord());
+        }
     }
     return red;
 }
@@ -63,3 +63,20 @@ int Gridworld::getHeight(){
     return height;
 }
 
+void Gridworld::addIH(Gridworld_IH *ih){
+    ihs.push_back(ih);
+    int nAgents = ih->getNumberOfAgents();
+    for(int i=0; i<nAgents; i++){
+        Gridworld_Agent * agent = new Gridworld_Agent(this);
+        addAgent(agent);
+        ih->addAgent(agent);
+    }
+}
+
+void Gridworld::addAgent(Gridworld_Agent *agent){
+    agents.push_back(agent);
+}
+
+vector<Gridworld_Event*> Gridworld::getEventLog(){
+    return eventLog;
+}

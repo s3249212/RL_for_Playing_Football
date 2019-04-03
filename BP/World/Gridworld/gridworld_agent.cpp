@@ -30,6 +30,6 @@ void Gridworld_Agent::setCoord(array<int, 2> coord){
     y = coord[1];
 }
 
-/*int getTeam(){
+int Gridworld_Agent::getTeam(){
     return team;
-}*/
+}
