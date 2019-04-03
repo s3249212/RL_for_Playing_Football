@@ -16,7 +16,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     bullet.cpp \
     enemy.cpp \
-    player.cpp \
     score.cpp \
     health.cpp \
     View/Gridworld/gridworldview.cpp \
@@ -27,12 +26,15 @@ SOURCES += main.cpp \
     View/Gridworld/gridworldview_agent.cpp \
     View/Gridworld/gridworldview_ball.cpp \
     World/Gridworld/gridworld_agent.cpp \
-    World/Gridworld/gridworld_ball.cpp
+    World/Gridworld/gridworld_ball.cpp \
+    World/Gridworld/interactionhandler.cpp \
+    World/Gridworld/ih_oneagentperplayer.cpp \
+    Player/player.cpp \
+    World/Gridworld/gridworld_event.cpp
 
 HEADERS  += \
     bullet.h \
     enemy.h \
-    player.h \
     score.h \
     health.h \
     View/Gridworld/gridworldview.h \
@@ -43,7 +45,11 @@ HEADERS  += \
     View/Gridworld/gridworldview_agent.h \
     View/Gridworld/gridworldview_ball.h \
     World/Gridworld/gridworld_agent.h \
-    World/Gridworld/gridworld_ball.h
+    World/Gridworld/gridworld_ball.h \
+    World/Gridworld/interactionhandler.h \
+    World/Gridworld/ih_oneagentperplayer.h \
+    Player/player.h \
+    World/Gridworld/gridworld_event.h
 
 FORMS    += \
     mainwindow.ui

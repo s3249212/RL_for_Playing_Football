@@ -17,6 +17,10 @@ class Gridworld_Ball;
 class Gridworld : public World
 {
 private:
+    enum Event{
+        GOAL_BLUE = 0, GOAL_RED
+    };
+
     int height = 30;
     int width = 50;
 
@@ -25,6 +29,8 @@ private:
     vector<Gridworld_Agent*> blueTeam;
 
     Gridworld_Ball* ball;
+
+    vector<Event> eventLog;
 
     //vector<Player*> players;*/
 public:
