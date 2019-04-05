@@ -4,4 +4,4 @@ Player::Player(){
 
 }
 
-vector<int> Player::act(vector<int> input, int reward){}
+int Player::act(vector<int> input, int reward){}

@@ -1,10 +1,11 @@
 #include "randomplayer.h"
+#include <stdlib.h>
 
 RandomPlayer::RandomPlayer()
 {
 
 }
 
-vector<int> RandomPlayer::act(vector<int> input, int reward){
-
+int RandomPlayer::act(vector<int> input, int reward){
+    return rand() % 8;
 }

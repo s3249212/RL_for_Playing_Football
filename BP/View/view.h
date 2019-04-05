@@ -12,6 +12,7 @@ private:
 
 public:
     virtual void draw(){};
+    virtual void initialize(){};
     void update();
     void setRendering(bool boolean);
 };

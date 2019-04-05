@@ -9,7 +9,7 @@ class RandomPlayer: public Player
 public:
     RandomPlayer();
 
-    vector<int> act(vector<int> input, int reward);
+    int act(vector<int> input, int reward);
 };
 
 #endif // RANDOMPLAYER_H

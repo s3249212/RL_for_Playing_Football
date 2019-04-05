@@ -11,8 +11,11 @@
 #include <array>
 #include <vector>
 #include "gridworldview_agent.h"
+#include "gridworldview_score.h"
 
 using namespace std;
+
+class GridworldView_Score;
 
 void GridworldView::setupViewCoordinates(){
     int w = width();
@@ -64,6 +67,16 @@ GridworldView::GridworldView(Gridworld* gridworld):
 
     //it should have a destructor that cleans it properly.
 
+    connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+
+}
+
+void GridworldView::update(){
+    gridworld->run();
+    qDebug() << "Updating";
+}
+
+void GridworldView::initialize(){
     //create a scene
     QGraphicsScene* scene = new QGraphicsScene();
     scene->setSceneRect(0,0,800,600);
@@ -167,6 +180,16 @@ GridworldView::GridworldView(Gridworld* gridworld):
     line->setPen(whitePen);
     scene->addItem(line);
 
+    score = new GridworldView_Score(this);
+
+    scene->addItem(score);
+
+    timer.start(1000.0 / 60.0);
+}
+
+Gridworld *GridworldView::getWorld()
+{
+    return gridworld;
 }
 
 void GridworldView::draw(){
@@ -191,8 +214,10 @@ void GridworldView::draw(){
         redteam.at(i)->setRect(viewCoord[0], viewCoord[1], blockSize, blockSize);
     }
 
-    array<int, 2> ballcoords = gridworld->getBall();
+    array<int, 2> ballcoords = gridworld->getBallCoord();
     array<int, 2> coord = toViewCoord(ballcoords[0], ballcoords[1]);
     ball->setRect(coord[0], coord[1], blockSize, blockSize);
+
+    score->update();
 }
 

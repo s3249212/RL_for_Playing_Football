@@ -12,14 +12,18 @@ class Gridworld;
 class Gridworld_Agent
 {
 private:
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
     Gridworld* world;
-    int team;
+    int team = 0;
 
 public:
-    Gridworld_Agent(Gridworld* world);
-    Gridworld_Agent(Gridworld* world, array<int, 2> coord);
+    enum Actionoptions{
+        MOVELEFT=0, MOVERIGHT,MOVEUPRIGHT,MOVEUPLEFT,MOVEDOWNRIGHT,MOVEDOWNLEFT,MOVEUP, MOVEDOWN, SHOOT
+    };
+
+    Gridworld_Agent(Gridworld* world, int team);
+    Gridworld_Agent(Gridworld* world, int team, array<int, 2> coord);
 
     int getX();
     int getY();
@@ -28,6 +32,10 @@ public:
     void setCoord(array<int, 2> coord);
 
     int getTeam();
+
+    void performAction(Actionoptions action);
+
+
 };
 
 #endif // GRIDWORLD_AGENT_H

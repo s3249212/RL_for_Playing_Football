@@ -10,8 +10,8 @@ class Gridworld;
 class Gridworld_Ball
 {
 private:
-    int x;
-    int y;
+    int x = 1;
+    int y = 2;
     Gridworld* world;
 
 public:
@@ -22,6 +22,8 @@ public:
     int getY();
 
     array<int, 2> getCoord();
+
+    void move(int deltaX, int deltaY);
 };
 
 #endif // GRIDWORLD_BALL_H

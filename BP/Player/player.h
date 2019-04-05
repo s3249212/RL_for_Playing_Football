@@ -9,7 +9,7 @@ class Player{
 public:
     Player();
 
-    virtual vector<int> act(vector<int> input, int reward);
+    virtual int act(vector<int> input, int reward);
 };
 
 #endif

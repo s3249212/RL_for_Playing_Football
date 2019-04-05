@@ -9,10 +9,13 @@
 
 #include "gridworldview_agent.h"
 #include "gridworldview_ball.h"
+#include "gridworldview_score.h"
 #include "../view.h"
 #include "../../World/Gridworld/gridworld.h"
 
 using namespace std;
+
+class GridworldView_Score;
 
 class GridworldView : public View
 {
@@ -34,8 +37,19 @@ private:
 
     void draw();
 
+    QTimer timer;
+
+    GridworldView_Score* score;
+
 public:
     GridworldView(Gridworld* gridworld);
+
+    void initialize();
+
+    Gridworld* getWorld();
+
+public slots:
+    void update();
 };
 
 #endif // GRIDWORLDVIEW_H

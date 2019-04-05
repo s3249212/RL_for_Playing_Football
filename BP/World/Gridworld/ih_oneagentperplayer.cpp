@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "ih_oneagentperplayer.h"
 #include "gridworld_event.h"
 
@@ -27,20 +29,44 @@ int IH_OneAgentPerPlayer::getReward(){
 void IH_OneAgentPerPlayer::update(){
     vector<int> input;
     int reward;
-    vector<int> action;
+    int action;
 
     action = player->act(input, reward);
 
     updateWorld(action);
 }
 
-void IH_OneAgentPerPlayer::updateWorld(vector<int> action){
-    if(action[0] == 1){
+void IH_OneAgentPerPlayer::updateWorld(int action){
+    qDebug() << action;
+    agent->performAction(static_cast<Gridworld_Agent::Actionoptions>(action));
+    /*if(action[0] == 1){
         agent->performAction(Gridworld_Agent::MOVELEFT);
     }
     if(action[1] == 1){
-
+        agent->performAction(Gridworld_Agent::MOVERIGHT);
     }
+    if(action[2] == 1){
+        agent->performAction(Gridworld_Agent::MOVEUPRIGHT);
+    }
+    if(action[3] == 1){
+        agent->performAction(Gridworld_Agent::MOVEUPLEFT);
+    }
+    if(action[4] == 1){
+        agent->performAction(Gridworld_Agent::MOVEDOWNRIGHT);
+    }
+    if(action[5] == 1){
+        agent->performAction(Gridworld_Agent::MOVEDOWNLEFT);
+    }
+    if(action[6] == 1){
+        agent->performAction(Gridworld_Agent::MOVEUP);
+    }
+    if(action[7] == 1){
+        agent->performAction(Gridworld_Agent::MOVEDOWN);
+    }
+    if(action[8] == 1){
+        agent->performAction(Gridworld_Agent::SHOOT);
+    }*/
+
 }
 
 void IH_OneAgentPerPlayer::addAgent(Gridworld_Agent *agent){
@@ -49,4 +75,8 @@ void IH_OneAgentPerPlayer::addAgent(Gridworld_Agent *agent){
 
 int IH_OneAgentPerPlayer::getNumberOfAgents(){
     return numberOfAgents;
+}
+
+int IH_OneAgentPerPlayer::getTeam(){
+    return team;
 }

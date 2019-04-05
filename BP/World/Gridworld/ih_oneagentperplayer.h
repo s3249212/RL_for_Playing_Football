@@ -23,7 +23,7 @@ public:
     void setWorld(Gridworld* world);
 
     void update();
-    void updateWorld(vector<int> action);
+    void updateWorld(int action);
 
     int getTeam();
 
