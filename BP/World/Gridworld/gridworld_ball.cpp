@@ -32,3 +32,9 @@ void Gridworld_Ball::move(int deltaX, int deltaY){
         y = newY;
     }
 }
+
+void Gridworld_Ball::setCoord(array<int, 2> coord)
+{
+    x = coord[0];
+    y = coord[1];
+}

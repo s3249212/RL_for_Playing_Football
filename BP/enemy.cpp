@@ -25,6 +25,6 @@ void Enemy::move(){
         scene()->removeItem(this);
         delete this;
 
-        qDebug() << "Enemy deleted";
+        //qDebug() << "Enemy deleted";
     }
 }

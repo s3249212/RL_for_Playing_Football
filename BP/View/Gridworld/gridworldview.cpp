@@ -73,7 +73,7 @@ GridworldView::GridworldView(Gridworld* gridworld):
 
 void GridworldView::update(){
     gridworld->run();
-    qDebug() << "Updating";
+    //qDebug() << "Updating";
 }
 
 void GridworldView::initialize(){
@@ -193,22 +193,22 @@ Gridworld *GridworldView::getWorld()
 }
 
 void GridworldView::draw(){
-    qDebug() << "Drawing";
+    //qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
-    qDebug() << "Blue team" << gw_agents.size();
+    //qDebug() << "Blue team" << gw_agents.size();
     for(unsigned i = 0; i < blueteam.size(); i++){
         array<int, 2> gw_a = gw_agents.at(i);
-        qDebug() << "Blue team" << gw_a[0] << gw_a[1];
+        //qDebug() << "Blue team" << gw_a[0] << gw_a[1];
         array<int, 2> viewCoord = toViewCoord(gw_a[0], gw_a[1]);
         //blueteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
         blueteam.at(i)->setRect(viewCoord[0], viewCoord[1], blockSize, blockSize);
     }
 
     gw_agents = gridworld->getRedTeam();
-    qDebug() << "Red team" << gw_agents.size();
+    //qDebug() << "Red team" << gw_agents.size();
     for(unsigned i = 0; i < gw_agents.size(); i++){
         array<int, 2> gw_a = gw_agents.at(i);
-        qDebug() << "Red team" << gw_agents.size();
+        //qDebug() << "Red team" << gw_agents.size();
         array<int, 2> viewCoord = toViewCoord(gw_a[0], gw_a[1]);
         //redteam.at(i)->setPos(viewCoord[0], viewCoord[1]);
         redteam.at(i)->setRect(viewCoord[0], viewCoord[1], blockSize, blockSize);

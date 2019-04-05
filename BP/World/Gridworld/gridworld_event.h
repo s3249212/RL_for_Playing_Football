@@ -3,7 +3,6 @@
 
 #include "Player/player.h"
 
-
 class Gridworld_Event
 {    
 public:

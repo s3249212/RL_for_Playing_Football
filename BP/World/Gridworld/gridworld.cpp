@@ -29,8 +29,10 @@ Gridworld::updateState(int currentPlayer, array<int, 3> actions){
 }*/
 
 void Gridworld::run(){
-    for(int i = 0; i < 1000; i++){
+    for(int i = 0; i < 100000; i++){
+        getEventLog();
         for(Gridworld_IH* ih: ihs){
+            this->ih = ih;
             ih->update();
         }
         view->update();
@@ -85,6 +87,7 @@ void Gridworld::addIH(Gridworld_IH *ih){
         Gridworld_Agent * agent = new Gridworld_Agent(this, ih->getTeam(), {x, 1});
         addAgent(agent);
         ih->addAgent(agent);
+        ih->setWorld(this);
     }
 }
 
@@ -131,10 +134,46 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
         team = 0;
     }
 
+    score->increaseScore(team);
 
+    addEvent(Gridworld_Event::GOAL, team);
+
+    reset();
 }
 
 array<int, 2> Gridworld::getScore()
 {
     return score->getScore();
+}
+
+void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
+{
+    Gridworld_Event* event = new Gridworld_Event();
+    event->event_type = event_type;
+    event->team = team;
+    event->player = ih->getPlayer();
+    eventLog.push_back(event);
+}
+
+void Gridworld::reset(){
+    int nred = 0, nblue = 0;
+    for(Gridworld_Agent* agent: agents){
+        int x;
+        if(ih->getTeam() == 0){
+            x = nblue + 1;
+            nblue++;
+        } else {
+            x = width - 2 - nred;
+            nred++;
+        }
+        agent->setCoord({x, 1});
+    }
+
+    ball->setCoord({width / 2, height / 2});
+}
+
+void Gridworld::removeFromEventLog(Gridworld_Event *event)
+{
+     std::vector<Gridworld_Event *>::iterator i = std::find(eventLog.begin(), eventLog.end(), event);
+     eventLog.erase(i);
 }

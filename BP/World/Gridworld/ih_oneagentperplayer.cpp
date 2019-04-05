@@ -3,11 +3,29 @@
 #include "ih_oneagentperplayer.h"
 #include "gridworld_event.h"
 
+#define numberOfEvents 3
+
 IH_OneAgentPerPlayer::IH_OneAgentPerPlayer(Player* player, int team):
     player(player),
     team(team)
 {
-    //this->player = player;
+    //this->player = player
+    rewards = new int*[3];
+    for (int i = 0; i < 3; ++i) {
+      rewards[i] = new int [numberOfEvents];
+    }
+
+    rewards[SAME_PLAYER][Gridworld_Event::GOAL] = 100;
+    rewards[SAME_PLAYER][Gridworld_Event::TOUCH] = 1;
+    rewards[SAME_PLAYER][Gridworld_Event::PASS] = 5;
+
+    rewards[SAME_TEAM][Gridworld_Event::GOAL] = 100;
+    rewards[SAME_TEAM][Gridworld_Event::TOUCH] = 1;
+    rewards[SAME_TEAM][Gridworld_Event::PASS] = 5;
+
+    rewards[OPPOSITE_TEAM][Gridworld_Event::GOAL] = -100;
+    rewards[OPPOSITE_TEAM][Gridworld_Event::TOUCH] = -1;
+    rewards[OPPOSITE_TEAM][Gridworld_Event::PASS] = -5;
 }
 
 void IH_OneAgentPerPlayer::setWorld(Gridworld* world){
@@ -20,15 +38,30 @@ int IH_OneAgentPerPlayer::getReward(){
      * Remove the first part of the log, the part that happened before the previous action of the next player.
      * Actions of this player will be recorded later in the updateworld function.
      */
-    /*int reward;
-    vector<Gridworld_Event*> events = world->getEventLog();*/
+    int reward=0;
+    vector<Gridworld_Event*> events = world->getEventLog();
 
-    return 0;
+    for(Gridworld_Event* event: events){
+        Team team;
+        if(event->player == player){
+            team = SAME_PLAYER;
+            world->removeFromEventLog(event);
+        } else if(event->team == this->team){
+            team = SAME_TEAM;
+        } else {
+            team = OPPOSITE_TEAM;
+        }
+        reward += rewards[team][event->event_type];
+    }
+    if(reward != 0){
+        qDebug() << team << "Reward: " << reward;
+    }
+    return reward;
 }
 
 void IH_OneAgentPerPlayer::update(){
     vector<int> input;
-    int reward;
+    int reward = getReward();
     int action;
 
     action = player->act(input, reward);
@@ -37,7 +70,7 @@ void IH_OneAgentPerPlayer::update(){
 }
 
 void IH_OneAgentPerPlayer::updateWorld(int action){
-    qDebug() << action;
+    //qDebug() << action;
     agent->performAction(static_cast<Gridworld_Agent::Actionoptions>(action));
     /*if(action[0] == 1){
         agent->performAction(Gridworld_Agent::MOVELEFT);

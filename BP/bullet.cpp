@@ -38,6 +38,6 @@ void Bullet::move(){
     if(y() + pixmap().height() < 0){
         scene()->removeItem(this);
         delete this;
-        qDebug() << "Bullet deleted";
+        //qDebug() << "Bullet deleted";
     }
 }

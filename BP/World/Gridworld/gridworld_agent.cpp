@@ -75,12 +75,13 @@ void Gridworld_Agent::performAction(Actionoptions action){
     array<int, 2> newCoord = {newX, newY};
 
     if(newCoord == world->getBall()->getCoord()){
+        world->addEvent(Gridworld_Event::TOUCH, team);
         world->getBall()->move(newX - x, newY - y);
     }
 
-    qDebug() << "Coordinates: " << x << y << newX << newY;
+    //qDebug() << "Coordinates: " << x << y << newX << newY;
     if(world->isWithinBounds(newCoord)){
-        qDebug() << "Changing coordinates";
+        //qDebug() << "Changing coordinates";
         x = newX;
         y = newY;
     }

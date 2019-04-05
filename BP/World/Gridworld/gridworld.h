@@ -10,15 +10,14 @@
 #include "gridworld_agent.h"
 #include "gridworld_ball.h"
 #include "gridworld_ih.h"
-#include "gridworld_event.h"
 #include "gridworld_score.h"
+#include "gridworld_event.h"
 
 using namespace std;
 
 class Gridworld_Agent;
 class Gridworld_Ball;
 class Gridworld_IH;
-class Gridworld_Event;
 
 class Gridworld : public World
 {
@@ -27,8 +26,8 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 30;
-    int width = 50;
+    int height = 12;
+    int width = 10;
     int goallength = 5;
 
 
@@ -41,6 +40,8 @@ private:
     vector<Gridworld_IH*> ihs;
 
     Gridworld_Score* score;
+
+    Gridworld_IH* ih;
 
 public:
     Gridworld();
@@ -69,8 +70,16 @@ public:
 
     array<int, 2> getScore();
 
+    void addEvent(Gridworld_Event::Event_type event_type, int team);
+
+    void reset();
+
+    void removeFromEventLog(Gridworld_Event *event);
+
+
 public slots:
     void run();
+
 };
 
 #endif // GRIDWORLD_H

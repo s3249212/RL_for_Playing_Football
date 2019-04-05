@@ -1,6 +1,7 @@
 #ifndef GRIDWORLD_IH_H
 #define GRIDWORLD_IH_H
 
+#include "Player/player.h"
 #include "gridworld_agent.h"
 
 class Gridworld_Agent;
@@ -18,6 +19,9 @@ public:
     virtual void update(){};
 
     virtual int getTeam();
+    virtual void setWorld(Gridworld* world){};
+
+    virtual Player* getPlayer(){return NULL;}
 };
 
 #endif // GRIDWORLD_IH_H

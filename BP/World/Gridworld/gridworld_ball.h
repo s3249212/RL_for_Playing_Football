@@ -24,6 +24,8 @@ public:
     array<int, 2> getCoord();
 
     void move(int deltaX, int deltaY);
+
+    void setCoord(array<int, 2> coord);
 };
 
 #endif // GRIDWORLD_BALL_H

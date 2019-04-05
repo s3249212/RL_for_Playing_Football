@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QGraphicsScene>
-#include <QApplication>
 #include <QTimer>
+#include <QDebug>
 #include "World/Gridworld/gridworld.h"
 #include "View/Gridworld/gridworldview.h"
 #include "Player/player.h"
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     Gridworld* gridworld = new Gridworld();
-    Player* player = new RandomPlayer();
+    RandomPlayer* player = new RandomPlayer();
     Gridworld_IH* ih = new IH_OneAgentPerPlayer(player, 0);
     gridworld->addIH(ih);
 
@@ -34,12 +34,11 @@ int main(int argc, char *argv[])
 
     player = new RandomPlayer();
     ih = new IH_OneAgentPerPlayer(player, 1);
-    gridworld->addIH(ih);
-
-    player = new RandomPlayer();
-    ih = new IH_OneAgentPerPlayer(player, 1);
     gridworld->addIH(ih);*/
 
+    RandomPlayer* player2 = new RandomPlayer();
+    ih = new IH_OneAgentPerPlayer(player, 1);
+    gridworld->addIH(ih);
 
     view = gridworld->getView();
     view->initialize();
@@ -48,6 +47,8 @@ int main(int argc, char *argv[])
 
     gridworld->run();
     //view->update();
+    qDebug() << player->totalReward;
+    qDebug() << player2->totalReward;
 
    return a.exec();
 }
