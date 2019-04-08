@@ -51,6 +51,7 @@ int IH_OneAgentPerPlayer::getReward(){
         } else {
             team = OPPOSITE_TEAM;
         }
+        qDebug() << "Event" << this->team << event->team << team << event->event_type << rewards[team][event->event_type];
         reward += rewards[team][event->event_type];
     }
     if(reward != 0){
