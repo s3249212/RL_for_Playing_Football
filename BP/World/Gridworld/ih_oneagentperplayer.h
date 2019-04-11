@@ -10,7 +10,7 @@ class IH_OneAgentPerPlayer: public Gridworld_IH
 {
 private:
     enum Team{
-        SAME_PLAYER = 0, SAME_TEAM, OPPOSITE_TEAM
+        SAME_PLAYER = 0, SAME_TEAM, PLAYER_TO_OPPONENT, OPPOSITE_TEAM
     };
 
     Gridworld_Agent* agent;

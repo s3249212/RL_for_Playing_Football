@@ -10,8 +10,8 @@ IH_OneAgentPerPlayer::IH_OneAgentPerPlayer(Player* player, int team):
     team(team)
 {
     //this->player = player
-    rewards = new int*[3];
-    for (int i = 0; i < 3; ++i) {
+    rewards = new int*[4];
+    for (int i = 0; i < 4; ++i) {
       rewards[i] = new int [numberOfEvents];
     }
 
@@ -22,6 +22,10 @@ IH_OneAgentPerPlayer::IH_OneAgentPerPlayer(Player* player, int team):
     rewards[SAME_TEAM][Gridworld_Event::GOAL] = 100;
     rewards[SAME_TEAM][Gridworld_Event::TOUCH] = 1;
     rewards[SAME_TEAM][Gridworld_Event::PASS] = 5;
+
+    rewards[PLAYER_TO_OPPONENT][Gridworld_Event::GOAL] = -100;
+    rewards[PLAYER_TO_OPPONENT][Gridworld_Event::TOUCH] = 0;
+    rewards[PLAYER_TO_OPPONENT][Gridworld_Event::PASS] = 0;
 
     rewards[OPPOSITE_TEAM][Gridworld_Event::GOAL] = -100;
     rewards[OPPOSITE_TEAM][Gridworld_Event::TOUCH] = -1;
@@ -43,14 +47,29 @@ int IH_OneAgentPerPlayer::getReward(){
 
     for(Gridworld_Event* event: events){
         Team team;
-        if(event->player == player){
+        if(event->team == this->team){
+            if(event->player == player){
+                team = SAME_PLAYER;
+                world->removeFromEventLog(event);
+            } else {
+                team = SAME_TEAM;
+            }
+        } else {
+            if(event->player == player){
+                team = PLAYER_TO_OPPONENT;
+                world->removeFromEventLog(event);
+            } else {
+                team = OPPOSITE_TEAM;
+            }
+        }
+        /*if(event->player == player){
             team = SAME_PLAYER;
             world->removeFromEventLog(event);
         } else if(event->team == this->team){
             team = SAME_TEAM;
         } else {
             team = OPPOSITE_TEAM;
-        }
+        }*/
         qDebug() << "Event" << this->team << event->team << team << event->event_type << rewards[team][event->event_type];
         reward += rewards[team][event->event_type];
     }

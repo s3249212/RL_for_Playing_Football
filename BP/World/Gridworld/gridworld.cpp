@@ -29,7 +29,7 @@ Gridworld::updateState(int currentPlayer, array<int, 3> actions){
 }*/
 
 void Gridworld::run(){
-    for(int i = 0; i < 1000; i++){
+    for(int i = 0; i < 100000; i++){
         getEventLog();
         for(Gridworld_IH* ih: ihs){
             this->ih = ih;
