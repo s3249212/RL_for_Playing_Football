@@ -66,9 +66,10 @@ GridworldView::GridworldView(Gridworld* gridworld):
     //it will use a render boolean to determine whether it should output to the screen
     //this is aimed to make it quicker to run
 
+    initialize();
     //it should have a destructor that cleans it properly.
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(draw()));
     timer->start(1000.0 / 60.0);
 }
 
@@ -209,7 +210,7 @@ void GridworldView::draw(){
 
     gw_agents = gridworld->getRedTeam();
     //qDebug() << "Red team" << gw_agents.size();
-    for(unsigned i = 0; i < gw_agents.size(); i++){
+    for(unsigned i = 0; i < redteam.size(); i++){
         array<int, 2> gw_a = gw_agents.at(i);
         //qDebug() << "Red team" << gw_agents.size();
         array<int, 2> viewCoord = toViewCoord(gw_a[0], gw_a[1]);
@@ -219,6 +220,7 @@ void GridworldView::draw(){
 
     array<int, 2> ballcoords = gridworld->getBallCoord();
     array<int, 2> coord = toViewCoord(ballcoords[0], ballcoords[1]);
+    qDebug() << coord[0] << coord[1];
     ball->setRect(coord[0], coord[1], blockSize, blockSize);
 
     score->update();

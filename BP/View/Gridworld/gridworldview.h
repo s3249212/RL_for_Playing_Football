@@ -19,6 +19,7 @@ class GridworldView_Score;
 
 class GridworldView : public View
 {
+Q_OBJECT
 private:
     QGraphicsScene* scene;
 
@@ -44,12 +45,12 @@ public:
     GridworldView(Gridworld* gridworld);
 
     void initialize();
-    void draw();
+    //void draw();
 
     Gridworld* getWorld();
 
-/*public slots:
-    void update();*/
+public slots:
+    void draw();
 };
 
 #endif // GRIDWORLDVIEW_H

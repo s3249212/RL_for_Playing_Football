@@ -9,7 +9,6 @@ using namespace std;
 Gridworld::Gridworld(){
     view = new GridworldView(this);
     ball = new Gridworld_Ball(this, {width / 2, height/2});
-    view = new GridworldView(this);
     score = new Gridworld_Score();
 }
 

@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
     ih = new IH_OneAgentPerPlayer(player2, 1);
     gridworld->addIH(ih);
 
-    view = gridworld->getView();
+    //view = gridworld->getView();
+    view = new GridworldView(gridworld);
     view->initialize();
     view->show();
     //view->draw();
