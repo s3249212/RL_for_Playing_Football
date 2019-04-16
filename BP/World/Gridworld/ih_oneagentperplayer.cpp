@@ -70,11 +70,11 @@ int IH_OneAgentPerPlayer::getReward(){
         } else {
             team = OPPOSITE_TEAM;
         }*/
-        qDebug() << "Event" << this->team << event->team << team << event->event_type << rewards[team][event->event_type];
+        //qDebug() << "Event" << this->team << event->team << team << event->event_type << rewards[team][event->event_type];
         reward += rewards[team][event->event_type];
     }
     if(reward != 0){
-        qDebug() << team << "Reward: " << reward;
+        //qDebug() << team << "Reward: " << reward;
     }
     return reward;
 }
@@ -90,7 +90,7 @@ void IH_OneAgentPerPlayer::update(){
 }
 
 void IH_OneAgentPerPlayer::updateWorld(int action){
-    //qDebug() << action;
+    ////qDebug() << action;
     agent->performAction(static_cast<Gridworld_Agent::Actionoptions>(action));
     /*if(action[0] == 1){
         agent->performAction(Gridworld_Agent::MOVELEFT);

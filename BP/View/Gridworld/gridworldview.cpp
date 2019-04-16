@@ -8,6 +8,7 @@
 #include <QtCore>
 #include <QBrush>
 #include <QImage>
+#include <QTimer>
 #include <array>
 #include <vector>
 #include "gridworldview_agent.h"
@@ -66,9 +67,11 @@ GridworldView::GridworldView(Gridworld* gridworld):
     //this is aimed to make it quicker to run
 
     //it should have a destructor that cleans it properly.
+    timer = new QTimer(this);
+    //connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(timer, &QTimer::timeout, this, View::update);
 
-    connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
-
+    timer->start(1000.0 / 60.0);
 }
 
 /*void GridworldView::update(){
@@ -184,7 +187,9 @@ void GridworldView::initialize(){
 
     scene->addItem(score);
 
-    timer.start(1000.0 / 60.0);
+    draw();
+
+    //timer.start(1000.0 / 60.0);
 }
 
 Gridworld *GridworldView::getWorld()
@@ -193,7 +198,7 @@ Gridworld *GridworldView::getWorld()
 }
 
 void GridworldView::draw(){
-    //qDebug() << "Drawing";
+    qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
     //qDebug() << "Blue team" << gw_agents.size();
     for(unsigned i = 0; i < blueteam.size(); i++){

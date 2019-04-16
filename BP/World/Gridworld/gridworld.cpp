@@ -35,7 +35,7 @@ void Gridworld::run(){
             this->ih = ih;
             ih->update();
         }
-        view->update();
+        //view->draw();
     }
 }
 

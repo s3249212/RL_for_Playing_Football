@@ -35,9 +35,8 @@ private:
     void setupViewCoordinates();
     array<int, 2> toViewCoord(int x, int y);
 
-    void draw();
 
-    QTimer timer;
+    QTimer* timer;
 
     GridworldView_Score* score;
 
@@ -45,6 +44,7 @@ public:
     GridworldView(Gridworld* gridworld);
 
     void initialize();
+    void draw();
 
     Gridworld* getWorld();
 

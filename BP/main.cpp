@@ -52,12 +52,13 @@ int main(int argc, char *argv[])
     view = gridworld->getView();
     view->initialize();
     view->show();
-    view->draw();
+    //view->draw();
 
     std::thread t1(threadFunction);
-    t1.join();
-    view->draw();
+    //view->draw();
     a->exec();
+
+    t1.join();
     /*gridworld->run();
     view->update();*/
 
