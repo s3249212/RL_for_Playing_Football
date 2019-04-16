@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     //view = gridworld->getView();
     view = new GridworldView(gridworld);
-    view->initialize();
+    //view->initialize();
     view->show();
     //view->draw();
 
