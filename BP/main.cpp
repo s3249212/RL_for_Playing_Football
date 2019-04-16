@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QTimer>
 #include <QDebug>
+#include <thread>
 #include "World/Gridworld/gridworld.h"
 #include "View/Gridworld/gridworldview.h"
 #include "Player/player.h"
@@ -11,12 +12,19 @@
 
 World* world;
 
+QApplication* a;
+Gridworld* gridworld;
+
+void threadFunction(){
+    gridworld->run();
+}
+
 int main(int argc, char *argv[])
 {
     View* view;
-    QApplication a(argc, argv);
+    a = new QApplication(argc, argv);
 
-    Gridworld* gridworld = new Gridworld();
+    /*Gridworld* */gridworld = new Gridworld();
     Player* player = new RandomPlayer();
     Gridworld_IH* ih = new IH_OneAgentPerPlayer(player, 0);
     gridworld->addIH(ih);
@@ -46,12 +54,16 @@ int main(int argc, char *argv[])
     view->show();
     view->draw();
 
-    gridworld->run();
-    //view->update();
+    std::thread t1(threadFunction);
+    t1.join();
+    view->draw();
+    a->exec();
+    /*gridworld->run();
+    view->update();*/
 
 
     qDebug() << player->totalReward;
     qDebug() << player2->totalReward;
 
-   return a.exec();
+   return 0;
 }

@@ -71,10 +71,10 @@ GridworldView::GridworldView(Gridworld* gridworld):
 
 }
 
-void GridworldView::update(){
-    gridworld->run();
+/*void GridworldView::update(){
+    //gridworld->run();
     //qDebug() << "Updating";
-}
+}*/
 
 void GridworldView::initialize(){
     //create a scene

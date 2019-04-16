@@ -48,8 +48,8 @@ public:
 
     Gridworld* getWorld();
 
-public slots:
-    void update();
+/*public slots:
+    void update();*/
 };
 
 #endif // GRIDWORLDVIEW_H

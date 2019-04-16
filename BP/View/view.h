@@ -13,8 +13,11 @@ private:
 public:
     virtual void draw(){};
     virtual void initialize(){};
-    void update();
+    //void update();
     void setRendering(bool boolean);
+
+/*public slots:
+    void update();*/
 };
 
 #endif // VIEW_H
