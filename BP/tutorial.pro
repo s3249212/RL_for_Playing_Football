@@ -34,8 +34,7 @@ SOURCES += main.cpp \
     World/Gridworld/gridworld_ih.cpp \
     Player/randomplayer.cpp \
     World/Gridworld/gridworld_score.cpp \
-    View/Gridworld/gridworldview_score.cpp \
-    View/view2.cpp
+    View/Gridworld/gridworldview_score.cpp
 
 HEADERS  += \
     bullet.h \
@@ -58,8 +57,7 @@ HEADERS  += \
     World/Gridworld/gridworld_ih.h \
     Player/randomplayer.h \
     World/Gridworld/gridworld_score.h \
-    View/Gridworld/gridworldview_score.h \
-    View/view2.h
+    View/Gridworld/gridworldview_score.h
 
 FORMS    += \
     mainwindow.ui

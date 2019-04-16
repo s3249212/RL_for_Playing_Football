@@ -68,9 +68,7 @@ GridworldView::GridworldView(Gridworld* gridworld):
 
     //it should have a destructor that cleans it properly.
     timer = new QTimer(this);
-    //connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    connect(timer, &QTimer::timeout, this, View::update);
-
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(1000.0 / 60.0);
 }
 
