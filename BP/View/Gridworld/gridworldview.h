@@ -42,11 +42,12 @@ private:
     GridworldView_Score* score;
 
 public:
-    GridworldView(Gridworld* gridworld);
+    GridworldView(QWidget* parent = 0);
 
     void initialize();
     //void draw();
 
+    void setWorld(Gridworld* gridwold);
     Gridworld* getWorld();
 
 public slots:

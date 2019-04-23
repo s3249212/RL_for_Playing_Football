@@ -2,8 +2,8 @@
 #define IH_ONEAGENTPERPLAYER_H
 
 #include "gridworld_ih.h"
-#include "gridworld.h"
-#include "gridworld_agent.h"
+#include "World/Gridworld/gridworld.h"
+#include "World/Gridworld/gridworld_agent.h"
 #include "../../Player/player.h"
 
 class IH_OneAgentPerPlayer: public Gridworld_IH

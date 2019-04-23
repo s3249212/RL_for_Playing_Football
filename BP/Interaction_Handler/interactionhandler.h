@@ -1,7 +1,7 @@
 #ifndef INTERACTIONHANDLER_H
 #define INTERACTIONHANDLER_H
 
-#include "../../Player/player.h"
+#include "Player/player.h"
 
 
 class InteractionHandler

@@ -2,6 +2,12 @@
 
 #include <QDebug>
 
+View::View(QWidget *parent):
+QGraphicsView(parent)
+{
+
+}
+
 void View::setRendering(bool boolean){
     render = boolean;
 }

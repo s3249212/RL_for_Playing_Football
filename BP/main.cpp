@@ -8,7 +8,7 @@
 #include "View/Gridworld/gridworldview.h"
 #include "Player/player.h"
 #include "Player/randomplayer.h"
-#include "World/Gridworld/ih_oneagentperplayer.h"
+#include "Interaction_Handler/Gridworld/ih_oneagentperplayer.h"
 
 World* world;
 
@@ -21,7 +21,7 @@ void threadFunction(){
 
 int main(int argc, char *argv[])
 {
-    View* view;
+    GridworldView* view;
     a = new QApplication(argc, argv);
 
     /*Gridworld* */gridworld = new Gridworld();
@@ -50,7 +50,8 @@ int main(int argc, char *argv[])
     gridworld->addIH(ih);
 
     //view = gridworld->getView();
-    view = new GridworldView(gridworld);
+    view = new GridworldView();
+    view->setWorld(gridworld);
     //view->initialize();
     view->show();
     //view->draw();

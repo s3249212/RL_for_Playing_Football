@@ -11,6 +11,7 @@ private:
     bool render = true;
 
 public:
+    View(QWidget* parent);
     virtual void draw(){};
     virtual void initialize(){};
     void update();

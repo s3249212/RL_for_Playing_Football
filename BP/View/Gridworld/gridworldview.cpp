@@ -48,8 +48,8 @@ array<int, 2> GridworldView::toViewCoord(int x, int y){
     return coord;
 }
 
-GridworldView::GridworldView(Gridworld* gridworld):
-    gridworld(gridworld)
+GridworldView::GridworldView(QWidget* parent):
+    View(parent)
 {
     //create a view for the gridworld
     //it will take the gridworld object as an argument
@@ -66,10 +66,17 @@ GridworldView::GridworldView(Gridworld* gridworld):
     //it will use a render boolean to determine whether it should output to the screen
     //this is aimed to make it quicker to run
 
-    initialize();
+    //initialize();
     //it should have a destructor that cleans it properly.
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(draw()));
+    //timer->start(1000.0 / 60.0);
+}
+
+void GridworldView::setWorld(Gridworld* world){
+    gridworld = world;
+
+    initialize();
     timer->start(1000.0 / 60.0);
 }
 

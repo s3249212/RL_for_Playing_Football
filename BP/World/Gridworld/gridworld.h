@@ -9,7 +9,7 @@
 #include "../../View/view.h"
 #include "gridworld_agent.h"
 #include "gridworld_ball.h"
-#include "gridworld_ih.h"
+#include "Interaction_Handler/Gridworld/gridworld_ih.h"
 #include "gridworld_score.h"
 #include "gridworld_event.h"
 

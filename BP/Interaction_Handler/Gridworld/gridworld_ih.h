@@ -2,7 +2,7 @@
 #define GRIDWORLD_IH_H
 
 #include "Player/player.h"
-#include "gridworld_agent.h"
+#include "World/Gridworld/gridworld_agent.h"
 
 class Gridworld_Agent;
 

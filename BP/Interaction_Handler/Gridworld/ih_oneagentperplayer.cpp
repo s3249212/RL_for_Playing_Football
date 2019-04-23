@@ -1,7 +1,7 @@
 #include <QDebug>
 
 #include "ih_oneagentperplayer.h"
-#include "gridworld_event.h"
+#include "World/Gridworld/gridworld_event.h"
 
 #define numberOfEvents 3
 

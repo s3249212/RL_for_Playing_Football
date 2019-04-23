@@ -27,14 +27,14 @@ SOURCES += main.cpp \
     View/Gridworld/gridworldview_ball.cpp \
     World/Gridworld/gridworld_agent.cpp \
     World/Gridworld/gridworld_ball.cpp \
-    World/Gridworld/interactionhandler.cpp \
-    World/Gridworld/ih_oneagentperplayer.cpp \
     Player/player.cpp \
     World/Gridworld/gridworld_event.cpp \
-    World/Gridworld/gridworld_ih.cpp \
     Player/randomplayer.cpp \
     World/Gridworld/gridworld_score.cpp \
-    View/Gridworld/gridworldview_score.cpp
+    View/Gridworld/gridworldview_score.cpp \
+    Interaction_Handler/Gridworld/gridworld_ih.cpp \
+    Interaction_Handler/Gridworld/ih_oneagentperplayer.cpp \
+    Interaction_Handler/interactionhandler.cpp
 
 HEADERS  += \
     bullet.h \
@@ -57,7 +57,10 @@ HEADERS  += \
     World/Gridworld/gridworld_ih.h \
     Player/randomplayer.h \
     World/Gridworld/gridworld_score.h \
-    View/Gridworld/gridworldview_score.h
+    View/Gridworld/gridworldview_score.h \
+    Interaction_Handler/Gridworld/gridworld_ih.h \
+    Interaction_Handler/Gridworld/ih_oneagentperplayer.h \
+    Interaction_Handler/interactionhandler.h
 
 FORMS    += \
     mainwindow.ui
