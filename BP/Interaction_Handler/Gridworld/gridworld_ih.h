@@ -13,7 +13,7 @@ class Gridworld_IH
  */
 public:
     enum InputType{
-        BINARY_BLOCKS = 0
+        TabularQ = 0
     };
     enum RewardType{
         GOAL_TOUCH = 0
@@ -22,31 +22,42 @@ public:
         DEFAULT = 0
     };
 
-    Gridworld_IH(InputType inputType, RewardType rewardType, OuputType outputType);
+    Gridworld_IH(Player *player, int team, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType);
 
     void update();
-
-    void addAgent(Gridworld_Agent* agent);
 
     int getNumberOfAgents();
     int getTeam();
     Player* getPlayer();
 
+    void addAgent(Gridworld_Agent* agent);
     void setWorld(Gridworld* world);
 
 private:
+    enum Event_actor{
+        SAME_PLAYER = 0, SAME_TEAM, PLAYER_TO_OPPONENT, OPPOSITE_TEAM
+    };
+
     Player* player;
     int team;
+    vector<Gridworld_Agent*> agents;
+    Gridworld* world;
+
+    int** rewards;
 
     InputType inputType;
     RewardType rewardType;
     OutputType outputType;
 
-    void generateInput();
-    void generateReward();
-    void handleOutput(vector<int> output);
+    vector<int> generateInput();
+    int generateReward();
+    void handleOutput(int output);
 
     vector<int> inputTabularQ();
+
+    int rewardGoalTouch();
+
+    void initRewardGeneration();
 };
 
 #endif // GRIDWORLD_IH_H
