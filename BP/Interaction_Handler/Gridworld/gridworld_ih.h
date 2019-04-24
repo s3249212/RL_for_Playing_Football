@@ -11,15 +11,6 @@ class Gridworld_IH
 /* Have one interaction handler with functions for each type of input and output.
  * Parameters given to the constructor determine which function will be used.
  */
-private:
-    int team;
-
-    InputType inputType;
-
-    void generateInput();
-    void generateReward();
-    void generateOutput();
-
 public:
     enum InputType{
         BINARY_BLOCKS = 0
@@ -31,16 +22,31 @@ public:
         DEFAULT = 0
     };
 
-    Gridworld_IH(/*InputType inputType, RewardType rewardType, OuputType outputType*/);
+    Gridworld_IH(InputType inputType, RewardType rewardType, OuputType outputType);
 
-    virtual int getNumberOfAgents(){return 0;}
-    virtual void addAgent(Gridworld_Agent* agent){};
-    virtual void update(){};
+    void update();
 
-    virtual int getTeam();
-    virtual void setWorld(Gridworld* world){};
+    void addAgent(Gridworld_Agent* agent);
 
-    virtual Player* getPlayer(){return NULL;}
+    int getNumberOfAgents();
+    int getTeam();
+    Player* getPlayer();
+
+    void setWorld(Gridworld* world);
+
+private:
+    Player* player;
+    int team;
+
+    InputType inputType;
+    RewardType rewardType;
+    OutputType outputType;
+
+    void generateInput();
+    void generateReward();
+    void handleOutput(vector<int> output);
+
+    vector<int> inputTabularQ();
 };
 
 #endif // GRIDWORLD_IH_H
