@@ -9,6 +9,7 @@
 #include "Player/player.h"
 #include "Player/randomplayer.h"
 #include "Interaction_Handler/Gridworld/ih_oneagentperplayer.h"
+#include "Interaction_Handler/Gridworld/gridworld_ih.h"
 
 World* world;
 
@@ -23,6 +24,8 @@ int main(int argc, char *argv[])
 {
     GridworldView* view;
     a = new QApplication(argc, argv);
+
+    Gridworld_IH::InputType inputType;
 
     /*Gridworld* */gridworld = new Gridworld();
     Player* player = new RandomPlayer();
