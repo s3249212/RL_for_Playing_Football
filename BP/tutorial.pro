@@ -34,7 +34,8 @@ SOURCES += main.cpp \
     View/Gridworld/gridworldview_score.cpp \
     Interaction_Handler/Gridworld/gridworld_ih.cpp \
     Interaction_Handler/Gridworld/ih_oneagentperplayer.cpp \
-    Interaction_Handler/interactionhandler.cpp
+    Interaction_Handler/interactionhandler.cpp \
+    Player/tabularq.cpp
 
 HEADERS  += \
     bullet.h \
@@ -60,7 +61,8 @@ HEADERS  += \
     View/Gridworld/gridworldview_score.h \
     Interaction_Handler/Gridworld/gridworld_ih.h \
     Interaction_Handler/Gridworld/ih_oneagentperplayer.h \
-    Interaction_Handler/interactionhandler.h
+    Interaction_Handler/interactionhandler.h \
+    Player/tabularq.h
 
 FORMS    += \
     mainwindow.ui

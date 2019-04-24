@@ -19,10 +19,10 @@ public:
         GOAL_TOUCH = 0
     };
     enum OutputType{
-        DEFAULT = 0
+        DEFAULT_OUTPUT = 0
     };
 
-    Gridworld_IH(Player *player, int team, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType);
+    Gridworld_IH(Player *player, int team, int nAgents, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType);
 
     void update();
 
@@ -40,6 +40,7 @@ private:
 
     Player* player;
     int team;
+    int requiredNumberOfAgents;
     vector<Gridworld_Agent*> agents;
     Gridworld* world;
 

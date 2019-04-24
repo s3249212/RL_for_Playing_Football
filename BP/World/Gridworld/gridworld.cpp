@@ -1,5 +1,6 @@
 
 #include <vector>
+#include <QDebug>
 #include "gridworld.h"
 #include "gridworld_agent.h"
 #include "../../View/Gridworld/gridworldview.h"
@@ -79,6 +80,7 @@ int Gridworld::getHeight(){
 }
 
 void Gridworld::addIH(Gridworld_IH *ih){
+    //qDebug() << "Adding IH";
     ihs.push_back(ih);
     int nAgents = ih->getNumberOfAgents();
     for(int i=0; i<nAgents; i++){

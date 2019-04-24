@@ -1,8 +1,11 @@
 #include "gridworld_ih.h"
 
-Gridworld_IH::Gridworld_IH(Player* player, int team, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType):
+#include <QDebug>
+
+Gridworld_IH::Gridworld_IH(Player* player, int team, int nAgents, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType):
     player(player),
     team(team),
+    requiredNumberOfAgents(nAgents),
     inputType(inputType),
     rewardType(rewardType),
     outputType(outputType)
@@ -12,9 +15,13 @@ Gridworld_IH::Gridworld_IH(Player* player, int team, Gridworld_IH::InputType inp
 }
 
 void Gridworld_IH::update(){
+    //qDebug() << "Updating";
+    //qDebug() << "Generating input...";
     vector<int> input = generateInput();
+    //qDebug() << "Generating reward...";
     int reward = generateReward();
 
+    //qDebug() << "Generating output...";
     int output = player->act(input, reward);
 
     handleOutput(output);
@@ -43,6 +50,7 @@ void Gridworld_IH::handleOutput(int output){
 vector<int> Gridworld_IH::inputTabularQ(){
     vector<int> input;
     //Input generation goes here
+    return input;
 }
 
 int Gridworld_IH::rewardGoalTouch(){
@@ -108,6 +116,7 @@ Player *Gridworld_IH::getPlayer(){
 }
 
 void Gridworld_IH::addAgent(Gridworld_Agent *agent){
+    //qDebug() << "Added an agent";
     agents.push_back(agent);
 }
 
@@ -116,6 +125,6 @@ void Gridworld_IH::setWorld(Gridworld *world){
 }
 
 int Gridworld_IH::getNumberOfAgents(){
-    return agents.size();
+    return requiredNumberOfAgents;
 }
 

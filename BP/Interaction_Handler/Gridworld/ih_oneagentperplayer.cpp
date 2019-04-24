@@ -6,7 +6,7 @@
 #define numberOfEvents 3
 
 IH_OneAgentPerPlayer::IH_OneAgentPerPlayer(Player* player, int team):
-    Gridworld_IH(player, team, static_cast<Gridworld_IH::InputType> (0), static_cast<Gridworld_IH::RewardType> (0), static_cast<Gridworld_IH::OutputType> (0)),
+    Gridworld_IH(player, team, 1, static_cast<Gridworld_IH::InputType> (0), static_cast<Gridworld_IH::RewardType> (0), static_cast<Gridworld_IH::OutputType> (0)),
     player(player),
     team(team)
 {
