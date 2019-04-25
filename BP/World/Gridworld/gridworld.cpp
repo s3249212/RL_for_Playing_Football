@@ -7,6 +7,22 @@
 
 using namespace std;
 
+void Gridworld::runMatch(World::Mode mode){
+    for(Gridworld_IH* ih: ihs){
+        ih->getPlayer()->setMode(mode);
+    }
+    for(int i = 0; i < 10; i++){
+        runStep();
+    }
+}
+
+void Gridworld::runStep(){
+    for(Gridworld_IH* ih: ihs){
+        this->ih = ih;
+        ih->update();
+    }
+}
+
 Gridworld::Gridworld(){
     //view = new GridworldView(this);
     ball = new Gridworld_Ball(this, {width / 2, height/2});
@@ -28,7 +44,7 @@ Gridworld::updateState(int currentPlayer, array<int, 3> actions){
 
 }*/
 
-void Gridworld::run(){
+/*void Gridworld::run(){
     for(int i = 0; i < 10000000; i++){
         getEventLog();
         for(Gridworld_IH* ih: ihs){
@@ -37,7 +53,7 @@ void Gridworld::run(){
         }
         //view->draw();
     }
-}
+}*/
 
 array<int, 2> Gridworld::getBallCoord(){
     return ball->getCoord();

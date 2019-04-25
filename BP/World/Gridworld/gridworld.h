@@ -43,6 +43,9 @@ private:
 
     Gridworld_IH* ih;
 
+    void runMatch(Mode mode);
+    void runStep();
+
 public:
     Gridworld();
     ~Gridworld();

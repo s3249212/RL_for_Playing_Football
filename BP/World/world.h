@@ -5,17 +5,27 @@
 
 class World
 {
-protected:
-    View* view;
-
 public:
-    World();
+    enum Mode{
+        TEST = 0, TRAINING
+    };
+
     View* getView();
 
-    void run();
+    void runTraining();
     //void setPaused(int boolean);
 
     /*save load delete restart start (= run)*/
+
+protected:
+    View* view;
+
+    int nBlocks = 100000000;
+
+    int nTrainingPerBlock = 50;
+    int nTestPerBlock = 10;
+
+    virtual void runMatch(Mode mode){};
 };
 
 #endif // WORLD_H

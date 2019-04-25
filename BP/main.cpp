@@ -18,7 +18,7 @@ QApplication* a;
 Gridworld* gridworld;
 
 void threadFunction(){
-    gridworld->run();
+    gridworld->runTraining();
 }
 
 int main(int argc, char *argv[])
