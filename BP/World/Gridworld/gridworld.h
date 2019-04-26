@@ -46,6 +46,8 @@ private:
     void runMatch(Mode mode);
     void runStep();
 
+    void saveStatistics();
+
 public:
     Gridworld();
     ~Gridworld();
@@ -75,7 +77,10 @@ public:
 
     void addEvent(Gridworld_Event::Event_type event_type, int team);
 
-    void reset();
+    void runTraining();
+
+    void resetLocations();
+    void resetAfterMatch();
 
     void removeFromEventLog(Gridworld_Event *event);
 
