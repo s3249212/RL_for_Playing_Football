@@ -23,6 +23,9 @@ void threadFunction(){
 
 int main(int argc, char *argv[])
 {
+    /*std::ofstream inputstream("~/savefile.txt");
+    inputstream << "Heyo!" << std::endl;
+    inputstream.close();*/
     GridworldView* view;
     a = new QApplication(argc, argv);
 
@@ -63,6 +66,8 @@ int main(int argc, char *argv[])
     //view->initialize();
     view->show();
     //view->draw();
+
+    //gridworld->runTraining();
 
     std::thread t1(threadFunction);
     //view->draw();

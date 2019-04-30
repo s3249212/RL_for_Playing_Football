@@ -16,6 +16,7 @@ public:
 
     void increaseScore(int team);
     array<int, 2> getScore();
+    void reset();
 };
 
 #endif // GRIDWORLD_SCORE_H

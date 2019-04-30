@@ -7,11 +7,26 @@
 
 using namespace std;
 
+void Gridworld::runTraining(){
+    for(int i = 0; i < nBlocks; i++){
+        for(int j = 0; j < nTrainingPerBlock; j++){
+            runMatch(TRAINING);
+            resetAfterMatch();
+        }
+        for(int j = 0; j < nTestPerBlock; j++){
+            runMatch(TEST);
+            saveStatistics();
+            resetAfterMatch();
+        }
+    }
+}
+
 void Gridworld::runMatch(World::Mode mode){
     for(Gridworld_IH* ih: ihs){
         ih->getPlayer()->setMode(mode);
     }
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10000; i++){
+        cout << "Run step" << endl;
         runStep();
     }
 }
@@ -23,10 +38,29 @@ void Gridworld::runStep(){
     }
 }
 
+void Gridworld::saveStatistics(){
+    for(int i = 0; i < ihs.size(); i++){
+        Gridworld_IH* ih = ihs.at(i);
+        if(i > 0){
+            savefile << "\t";
+        }
+        savefile << score->getScore()[ih->getTeam()] << "\t" << ih->getPlayer()->totalReward;
+        ih->getPlayer()->totalReward = 0;
+    }
+    savefile << endl;
+}
+
 Gridworld::Gridworld(){
     //view = new GridworldView(this);
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
+
+    qDebug() << "Creating savefile\n";
+    savefile.open("/home/julian/savefile");
+}
+
+Gridworld::~Gridworld(){
+    savefile.close();
 }
 
 /*Gridworld::run(){
@@ -168,7 +202,7 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
 
     addEvent(Gridworld_Event::GOAL, team);
 
-    reset();
+    resetLocations();
 }
 
 array<int, 2> Gridworld::getScore()
@@ -185,7 +219,12 @@ void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
     eventLog.push_back(event);
 }
 
-void Gridworld::reset(){
+void Gridworld::resetAfterMatch(){
+    resetLocations();
+    score->reset();
+}
+
+void Gridworld::resetLocations(){
     int nred = 0, nblue = 0;
     for(Gridworld_Agent* agent: agents){
         int x;

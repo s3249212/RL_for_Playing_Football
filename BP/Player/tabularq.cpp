@@ -53,6 +53,7 @@ void TabularQ::qLearningUpdate(vector<int> input, int reward){
 
 int TabularQ::act(vector<int> input, int reward){
     qLearningUpdate(input, reward);
+    totalReward += reward;
     return rand() % 8;
 }
 

@@ -22,3 +22,7 @@ array<int, 2> Gridworld_Score::getScore()
     return {team0, team1};
 }
 
+void Gridworld_Score::reset(){
+    team0 = team1 = 0;
+}
+

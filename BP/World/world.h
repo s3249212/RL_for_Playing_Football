@@ -3,6 +3,9 @@
 
 #include "../View/view.h"
 
+#include <iostream>
+#include <fstream>
+
 class World
 {
 public:
@@ -12,7 +15,7 @@ public:
 
     View* getView();
 
-    void runTraining();
+    virtual void runTraining(){};
     //void setPaused(int boolean);
 
     /*save load delete restart start (= run)*/
@@ -20,12 +23,16 @@ public:
 protected:
     View* view;
 
-    int nBlocks = 100000000;
+    std::ofstream savefile;
+
+    int nBlocks = 1;
 
     int nTrainingPerBlock = 50;
     int nTestPerBlock = 10;
 
     virtual void runMatch(Mode mode){};
+
+    virtual void saveStatistics(){};
 };
 
 #endif // WORLD_H
