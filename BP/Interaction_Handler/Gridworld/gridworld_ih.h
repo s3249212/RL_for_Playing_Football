@@ -50,7 +50,7 @@ private:
     RewardType rewardType;
     OutputType outputType;
 
-    vector<int> generateInput();
+    vector<int> generateInput(); //where to get input?
     int generateReward();
     void handleOutput(int output);
 

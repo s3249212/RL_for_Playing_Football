@@ -97,24 +97,37 @@ Gridworld_Ball* Gridworld::getBall(){
     return ball;
 }
 
+vector<array<int,2>> Gridworld::getTeam(int x){
+    vector <array <int, 2>> team;
+    for(Gridworld_Agent* a: agents){
+        if(a->getTeam() == x){
+            team.push_back(a->getCoord());
+        }
+    }
+    return team;
+}
+
 vector<array<int,2>> Gridworld::getBlueTeam(){
-    vector <array <int, 2>>* blue = new vector<array <int, 2>>;
+    return getTeam(0);
+
+    /*vector <array <int, 2>>* blue = new vector<array <int, 2>>;
     for(Gridworld_Agent* b: agents){
         if(b->getTeam() == 0){
             blue->push_back(b->getCoord());
         }
     }
-    return *blue;
+    return *blue;*/
 }
 
 vector<array<int,2>> Gridworld::getRedTeam(){
-    vector <array <int, 2>> red;
+    return getTeam(1);
+    /*vector <array <int, 2>> red;
     for(auto r: agents){
         if(r->getTeam() == 1){
             red.push_back(r->getCoord());
         }
     }
-    return red;
+    return red;*/
 }
 
 int Gridworld::getGoalLength(){
