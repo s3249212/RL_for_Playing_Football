@@ -27,13 +27,7 @@ void Gridworld_IH::update(){
     handleOutput(output);
 }
 
-vector<int> Gridworld_IH::generateInput(){
-    switch(inputType){
-        case TabularQ:
-            return inputTabularQ();
-    }
-    exit(-1);
-}
+
 
 int Gridworld_IH::generateReward(){
     switch(rewardType){
@@ -47,9 +41,17 @@ void Gridworld_IH::handleOutput(int output){
     agents.at(0)->performAction(static_cast<Gridworld_Agent::Actionoptions>(output));
 }
 
+//coordinate(x,y) of player, ball, opponent
 vector<int> Gridworld_IH::inputTabularQ(){
     vector<int> input;
-    //Input generation goes here
+    input.push_back(world->getBallCoord()[0]);
+    input.push_back(world->getBallCoord()[1]);
+    input.push_back(agents[0]->getCoord()[0]);
+    input.push_back(agents[0]->getCoord()[1]);
+    int opponentTeam = (team == 1 ? 0: 1);
+    input.push_back(world->getTeam(opponentTeam).at(0)[0]);
+    input.push_back(world->getTeam(opponentTeam).at(0)[1]);
+
     return input;
 }
 
@@ -79,6 +81,7 @@ int Gridworld_IH::rewardGoalTouch(){
     }
     return reward;
 }
+
 
 void Gridworld_IH::initRewardGeneration(){
     switch(rewardType){

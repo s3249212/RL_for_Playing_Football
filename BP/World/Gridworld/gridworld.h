@@ -53,6 +53,7 @@ public:
     int getHeight();
     int getWidth();
 
+    vector<array<int, 2>> getTeam(int x);
     vector<array<int, 2>> getBlueTeam();
     vector<array<int, 2>> getRedTeam();
 
