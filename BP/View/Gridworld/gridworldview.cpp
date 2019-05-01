@@ -204,7 +204,7 @@ Gridworld *GridworldView::getWorld()
 }
 
 void GridworldView::draw(){
-    qDebug() << "Drawing";
+    //qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
     //qDebug() << "Blue team" << gw_agents.size();
     for(unsigned i = 0; i < blueteam.size(); i++){
@@ -227,7 +227,7 @@ void GridworldView::draw(){
 
     array<int, 2> ballcoords = gridworld->getBallCoord();
     array<int, 2> coord = toViewCoord(ballcoords[0], ballcoords[1]);
-    qDebug() << coord[0] << coord[1];
+    //qDebug() << coord[0] << coord[1];
     ball->setRect(coord[0], coord[1], blockSize, blockSize);
 
     score->update();

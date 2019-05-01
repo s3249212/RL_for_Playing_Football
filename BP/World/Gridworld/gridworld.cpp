@@ -1,4 +1,4 @@
-
+#include <chrono>
 #include <vector>
 #include <QDebug>
 #include "gridworld.h"
@@ -6,9 +6,11 @@
 #include "../../View/Gridworld/gridworldview.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void Gridworld::runTraining(){
     for(int i = 0; i < nBlocks; i++){
+        high_resolution_clock::time_point t1 = high_resolution_clock::now();
         for(int j = 0; j < nTrainingPerBlock; j++){
             runMatch(TRAINING);
             resetAfterMatch();
@@ -17,7 +19,12 @@ void Gridworld::runTraining(){
             runMatch(TEST);
             saveStatistics();
             resetAfterMatch();
+                        //qDebug() << "Duration of a match: " << duration;
         }
+        high_resolution_clock::time_point t2 = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>( t2 - t1 ).count();
+        auto expectedTime = duration * (nBlocks - i - 1);
+        qDebug() << "Block:" << i << "out of" << nBlocks << ". Duration of a match: " << duration << ". Expected time left:" << expectedTime / 3600000000 << "hours," << expectedTime % 3600000000 / 60000000 << "minutes," << expectedTime % 60000000 / 1000000 << "seconds," << expectedTime % 1000000 << "microseconds.";
     }
 }
 
@@ -26,7 +33,7 @@ void Gridworld::runMatch(World::Mode mode){
         ih->getPlayer()->setMode(mode);
     }
     for(int i = 0; i < 10000; i++){
-        cout << "Run step" << endl;
+        //cout << "Run step" << endl;
         runStep();
     }
 }
@@ -55,7 +62,7 @@ Gridworld::Gridworld(){
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
 
-    qDebug() << "Creating savefile\n";
+    //qDebug() << "Creating savefile\n";
     savefile.open("/home/julian/savefile");
 }
 

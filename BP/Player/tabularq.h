@@ -12,9 +12,9 @@
 class TabularQ : public Player
 {
 private:
-    Gridworld *world;
-    int prevAction;
-    int prevState;
+    Gridworld* world;
+    int prevAction = -1;
+    int prevState = -1;
 
     float** qTable;
     int nActions = 8;
@@ -25,8 +25,9 @@ private:
 
     int getStateNumber(vector<int> input);
     float getQTableValue(vector<int> input, int a);
+
 public:
-    TabularQ();
+    TabularQ(Gridworld* gridworld);
 
     float getQTableValue();
     void qLearningUpdate(vector<int> input, int reward);

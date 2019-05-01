@@ -13,7 +13,7 @@ void View::setRendering(bool boolean){
 }
 
 /*void View::update(){
-    qDebug() << "Calling update.................................................";
+    //qDebug() << "Calling update.................................................";
     if(render){
         draw();
     }

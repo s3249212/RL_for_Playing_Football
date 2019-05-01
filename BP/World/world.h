@@ -25,10 +25,10 @@ protected:
 
     std::ofstream savefile;
 
-    int nBlocks = 1;
+    int nBlocks = 100;
 
-    int nTrainingPerBlock = 50;
-    int nTestPerBlock = 10;
+    int nTrainingPerBlock = 0;
+    int nTestPerBlock = 100;
 
     virtual void runMatch(Mode mode){};
 

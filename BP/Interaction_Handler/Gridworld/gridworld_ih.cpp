@@ -27,7 +27,15 @@ void Gridworld_IH::update(){
     handleOutput(output);
 }
 
-
+vector<int> Gridworld_IH::generateInput(){
+    switch(inputType){
+    case TabularQ:
+        return inputTabularQ();
+    default:
+        vector<int> emptyVector;
+        return emptyVector;
+    }
+}
 
 int Gridworld_IH::generateReward(){
     switch(rewardType){
