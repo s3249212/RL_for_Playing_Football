@@ -72,20 +72,26 @@ int TabularQ::act(vector<int> input, int reward){
 
     sum += -minQAction * nActions;
 
+    float sumPrev = 0.0f;
     float random = rand() % 1000000 / 1000000.0f;
     for(int i = 0; i < nActions; i++){
-        if(random < (qTable[currentState][i] + -minQAction) / sum){
+        if(random < (sumPrev + qTable[currentState][i] + -minQAction) / sum){
             selectedAction = i;
             break;
         }
+        sumPrev += qTable[currentState][i] + -minQAction;
     }
+
+    qDebug() << "Selected action" << selectedAction;
 
     totalReward += reward;
 
     int currentAction;
     if(rand() % 100 < 80){
+        //qDebug() << "Selected action";
         currentAction = selectedAction;
     } else {
+        //qDebug() << "Random action";
         currentAction = rand() % 8;
     }
 
