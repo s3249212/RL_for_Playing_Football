@@ -59,13 +59,24 @@ int TabularQ::act(vector<int> input, int reward){
     qLearningUpdate(input, reward);
 
     int currentState = getStateNumber(input);
-    float maxQAction = qTable[currentState][0];
-    int bestAction = 0;
+    float minQAction = qTable[currentState][0];
+    float sum = 0;
+    int selectedAction = 0;
 
     for(int i = 1; i < nActions; i++){
-        if(qTable[currentState][i] > maxQAction){
-            maxQAction = qTable[currentState][i];
-            bestAction = i;
+        if(qTable[currentState][i] < minQAction){
+            minQAction = qTable[currentState][i];
+        }
+        sum += qTable[currentState][i];
+    }
+
+    sum += -minQAction * nActions;
+
+    float random = rand() % 1000000 / 1000000.0f;
+    for(int i = 0; i < nActions; i++){
+        if(random < (qTable[currentState][i] + -minQAction) / sum){
+            selectedAction = i;
+            break;
         }
     }
 
@@ -73,7 +84,7 @@ int TabularQ::act(vector<int> input, int reward){
 
     int currentAction;
     if(rand() % 100 < 80){
-        currentAction = bestAction;
+        currentAction = selectedAction;
     } else {
         currentAction = rand() % 8;
     }
