@@ -20,7 +20,7 @@ private:
     int nActions = 8;
     int nStates;
 
-    float learning_rate = 0.5f;
+    float learning_rate = 0.1f;
     float gamma = 0.99f; //discount factor
     float e = 1; //initial epsilon value for random action selection
 

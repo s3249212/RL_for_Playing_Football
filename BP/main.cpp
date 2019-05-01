@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     a->exec();
 
     t1.join();
-    player->printQTable();
+    //player->printQTable();
     /*gridworld->run();
     view->update();*/
 

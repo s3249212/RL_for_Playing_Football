@@ -41,7 +41,9 @@ void TabularQ::qLearningUpdate(vector<int> input, int reward){
     //qDebug() << currentState;
 
     if(prevAction != -1){
-        //qDebug() << "Updating q value" << reward << learning_rate << gamma;
+        /*if(reward != 0){
+            qDebug() << "Updating q value" << reward << learning_rate << gamma;
+        }*/
         //qDebug() << qTable[prevState][prevAction];
         float maxQAction = qTable[currentState][0];
 
@@ -57,7 +59,8 @@ void TabularQ::qLearningUpdate(vector<int> input, int reward){
         //qDebug() << maxQAction << "-";
     }
 
-    currentState = prevState;
+    //currentState = prevState;
+    prevState = currentState;
 }
 
 int TabularQ::act(vector<int> input, int reward){
@@ -82,7 +85,7 @@ int TabularQ::act(vector<int> input, int reward){
     for(int i = 0; i < nActions; i++){
         currentSum += qTable[currentState][i] + -minQAction;
         //qDebug() << random << currentSum << sum;
-        if(random < currentSum / sum){
+        if(random < currentSum / (sum + 0.000001f)){
             selectedAction = i;
             break;
         }
