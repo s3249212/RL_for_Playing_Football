@@ -235,7 +235,7 @@ void Gridworld::resetLocations(){
     int nred = 0, nblue = 0;
     for(Gridworld_Agent* agent: agents){
         int x;
-        if(ih->getTeam() == 0){
+        if(agent->getTeam() == 0){
             x = nblue + 1;
             nblue++;
         } else {
