@@ -18,6 +18,7 @@ private:
 
     float** qTable;
     int nActions = 8;
+    int nStates;
 
     float learning_rate = 0.5f;
     float gamma = 0.99f; //discount factor
@@ -33,6 +34,7 @@ public:
     void qLearningUpdate(vector<int> input, int reward);
 
     int act(vector<int> input, int reward);
+    void printQTable();
 };
 
 #endif // TABULARQ_H

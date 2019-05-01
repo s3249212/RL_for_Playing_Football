@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     Gridworld_IH::OutputType outputType = Gridworld_IH::DEFAULT_OUTPUT;
 
     /*Gridworld* */gridworld = new Gridworld();
-    Player* player = new TabularQ(gridworld);
+    TabularQ* player = new TabularQ(gridworld);
     //qDebug() << "Generating IH...";
     Gridworld_IH* ih = new Gridworld_IH(player, 0, 1, inputType, rewardType, outputType);
     //qDebug() << "Adding IH to world...";
@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
     a->exec();
 
     t1.join();
+    player->printQTable();
     /*gridworld->run();
     view->update();*/
 
