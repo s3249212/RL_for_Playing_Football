@@ -68,6 +68,15 @@ Gridworld::Gridworld(){
 
 Gridworld::~Gridworld(){
     savefile.close();
+    resetEventLog();
+    delete ball;
+    for(Gridworld_Agent* a: agents){
+        delete a;
+    }
+    for(Gridworld_IH* ih: ihs){
+        delete ih;
+    }
+    delete score;
 }
 
 /*Gridworld::run(){
@@ -229,6 +238,13 @@ void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
 void Gridworld::resetAfterMatch(){
     resetLocations();
     score->reset();
+    resetEventLog();
+}
+
+void Gridworld::resetEventLog(){
+    for(Gridworld_Event* e: eventLog){
+        removeFromEventLog(e);
+    }
 }
 
 void Gridworld::resetLocations(){
@@ -252,4 +268,5 @@ void Gridworld::removeFromEventLog(Gridworld_Event *event)
 {
      std::vector<Gridworld_Event *>::iterator i = std::find(eventLog.begin(), eventLog.end(), event);
      eventLog.erase(i);
+     delete event;
 }

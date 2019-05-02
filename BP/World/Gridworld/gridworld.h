@@ -48,6 +48,8 @@ private:
 
     void saveStatistics();
 
+    void resetEventLog();
+
 public:
     Gridworld();
     ~Gridworld();
