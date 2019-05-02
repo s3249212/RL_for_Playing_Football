@@ -27,11 +27,12 @@ private:
     int getStateNumber(vector<int> input);
     float getQTableValue(vector<int> input, int a);
 
+    void qLearningUpdate(vector<int> input, int reward);
+
 public:
     TabularQ(Gridworld* gridworld);
 
-    float getQTableValue();
-    void qLearningUpdate(vector<int> input, int reward);
+    void updateEndOfMatch(vector<int> input, int reward);
 
     int act(vector<int> input, int reward);
     void printQTable();

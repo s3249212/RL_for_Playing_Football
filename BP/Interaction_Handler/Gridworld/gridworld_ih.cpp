@@ -27,6 +27,13 @@ void Gridworld_IH::update(){
     handleOutput(output);
 }
 
+void Gridworld_IH::updateAtEndOfMatch()
+{
+    vector<int> input = generateInput();
+    int reward = generateReward();
+    player->updateEndOfMatch(input, reward);
+}
+
 vector<int> Gridworld_IH::generateInput(){
     switch(inputType){
     case TabularQ:

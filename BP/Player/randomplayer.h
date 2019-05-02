@@ -9,6 +9,8 @@ class RandomPlayer: public Player
 public:
     RandomPlayer();
 
+    void updateEndOfMatch(vector<int> input, int reward);
+
     int act(vector<int> input, int reward);
 };
 

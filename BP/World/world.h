@@ -25,7 +25,7 @@ protected:
 
     std::ofstream savefile;
 
-    int nBlocks = 200;
+    int nBlocks = 20;
 
     int nTrainingPerBlock = 0;
     int nTestPerBlock = 100;

@@ -25,6 +25,7 @@ public:
     Gridworld_IH(Player *player, int team, int nAgents, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType);
 
     void update();
+    void updateAtEndOfMatch();
 
     int getNumberOfAgents();
     int getTeam();

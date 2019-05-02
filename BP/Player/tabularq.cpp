@@ -17,6 +17,11 @@ TabularQ::TabularQ(Gridworld* gridworld):
     }
 }
 
+void TabularQ::updateEndOfMatch(vector<int> input, int reward)
+{
+
+}
+
 int TabularQ::getStateNumber(vector<int> input){
     int idx = input.at(0);
     for(int i = 1; i < 6; i++){

@@ -36,6 +36,9 @@ void Gridworld::runMatch(World::Mode mode){
         //cout << "Run step" << endl;
         runStep();
     }
+    for(Gridworld_IH* ih: ihs){
+        ih->updateAtEndOfMatch();
+    }
 }
 
 void Gridworld::runStep(){
