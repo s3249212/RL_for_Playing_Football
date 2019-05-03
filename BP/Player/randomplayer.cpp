@@ -12,6 +12,11 @@ void RandomPlayer::updateEndOfMatch(vector<int> input, int reward)
 
 }
 
+void RandomPlayer::resetAfterMatch()
+{
+
+}
+
 int RandomPlayer::act(vector<int> input, int reward){
     if(reward != 0){
         //qDebug() << "In act" << reward;

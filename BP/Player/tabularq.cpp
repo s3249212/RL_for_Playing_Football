@@ -7,10 +7,7 @@ using namespace std;
 TabularQ::TabularQ(Gridworld* gridworld):
     world(gridworld)
 {
-    gridworld->getWidth();
-    int nStates = pow(world->getWidth() * world->getHeight(), 3);
-    this->nStates = nStates;
-    //qDebug() << nStates;
+    nStates = pow(world->getWidth() * world->getHeight(), 3);
     qTable = new float*[nStates]();
     for(int i = 0; i < nStates; i++){
         qTable[i] = new float[nActions](); //action size
@@ -22,6 +19,12 @@ void TabularQ::updateEndOfMatch(vector<int> input, int reward)
 
 }
 
+void TabularQ::resetAfterMatch()
+{
+    prevAction = -1;
+    prevState = -1;
+}
+
 int TabularQ::getStateNumber(vector<int> input){
     int idx = input.at(0);
     for(int i = 1; i < 6; i++){
@@ -31,25 +34,13 @@ int TabularQ::getStateNumber(vector<int> input){
     return idx;
 }
 
-
-float TabularQ::getQTableValue(vector<int> input, int a){
-    int idx = getStateNumber(input);
-    return qTable[idx][a];
-}
-
-
 //update the value estimate matrix given a new experience
 //state = the environment state the experience happened
 //finished = whether the episode has ended
 void TabularQ::qLearningUpdate(vector<int> input, int reward){
     int currentState = getStateNumber(input);
-    //qDebug() << currentState;
 
     if(prevAction != -1){
-        /*if(reward != 0){
-            qDebug() << "Updating q value" << reward << learning_rate << gamma;
-        }*/
-        //qDebug() << qTable[prevState][prevAction];
         float maxQAction = qTable[currentState][0];
 
         for(int i = 1; i < nActions; i++){
@@ -60,27 +51,36 @@ void TabularQ::qLearningUpdate(vector<int> input, int reward){
 
         qTable[prevState][prevAction] *= 1 - learning_rate;
         qTable[prevState][prevAction] += learning_rate * (reward + gamma * maxQAction);
-        //qDebug() << qTable[prevState][prevAction];
-        //qDebug() << maxQAction << "-";
     }
 
-    //currentState = prevState;
     prevState = currentState;
 }
 
-int TabularQ::act(vector<int> input, int reward){
-    qLearningUpdate(input, reward);
+int TabularQ::selectAction(int state)
+{
+    switch(actionSelection){
+    case Softmax:
+        return softmaxActionSelection(state);
+    case HighestQ:
+        return highestQActionSelection(state);
+    case Random:
+    default:
+        return randomActionSelection();
+    }
+}
 
-    int currentState = getStateNumber(input);
-    float minQAction = qTable[currentState][0];
-    float sum = 0;
+int TabularQ::softmaxActionSelection(int state)
+{
     int selectedAction = -1;
 
+    float sum = 0;
+    float minQAction = qTable[state][0];
+
     for(int i = 1; i < nActions; i++){
-        if(qTable[currentState][i] < minQAction){
-            minQAction = qTable[currentState][i];
+        if(qTable[state][i] < minQAction){
+            minQAction = qTable[state][i];
         }
-        sum += qTable[currentState][i];
+        sum += qTable[state][i];
     }
 
     sum += -minQAction * nActions;
@@ -88,30 +88,55 @@ int TabularQ::act(vector<int> input, int reward){
     float currentSum = 0.0f;
     float random = rand() % 1000000 / 1000000.0f;
     for(int i = 0; i < nActions; i++){
-        currentSum += qTable[currentState][i] + -minQAction;
-        //qDebug() << random << currentSum << sum;
+        currentSum += qTable[state][i] + -minQAction;
         if(random < currentSum / (sum + 0.000001f)){
             selectedAction = i;
             break;
         }
     }
+    return selectedAction;
+}
 
-    //qDebug() << "Selected action" << selectedAction;
+int TabularQ::highestQActionSelection(int state)
+{
+    int selectedAction = -1;
 
-    totalReward += reward;
+    float maxQAction = qTable[state][0];
 
-    int currentAction;
-    if(rand() % 100 < 80 && selectedAction != -1){
-        //qDebug() << "Selected action";
-        currentAction = selectedAction;
-    } else {
-        //qDebug() << "Random action";
-        currentAction = rand() % 8;
+    for(int i = 1; i < nActions; i++){
+        if(qTable[state][i] > maxQAction){
+            maxQAction = qTable[state][i];
+            selectedAction = i;
+        }
     }
 
+    return selectedAction;
+}
 
+int TabularQ::randomActionSelection()
+{
+    return rand() % nActions;
+}
 
-    prevAction = currentAction;
+int TabularQ::act(vector<int> input, int reward){
+    qLearningUpdate(input, reward);
+
+    learning_rate *= decrease_factor;
+
+    int currentState = getStateNumber(input);
+
+    int selectedAction = selectAction(currentState);
+
+    int currentAction;
+    if(rand() % 100 / 100.0f > epsilon && selectedAction != -1){
+        currentAction = selectedAction;
+    } else {
+        currentAction = randomActionSelection();
+    }
+
+    prevAction = currentAction; 
+
+    totalReward += reward;
 
     return currentAction;
 }

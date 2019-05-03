@@ -12,6 +12,12 @@
 class TabularQ : public Player
 {
 private:
+    enum ActionSelection_t {
+        Random, HighestQ, Softmax
+    };
+
+    ActionSelection_t actionSelection = Softmax;
+
     Gridworld* world;
     int prevAction = -1;
     int prevState = -1;
@@ -21,18 +27,27 @@ private:
     int nStates;
 
     float learning_rate = 0.1f;
+    float decrease_factor = 1.000f;
     float gamma = 0.99f; //discount factor
-    float e = 1; //initial epsilon value for random action selection
+    float epsilon = 0.1f; //initial epsilon value for random action selection
 
     int getStateNumber(vector<int> input);
     float getQTableValue(vector<int> input, int a);
 
     void qLearningUpdate(vector<int> input, int reward);
 
+    int selectAction(int state);
+
+    int softmaxActionSelection(int state);
+    int highestQActionSelection(int state);
+    int randomActionSelection();
+
 public:
     TabularQ(Gridworld* gridworld);
 
     void updateEndOfMatch(vector<int> input, int reward);
+
+    void resetAfterMatch();
 
     int act(vector<int> input, int reward);
     void printQTable();

@@ -11,6 +11,8 @@ public:
 
     void updateEndOfMatch(vector<int> input, int reward);
 
+    void resetAfterMatch();
+
     int act(vector<int> input, int reward);
 };
 

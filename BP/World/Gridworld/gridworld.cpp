@@ -38,6 +38,7 @@ void Gridworld::runMatch(World::Mode mode){
     }
     for(Gridworld_IH* ih: ihs){
         ih->updateAtEndOfMatch();
+        ih->resetAfterMatch();
     }
 }
 

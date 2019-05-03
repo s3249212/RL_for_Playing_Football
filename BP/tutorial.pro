@@ -14,13 +14,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    bullet.cpp \
-    enemy.cpp \
-    score.cpp \
-    health.cpp \
     View/Gridworld/gridworldview.cpp \
     World/Gridworld/gridworld.cpp \
-    mainwindow.cpp \
     View/view.cpp \
     World/world.cpp \
     View/Gridworld/gridworldview_agent.cpp \
@@ -38,14 +33,9 @@ SOURCES += main.cpp \
     Player/tabularq.cpp
 
 HEADERS  += \
-    bullet.h \
-    enemy.h \
-    score.h \
-    health.h \
     View/Gridworld/gridworldview.h \
     World/Gridworld/gridworld.h \
     World/world.h \
-    mainwindow.h \
     View/view.h \
     View/Gridworld/gridworldview_agent.h \
     View/Gridworld/gridworldview_ball.h \

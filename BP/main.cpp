@@ -4,6 +4,8 @@
 #include <QTimer>
 #include <QDebug>
 #include <thread>
+#include <stdlib.h>
+#include <time.h>
 #include "World/Gridworld/gridworld.h"
 #include "View/Gridworld/gridworldview.h"
 #include "Player/player.h"
@@ -23,6 +25,7 @@ void threadFunction(){
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
     /*std::ofstream inputstream("~/savefile.txt");
     inputstream << "Heyo!" << std::endl;
     inputstream.close();*/

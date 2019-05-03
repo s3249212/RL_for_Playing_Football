@@ -17,6 +17,8 @@ public:
 
     virtual void updateEndOfMatch(vector<int> input, int reward);
 
+    virtual void resetAfterMatch();
+
     virtual int act(vector<int> input, int reward);
 
     void setMode(World::Mode mode);

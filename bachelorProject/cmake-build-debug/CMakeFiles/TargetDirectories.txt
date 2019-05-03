@@ -1,3 +1,0 @@
-C:/Users/user/CLionProjects/bachelorProject/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/user/CLionProjects/bachelorProject/cmake-build-debug/CMakeFiles/bachelorProject.dir
-C:/Users/user/CLionProjects/bachelorProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir

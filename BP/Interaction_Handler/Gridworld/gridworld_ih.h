@@ -26,6 +26,7 @@ public:
 
     void update();
     void updateAtEndOfMatch();
+    void resetAfterMatch();
 
     int getNumberOfAgents();
     int getTeam();
