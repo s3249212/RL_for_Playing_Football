@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <QDebug>
+
 using namespace std;
 
 TabularQ::TabularQ(Gridworld* gridworld):

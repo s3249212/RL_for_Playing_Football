@@ -14,9 +14,7 @@
 #include "Player/tabularq.h"
 #include "Interaction_Handler/Gridworld/gridworld_ih.h"
 
-Gridworld* gridworld;
-
-void threadFunction(){
+void threadFunction(Gridworld* gridworld){
     gridworld->runTraining();
 }
 
@@ -26,13 +24,13 @@ int main(int argc, char *argv[])
 
     GridworldView* view;
 
-    a = new QApplication(argc, argv);
+    QApplication* a = new QApplication(argc, argv);
 
     Gridworld_IH::InputType inputType = Gridworld_IH::TabularQ;
     Gridworld_IH::RewardType rewardType = Gridworld_IH::GOAL_TOUCH;
     Gridworld_IH::OutputType outputType = Gridworld_IH::DEFAULT_OUTPUT;
 
-    gridworld = new Gridworld();
+    Gridworld* gridworld = new Gridworld();
 
     TabularQ* player = new TabularQ(gridworld);
     Gridworld_IH* ih = new Gridworld_IH(player, 0, 1, inputType, rewardType, outputType);
@@ -48,7 +46,7 @@ int main(int argc, char *argv[])
 
     //gridworld->runTraining();
 
-    std::thread t1(threadFunction);
+    std::thread t1(threadFunction, gridworld);
 
     a->exec();
 
