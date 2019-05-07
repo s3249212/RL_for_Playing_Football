@@ -16,6 +16,10 @@ private:
         Random, HighestQ, Softmax
     };
 
+    enum Hyperparameter_Change_t {
+        Constant, Exponential_decay
+    };
+
     ActionSelection_t actionSelection = Softmax;
 
     Gridworld* world;
@@ -31,6 +35,14 @@ private:
     float gamma = 0.99f; //discount factor
     float epsilon = 0.1f; //initial epsilon value for random action selection
 
+    Hyperparameter_Change_t learning_rate_change = Exponential_decay;
+    Hyperparameter_Change_t epsilon_change = Exponential_decay;
+
+    float k_learning_rate = 0.01f;
+    float k_epsilon = 0.01f;
+
+    int nSteps = 0;
+
     int getStateNumber(vector<int> input);
     float getQTableValue(vector<int> input, int a);
 
@@ -41,6 +53,10 @@ private:
     int softmaxActionSelection(int state);
     int highestQActionSelection(int state);
     int randomActionSelection();
+
+    float learning_rate_f();
+    float exponential_decay(float init, float k, int t);
+    float epsilon_f();
 
 public:
     TabularQ(Gridworld* gridworld);

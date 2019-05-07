@@ -35,6 +35,30 @@ int TabularQ::getStateNumber(vector<int> input){
     return idx;
 }
 
+float TabularQ::learning_rate_f(){
+    switch(learning_rate_change){
+    default:
+    case Constant:
+        return learning_rate;
+    case Exponential_decay:
+        return exponential_decay(learning_rate, k_learning_rate, nSteps);
+    }
+}
+
+float TabularQ::epsilon_f(){
+    switch(epsilon_change){
+    default:
+    case Constant:
+        return epsilon;
+    case Exponential_decay:
+        return exponential_decay(epsilon, k_epsilon, nSteps);
+    }
+}
+
+float TabularQ::exponential_decay(float init, float k, int t){
+    return init * exp(-k * t);
+}
+
 //update the value estimate matrix given a new experience
 //state = the environment state the experience happened
 //finished = whether the episode has ended
@@ -129,7 +153,7 @@ int TabularQ::act(vector<int> input, int reward){
     int selectedAction = selectAction(currentState);
 
     int currentAction;
-    if(rand() % 100 / 100.0f > epsilon && selectedAction != -1){
+    if(rand() % 100 / 100.0f > epsilon_f() && selectedAction != -1){
         currentAction = selectedAction;
     } else {
         currentAction = randomActionSelection();
@@ -138,6 +162,8 @@ int TabularQ::act(vector<int> input, int reward){
     prevAction = currentAction; 
 
     totalReward += reward;
+
+    nSteps++;
 
     return currentAction;
 }
