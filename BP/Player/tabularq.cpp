@@ -146,8 +146,6 @@ int TabularQ::randomActionSelection()
 int TabularQ::act(vector<int> input, int reward){
     qLearningUpdate(input, reward);
 
-    learning_rate *= decrease_factor;
-
     int currentState = getStateNumber(input);
 
     int selectedAction = selectAction(currentState);
