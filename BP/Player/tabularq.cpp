@@ -12,6 +12,11 @@ TabularQ::TabularQ(Gridworld* gridworld):
     qTable = new float*[nStates]();
     for(int i = 0; i < nStates; i++){
         qTable[i] = new float[nActions](); //action size
+        for(int j = 0; j < nActions; j++){
+            float minInit = -10.0f;
+            float maxInit = 10.0f;
+            qTable[i][j] =  minInit + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxInit - minInit)));
+        }
     }
 }
 

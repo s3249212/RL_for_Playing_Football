@@ -61,13 +61,13 @@ void Gridworld::saveStatistics(){
     savefile << endl;
 }
 
-Gridworld::Gridworld(){
+Gridworld::Gridworld(string savefilename){
     //view = new GridworldView(this);
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
 
     //qDebug() << "Creating savefile\n";
-    savefile.open("/home/julian/savefile");
+    savefile.open(savefilename);
 }
 
 Gridworld::~Gridworld(){

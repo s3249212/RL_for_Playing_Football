@@ -30,13 +30,12 @@ private:
     int nActions = 8;
     int nStates;
 
-    float learning_rate = 0.1f;
-    float decrease_factor = 1.000f;
+    float learning_rate = 0.01f;
     float gamma = 0.99f; //discount factor
     float epsilon = 0.1f; //initial epsilon value for random action selection
 
-    Hyperparameter_Change_t learning_rate_change = Exponential_decay;
-    Hyperparameter_Change_t epsilon_change = Exponential_decay;
+    Hyperparameter_Change_t learning_rate_change = Constant;
+    Hyperparameter_Change_t epsilon_change = Constant;
 
     float k_learning_rate = 0.01f;
     float k_epsilon = 0.01f;

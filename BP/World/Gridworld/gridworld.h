@@ -51,7 +51,7 @@ private:
     void resetEventLog();
 
 public:
-    Gridworld();
+    Gridworld(string savefilename);
     ~Gridworld();
 
     int getHeight();

@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     Gridworld_IH::RewardType rewardType = Gridworld_IH::GOAL_TOUCH;
     Gridworld_IH::OutputType outputType = Gridworld_IH::DEFAULT_OUTPUT;
 
-    Gridworld* gridworld = new Gridworld();
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile1");
 
     TabularQ* player = new TabularQ(gridworld);
     Gridworld_IH* ih = new Gridworld_IH(player, 0, 1, inputType, rewardType, outputType);
