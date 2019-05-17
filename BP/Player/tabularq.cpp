@@ -1,14 +1,22 @@
 #include "tabularq.h"
 #include <stdlib.h>
 #include <math.h>
-#include <QDebug>
 
 using namespace std;
 
-TabularQ::TabularQ(Gridworld* gridworld):
-    world(gridworld)
+TabularQ::TabularQ():
 {
-    nStates = pow(world->getWidth() * world->getHeight(), 3);
+    
+}
+
+TabularQ::~TabularQ(){
+
+}
+
+void TabularQ::initialize(int nStates, int nActions){
+    this->nStates = nStates;
+    this->nActions = nActions;
+
     qTable = new float*[nStates]();
     for(int i = 0; i < nStates; i++){
         qTable[i] = new float[nActions](); //action size
@@ -20,24 +28,35 @@ TabularQ::TabularQ(Gridworld* gridworld):
     }
 }
 
-void TabularQ::updateEndOfMatch(vector<int> input, int reward)
-{
+void TabularQ::learn(vector<double> input, double reward){
+    int currentState = static_cast<int>(input.at(0));
 
-}
+    if(prevAction != -1){
+        float maxQAction = qTable[currentState][0];
 
-void TabularQ::resetAfterMatch()
-{
-    prevAction = -1;
-    prevState = -1;
-}
+        for(int i = 1; i < nActions; i++){
+            if(qTable[currentState][i] > maxQAction){
+                maxQAction = qTable[currentState][i];
+            }
+        }
 
-int TabularQ::getStateNumber(vector<int> input){
-    int idx = input.at(0);
-    for(int i = 1; i < 6; i++){
-        int mFactor = i % 2? world->getHeight(): world->getWidth();
-        idx = mFactor * idx + input.at(i);
+        qTable[prevState][prevAction] *= 1 - learning_rate_f();
+        qTable[prevState][prevAction] += learning_rate_f() * (reward + gamma * maxQAction);
     }
-    return idx;
+
+    prevState = currentState;
+}
+
+int TabularQ::act(vector<double> input){
+    int state = static_cast<int>(input.at(0));
+
+    int selectedAction = selectAction(currentState);
+
+    prevAction = selectedAction;
+
+    nSteps++;
+
+    return selectedAction;
 }
 
 float TabularQ::learning_rate_f(){
@@ -49,6 +68,23 @@ float TabularQ::learning_rate_f(){
         return exponential_decay(learning_rate, k_learning_rate, nSteps);
     }
 }
+
+void TabularQ::resetAfterMatch()
+{
+    prevAction = -1;
+    prevState = -1;
+}
+
+//goes to ih.
+int TabularQ::getStateNumber(vector<int> input){
+    int idx = input.at(0);
+    for(int i = 1; i < 6; i++){
+        int mFactor = i % 2? world->getHeight(): world->getWidth();
+        idx = mFactor * idx + input.at(i);
+    }
+    return idx;
+}
+
 
 float TabularQ::epsilon_f(){
     switch(epsilon_change){
@@ -67,36 +103,24 @@ float TabularQ::exponential_decay(float init, float k, int t){
 //update the value estimate matrix given a new experience
 //state = the environment state the experience happened
 //finished = whether the episode has ended
-void TabularQ::qLearningUpdate(vector<int> input, int reward){
-    int currentState = getStateNumber(input);
-
-    if(prevAction != -1){
-        float maxQAction = qTable[currentState][0];
-
-        for(int i = 1; i < nActions; i++){
-            if(qTable[currentState][i] > maxQAction){
-                maxQAction = qTable[currentState][i];
-            }
-        }
-
-        qTable[prevState][prevAction] *= 1 - learning_rate;
-        qTable[prevState][prevAction] += learning_rate * (reward + gamma * maxQAction);
-    }
-
-    prevState = currentState;
-}
-
 int TabularQ::selectAction(int state)
 {
+    int selectedAction;
     switch(actionSelection){
     case Softmax:
-        return softmaxActionSelection(state);
+        selectedAction = softmaxActionSelection(state);
     case HighestQ:
-        return highestQActionSelection(state);
+        selectedAction = highestQActionSelection(state);
     case Random:
     default:
-        return randomActionSelection();
+        selectedAction = randomActionSelection();
     }
+
+    if(selectedAction == -1 || rand() % 100 / 100.0f <= epsilon_f()){
+        selectedAction = randomActionSelection();
+    }
+
+    return selectedAction;
 }
 
 int TabularQ::softmaxActionSelection(int state)
@@ -148,29 +172,6 @@ int TabularQ::randomActionSelection()
     return rand() % nActions;
 }
 
-int TabularQ::act(vector<int> input, int reward){
-    qLearningUpdate(input, reward);
-
-    int currentState = getStateNumber(input);
-
-    int selectedAction = selectAction(currentState);
-
-    int currentAction;
-    if(rand() % 100 / 100.0f > epsilon_f() && selectedAction != -1){
-        currentAction = selectedAction;
-    } else {
-        currentAction = randomActionSelection();
-    }
-
-    prevAction = currentAction; 
-
-    totalReward += reward;
-
-    nSteps++;
-
-    return currentAction;
-}
-
 void TabularQ::printQTable(){
     for(int i = 0; i < nStates; i++){
         for(int j = 0; j < nActions; j++){
@@ -180,4 +181,3 @@ void TabularQ::printQTable(){
         }
     }
 }
-

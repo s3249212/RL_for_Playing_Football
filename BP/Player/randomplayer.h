@@ -9,11 +9,9 @@ class RandomPlayer: public Player
 public:
     RandomPlayer();
 
-    void updateEndOfMatch(vector<int> input, int reward);
-
-    void resetAfterMatch();
-
-    int act(vector<int> input, int reward);
+    void learn(vector<double> input, vector<double> reward);
+    int act(vector<double> input);
+    void resetAfterMatch();    
 };
 
 #endif // RANDOMPLAYER_H

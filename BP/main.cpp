@@ -25,20 +25,13 @@ int main(int argc, char *argv[])
     GridworldView* view;
 
     QApplication* a = new QApplication(argc, argv);
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile27");
 
-    Gridworld_IH::InputType inputType = Gridworld_IH::TabularQ;
-    Gridworld_IH::RewardType rewardType = Gridworld_IH::GOAL_TOUCH;
-    Gridworld_IH::OutputType outputType = Gridworld_IH::DEFAULT_OUTPUT;
+    TabularQ* player = new TabularQ();
+    gridworld->addPlayer(player, 0);
 
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile1");
-
-    TabularQ* player = new TabularQ(gridworld);
-    Gridworld_IH* ih = new Gridworld_IH(player, 0, 1, inputType, rewardType, outputType);
-    gridworld->addIH(ih);
-
-    Player* player2 = new RandomPlayer();
-    ih = new Gridworld_IH(player2, 1, 1, inputType, rewardType, outputType);
-    gridworld->addIH(ih);
+    RandomPlayer* player2 = new RandomPlayer();
+    gridworld->addPlayer(player2, 1);
 
     view = new GridworldView();
     view->setWorld(gridworld);

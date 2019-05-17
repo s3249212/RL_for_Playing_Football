@@ -12,8 +12,11 @@ class Gridworld_IH
  * Parameters given to the constructor determine which function will be used.
  */
 public:
+    enum Mode{
+        TRAINING = 0, TEST
+    };
+
     enum InputType{
-        TabularQ = 0
     };
     enum RewardType{
         GOAL_TOUCH = 0
@@ -22,41 +25,40 @@ public:
         DEFAULT_OUTPUT = 0
     };
 
-    Gridworld_IH(Player *player, int team, int nAgents, Gridworld_IH::InputType inputType, Gridworld_IH::RewardType rewardType, OutputType outputType);
+    Gridworld_IH();
 
-    void update();
-    void updateAtEndOfMatch();
-    void resetAfterMatch();
+    virtual void update(bool terminal = 0);
+    virtual void resetAfterMatch();
 
     int getNumberOfAgents();
     int getTeam();
     Player* getPlayer();
 
     void addAgent(Gridworld_Agent* agent);
-    void setWorld(Gridworld* world);
+    void setMode(Mode mode);
+
+protected:
+    Player* player;
+    Gridworld* world;
+    int team;
 
 private:
-    enum Event_actor{
-        SAME_PLAYER = 0, SAME_TEAM, PLAYER_TO_OPPONENT, OPPOSITE_TEAM
-    };
-
-    Player* player;
-    int team;
     int requiredNumberOfAgents;
     vector<Gridworld_Agent*> agents;
-    Gridworld* world;
-
-    int** rewards;
 
     InputType inputType;
     RewardType rewardType;
     OutputType outputType;
 
-    vector<int> generateInput(); //where to get input?
-    int generateReward();
-    void handleOutput(int output);
+    enum Event_actor{
+        SAME_PLAYER = 0, SAME_TEAM, PLAYER_TO_OPPONENT, OPPOSITE_TEAM
+    };
+    
+    int** rewards;
 
-    vector<int> inputTabularQ();
+    virtual vector<int> generateInput(); //where to get input?
+    virtual int generateReward();
+    void handleOutput(int output);
 
     int rewardGoalTouch();
 

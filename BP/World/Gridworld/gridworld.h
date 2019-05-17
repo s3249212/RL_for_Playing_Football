@@ -13,6 +13,9 @@
 #include "gridworld_score.h"
 #include "gridworld_event.h"
 
+#include "Player/tabularq.h"
+#include "Player/randomplayer.h"
+
 using namespace std;
 
 class Gridworld_Agent;
@@ -26,9 +29,9 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 10;
-    int width = 15;
-    int goallength = 4;
+    int height = 6;
+    int width = 7;
+    int goallength = 2;
 
 
     vector<Gridworld_Agent*> agents;
@@ -43,7 +46,7 @@ private:
 
     Gridworld_IH* ih;
 
-    void runMatch(Mode mode);
+    void runMatch(bool training);
     void runStep();
 
     void saveStatistics();
@@ -53,6 +56,9 @@ private:
 public:
     Gridworld(string savefilename);
     ~Gridworld();
+
+    void addPlayer(TabularQ* player, int team);
+    void addPlayer(RandomPlayer* player, int team);
 
     int getHeight();
     int getWidth();

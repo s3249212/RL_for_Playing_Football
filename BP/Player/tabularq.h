@@ -22,12 +22,11 @@ private:
 
     ActionSelection_t actionSelection = Softmax;
 
-    Gridworld* world;
     int prevAction = -1;
     int prevState = -1;
 
     float** qTable;
-    int nActions = 8;
+    int nActions;
     int nStates;
 
     float learning_rate = 0.01f;
@@ -42,11 +41,6 @@ private:
 
     int nSteps = 0;
 
-    int getStateNumber(vector<int> input);
-    float getQTableValue(vector<int> input, int a);
-
-    void qLearningUpdate(vector<int> input, int reward);
-
     int selectAction(int state);
 
     int softmaxActionSelection(int state);
@@ -58,13 +52,15 @@ private:
     float epsilon_f();
 
 public:
-    TabularQ(Gridworld* gridworld);
+    TabularQ();
 
-    void updateEndOfMatch(vector<int> input, int reward);
+    void initialize(int nStates, int nActions);
+
+    void learn(vector<double> input, double reward);
 
     void resetAfterMatch();
 
-    int act(vector<int> input, int reward);
+    int act(vector<double> input, double reward);
     void printQTable();
 };
 

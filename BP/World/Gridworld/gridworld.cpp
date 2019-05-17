@@ -1,9 +1,13 @@
 #include <chrono>
 #include <vector>
 #include <QDebug>
+
 #include "gridworld.h"
 #include "gridworld_agent.h"
-#include "../../View/Gridworld/gridworldview.h"
+
+#include "View/Gridworld/gridworldview.h"
+
+#include "Interaction_Handler/Gridworld/tabularqih.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -11,33 +15,46 @@ using namespace std::chrono;
 void Gridworld::runTraining(){
     for(int i = 0; i < nBlocks; i++){
         high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
         for(int j = 0; j < nTrainingPerBlock; j++){
             runMatch(TRAINING);
             resetAfterMatch();
         }
+
         for(int j = 0; j < nTestPerBlock; j++){
             runMatch(TEST);
             saveStatistics();
             resetAfterMatch();
-                        //qDebug() << "Duration of a match: " << duration;
         }
+
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
+
         auto duration = duration_cast<microseconds>( t2 - t1 ).count();
         auto expectedTime = duration * (nBlocks - i - 1);
+
         qDebug() << "Block:" << i << "out of" << nBlocks << ". Duration of a match: " << duration << ". Expected time left:" << expectedTime / 3600000000 << "hours," << expectedTime % 3600000000 / 60000000 << "minutes," << expectedTime % 60000000 / 1000000 << "seconds," << expectedTime % 1000000 << "microseconds.";
     }
 }
 
-void Gridworld::runMatch(World::Mode mode){
-    for(Gridworld_IH* ih: ihs){
-        ih->getPlayer()->setMode(mode);
+void Gridworld::runMatch(bool training = 0){
+    Gridworld_IH::Mode mode;
+
+    if(training){
+        mode = Gridworld_IH::TRAINING;
+    } else {
+        mode = Gridworld_IH::TEST;
     }
+
+    for(Gridworld_IH* ih: ihs){
+        ih->setMode(mode);
+    }
+
     for(int i = 0; i < 10000; i++){
-        //cout << "Run step" << endl;
         runStep();
     }
+
     for(Gridworld_IH* ih: ihs){
-        ih->updateAtEndOfMatch();
+        ih->update(true);
         ih->resetAfterMatch();
     }
 }
@@ -55,18 +72,16 @@ void Gridworld::saveStatistics(){
         if(i > 0){
             savefile << "\t";
         }
-        savefile << score->getScore()[ih->getTeam()] << "\t" << ih->getPlayer()->totalReward;
-        ih->getPlayer()->totalReward = 0;
+        savefile << ih->getStatistics();
+        ih->getTotalReward() = 0;
     }
     savefile << endl;
 }
 
 Gridworld::Gridworld(string savefilename){
-    //view = new GridworldView(this);
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
 
-    //qDebug() << "Creating savefile\n";
     savefile.open(savefilename);
 }
 
@@ -83,104 +98,33 @@ Gridworld::~Gridworld(){
     delete score;
 }
 
-/*Gridworld::run(){
-    for(int i = 0; i < 100; i++){
-        for(int j = 0; j < players.size(); j++){
-            array<int, 3> actions = players.at(j)->act({1, 2, 3}, {1});
-            updateState(j, actions);
-        }
-    }
+void Gridworld::addPlayer(TabularQ *player, int team)
+{
+    Gridworld_IH* ih = TabularQIH(this, player, team);
+    addIH(ih);
 }
 
-Gridworld::updateState(int currentPlayer, array<int, 3> actions){
-    Player* player = players.at(currentPlayer);
-    Agent* agent = player->getAgent();
-
-}*/
-
-/*void Gridworld::run(){
-    for(int i = 0; i < 10000000; i++){
-        getEventLog();
-        for(Gridworld_IH* ih: ihs){
-            this->ih = ih;
-            ih->update();
-        }
-        //view->draw();
-    }
-}*/
-
-array<int, 2> Gridworld::getBallCoord(){
-    return ball->getCoord();
-}
-
-Gridworld_Ball* Gridworld::getBall(){
-    return ball;
-}
-
-vector<array<int,2>> Gridworld::getTeam(int x){
-    vector <array <int, 2>> team;
-    for(Gridworld_Agent* a: agents){
-        if(a->getTeam() == x){
-            team.push_back(a->getCoord());
-        }
-    }
-    return team;
-}
-
-vector<array<int,2>> Gridworld::getBlueTeam(){
-    return getTeam(0);
-
-    /*vector <array <int, 2>>* blue = new vector<array <int, 2>>;
-    for(Gridworld_Agent* b: agents){
-        if(b->getTeam() == 0){
-            blue->push_back(b->getCoord());
-        }
-    }
-    return *blue;*/
-}
-
-vector<array<int,2>> Gridworld::getRedTeam(){
-    return getTeam(1);
-    /*vector <array <int, 2>> red;
-    for(auto r: agents){
-        if(r->getTeam() == 1){
-            red.push_back(r->getCoord());
-        }
-    }
-    return red;*/
-}
-
-int Gridworld::getGoalLength(){
-    return goallength;
-}
-
-int Gridworld::getWidth(){
-    return width;
-}
-
-int Gridworld::getHeight(){
-    return height;
+void Gridworld::addPlayer(RandomPlayer *player, int team){
+    Gridworld_IH* ih = RandomIH(this, player, team);
+    addIH(ih);
 }
 
 void Gridworld::addIH(Gridworld_IH *ih){
-    //qDebug() << "Adding IH";
     ihs.push_back(ih);
+
     int nAgents = ih->getNumberOfAgents();
-    for(int i=0; i<nAgents; i++){
+    for(int i = 0; i < nAgents; i++){
         int x = ih->getTeam() == 0? getBlueTeam().size() + 1: width - 2 - getRedTeam().size();
+
         Gridworld_Agent * agent = new Gridworld_Agent(this, ih->getTeam(), {x, 1});
+
         addAgent(agent);
         ih->addAgent(agent);
-        ih->setWorld(this);
     }
 }
 
 void Gridworld::addAgent(Gridworld_Agent *agent){
     agents.push_back(agent);
-}
-
-vector<Gridworld_Event*> Gridworld::getEventLog(){
-    return eventLog;
 }
 
 bool Gridworld::isWithinBounds(array<int, 2> coord){
@@ -223,11 +167,6 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
     addEvent(Gridworld_Event::GOAL, team);
 
     resetLocations();
-}
-
-array<int, 2> Gridworld::getScore()
-{
-    return score->getScore();
 }
 
 void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)

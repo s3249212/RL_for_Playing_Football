@@ -31,7 +31,13 @@ SOURCES += main.cpp \
     Interaction_Handler/Gridworld/ih_oneagentperplayer.cpp \
     Interaction_Handler/interactionhandler.cpp \
     Player/tabularq.cpp \
-    Util/neural_network.cpp
+    Util/neural_network.cpp \
+    Interaction_Handler/Gridworld/tabularqih.cpp \
+    Interaction_Handler/Gridworld/mlpqih.cpp \
+    Interaction_Handler/Gridworld/gridworld_ih_getset.cpp \
+    Interaction_Handler/Gridworld/gridworld_ih_input.cpp \
+    Interaction_Handler/Gridworld/gridworld_ih_reward.cpp \
+    World/Gridworld/gridworld_getset.cpp
 
 HEADERS  += \
     View/Gridworld/gridworldview.h \
@@ -54,7 +60,9 @@ HEADERS  += \
     Interaction_Handler/Gridworld/ih_oneagentperplayer.h \
     Interaction_Handler/interactionhandler.h \
     Player/tabularq.h \
-    Util/neural_network.h
+    Util/neural_network.h \
+    Interaction_Handler/Gridworld/tabularqih.h \
+    Interaction_Handler/Gridworld/mlpqih.h
 
 FORMS    += \
     mainwindow.ui

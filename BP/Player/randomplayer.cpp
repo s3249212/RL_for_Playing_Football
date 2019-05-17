@@ -1,5 +1,4 @@
 #include "randomplayer.h"
-#include <QDebug>
 #include <stdlib.h>
 
 RandomPlayer::RandomPlayer()
@@ -7,20 +6,15 @@ RandomPlayer::RandomPlayer()
 
 }
 
-void RandomPlayer::updateEndOfMatch(vector<int> input, int reward)
-{
+void RandomPlayer::learn(vector<double> input, double reward){
 
+}
+
+int RandomPlayer::act(vector<int> input, int reward){
+    return rand() % 8;
 }
 
 void RandomPlayer::resetAfterMatch()
 {
 
-}
-
-int RandomPlayer::act(vector<int> input, int reward){
-    if(reward != 0){
-        //qDebug() << "In act" << reward;
-    }
-    totalReward += reward;
-    return rand() % 8;
 }
