@@ -27,8 +27,8 @@ public:
 
     Gridworld_IH();
 
-    virtual void update(bool terminal = 0);
-    virtual void resetAfterMatch();
+    void update(bool terminal = 0);
+    void resetAfterMatch();
 
     int getNumberOfAgents();
     int getTeam();
@@ -50,7 +50,7 @@ protected:
 private:
     Mode mode;
 
-    int requiredNumberOfAgents;
+    int requiredNumberOfAgents = 1;
 
     InputType inputType;
     RewardType rewardType;
@@ -63,7 +63,7 @@ private:
     int** rewards;
 
     virtual vector<double> generateInput(); //where to get input?
-    virtual double generateReward();
+    double generateReward();
     void handleOutput(int output);
 
     int rewardGoalTouch();

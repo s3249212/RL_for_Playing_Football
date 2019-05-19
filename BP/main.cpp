@@ -37,13 +37,13 @@ int main(int argc, char *argv[])
     view->setWorld(gridworld);
     view->show();
 
-    //gridworld->runTraining();
+    gridworld->runTraining();
 
-    std::thread t1(threadFunction, gridworld);
+    //std::thread t1(threadFunction, gridworld);
 
     a->exec();
 
-    t1.join();
+    //t1.join();
 
     return 0;
 }

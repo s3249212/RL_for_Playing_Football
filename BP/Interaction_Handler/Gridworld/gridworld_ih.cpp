@@ -1,7 +1,7 @@
 #include "gridworld_ih.h"
 
 Gridworld_IH::Gridworld_IH(){
-
+    initRewardGeneration();
 }
 
 void Gridworld_IH::update(bool terminal){
