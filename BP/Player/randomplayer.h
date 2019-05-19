@@ -9,7 +9,7 @@ class RandomPlayer: public Player
 public:
     RandomPlayer();
 
-    void learn(vector<double> input, vector<double> reward);
+    void learn(vector<double> input, double reward, bool terminal = 0);
     int act(vector<double> input);
     void resetAfterMatch();    
 };

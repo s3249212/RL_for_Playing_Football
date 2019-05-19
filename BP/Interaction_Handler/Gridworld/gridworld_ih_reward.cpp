@@ -1,6 +1,6 @@
 #include "gridworld_ih.h"
 
-int Gridworld_IH::generateReward(){
+double Gridworld_IH::generateReward(){
     switch(rewardType){
         case GOAL_TOUCH:
             return rewardGoalTouch();

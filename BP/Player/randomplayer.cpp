@@ -1,16 +1,17 @@
-#include "randomplayer.h"
 #include <stdlib.h>
+#include "player.h"
+#include "randomplayer.h"
 
 RandomPlayer::RandomPlayer()
 {
 
 }
 
-void RandomPlayer::learn(vector<double> input, double reward){
+void RandomPlayer::learn(vector<double> input, double reward, bool terminal){
 
 }
 
-int RandomPlayer::act(vector<int> input, int reward){
+int RandomPlayer::act(vector<double> input){
     return rand() % 8;
 }
 

@@ -33,24 +33,19 @@ public:
     int getNumberOfAgents();
     int getTeam();
     Player* getPlayer();
+    string getStatistics();
 
     void addAgent(Gridworld_Agent* agent);
     void setMode(Mode mode);
-
-    string getStatistics();
-    void resetMatchStatistics();
 
 protected:
     Player* player;
     Gridworld* world;
     int team;
 
-    vector<Gridworld_Agent*> agents;
-
 private:
-    Mode mode;
-
     int requiredNumberOfAgents;
+    vector<Gridworld_Agent*> agents;
 
     InputType inputType;
     RewardType rewardType;
@@ -62,15 +57,13 @@ private:
     
     int** rewards;
 
-    virtual vector<double> generateInput(); //where to get input?
-    virtual double generateReward();
+    virtual vector<int> generateInput(); //where to get input?
+    virtual int generateReward();
     void handleOutput(int output);
 
     int rewardGoalTouch();
 
     void initRewardGeneration();
-
-    int totalreward = 0;
 };
 
 #endif // GRIDWORLD_IH_H

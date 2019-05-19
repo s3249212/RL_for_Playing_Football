@@ -1,9 +1,9 @@
 #include "gridworld_ih.h"
 
-vector<int> Gridworld_IH::generateInput(){
+vector<double> Gridworld_IH::generateInput(){
     switch(inputType){
     default:
-        vector<int> emptyVector;
+        vector<double> emptyVector;
         return emptyVector;
     }
 }

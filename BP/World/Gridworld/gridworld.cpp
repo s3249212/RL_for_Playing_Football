@@ -4,10 +4,12 @@
 
 #include "gridworld.h"
 #include "gridworld_agent.h"
+#include "gridworld_score.h"
 
 #include "View/Gridworld/gridworldview.h"
 
 #include "Interaction_Handler/Gridworld/tabularqih.h"
+#include "Interaction_Handler/Gridworld/randomih.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -73,7 +75,7 @@ void Gridworld::saveStatistics(){
             savefile << "\t";
         }
         savefile << ih->getStatistics();
-        ih->getTotalReward() = 0;
+        ih->resetMatchStatistics();
     }
     savefile << endl;
 }
@@ -100,12 +102,12 @@ Gridworld::~Gridworld(){
 
 void Gridworld::addPlayer(TabularQ *player, int team)
 {
-    Gridworld_IH* ih = TabularQIH(this, player, team);
+    Gridworld_IH* ih = new TabularQIH(this, player, team);
     addIH(ih);
 }
 
 void Gridworld::addPlayer(RandomPlayer *player, int team){
-    Gridworld_IH* ih = RandomIH(this, player, team);
+    Gridworld_IH* ih = new RandomIH(this, player, team);
     addIH(ih);
 }
 

@@ -14,55 +14,51 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    View/Gridworld/gridworldview.cpp \
-    World/Gridworld/gridworld.cpp \
-    View/view.cpp \
     World/world.cpp \
-    View/Gridworld/gridworldview_agent.cpp \
-    View/Gridworld/gridworldview_ball.cpp \
+    World/Gridworld/gridworld.cpp \
     World/Gridworld/gridworld_agent.cpp \
     World/Gridworld/gridworld_ball.cpp \
-    Player/player.cpp \
     World/Gridworld/gridworld_event.cpp \
-    Player/randomplayer.cpp \
-    World/Gridworld/gridworld_score.cpp \
+    World/Gridworld/gridworld_getset.cpp \
+    View/view.cpp \
+    View/Gridworld/gridworldview.cpp \
+    View/Gridworld/gridworldview_agent.cpp \
+    View/Gridworld/gridworldview_ball.cpp \
     View/Gridworld/gridworldview_score.cpp \
-    Interaction_Handler/Gridworld/gridworld_ih.cpp \
-    Interaction_Handler/Gridworld/ih_oneagentperplayer.cpp \
-    Interaction_Handler/interactionhandler.cpp \
+    Player/player.cpp \
+    Player/randomplayer.cpp \
     Player/tabularq.cpp \
-    Util/neural_network.cpp \
+    Interaction_Handler/Gridworld/gridworld_ih.cpp \
     Interaction_Handler/Gridworld/tabularqih.cpp \
     Interaction_Handler/Gridworld/mlpqih.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_getset.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_input.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_reward.cpp \
-    World/Gridworld/gridworld_getset.cpp
+    Interaction_Handler/Gridworld/randomih.cpp \
+    Util/neural_network.cpp \
+    World/Gridworld/gridworld_score.cpp
+    Util/neural_network.cpp \
 
 HEADERS  += \
-    View/Gridworld/gridworldview.h \
-    World/Gridworld/gridworld.h \
     World/world.h \
+    World/Gridworld/gridworld.h \
+    World/Gridworld/gridworld_agent.h \
+    World/Gridworld/gridworld_ball.h \
+    World/Gridworld/gridworld_event.h \
+    World/Gridworld/gridworld_score.h \
     View/view.h \
     View/Gridworld/gridworldview_agent.h \
     View/Gridworld/gridworldview_ball.h \
-    World/Gridworld/gridworld_agent.h \
-    World/Gridworld/gridworld_ball.h \
-    World/Gridworld/interactionhandler.h \
-    World/Gridworld/ih_oneagentperplayer.h \
-    Player/player.h \
-    World/Gridworld/gridworld_event.h \
-    World/Gridworld/gridworld_ih.h \
-    Player/randomplayer.h \
-    World/Gridworld/gridworld_score.h \
+    View/Gridworld/gridworldview.h \
     View/Gridworld/gridworldview_score.h \
-    Interaction_Handler/Gridworld/gridworld_ih.h \
-    Interaction_Handler/Gridworld/ih_oneagentperplayer.h \
-    Interaction_Handler/interactionhandler.h \
+    Player/player.h \
+    Player/randomplayer.h \
     Player/tabularq.h \
     Util/neural_network.h \
+    Interaction_Handler/Gridworld/gridworld_ih.h \
     Interaction_Handler/Gridworld/tabularqih.h \
-    Interaction_Handler/Gridworld/mlpqih.h
+    Interaction_Handler/Gridworld/mlpqih.h \
+    Interaction_Handler/Gridworld/randomih.h \
 
 FORMS    += \
     mainwindow.ui

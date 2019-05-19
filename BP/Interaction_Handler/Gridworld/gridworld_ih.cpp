@@ -1,8 +1,12 @@
 #include "gridworld_ih.h"
 
-void Gridworld_IH::update(bool terminal = 0){
-    vector<int> input = generateInput();
-    int reward = generateReward();
+Gridworld_IH::Gridworld_IH(){
+
+}
+
+void Gridworld_IH::update(bool terminal){
+    vector<double> input = generateInput();
+    double reward = generateReward();
 
     if(mode == TRAINING){
         player->learn(input, reward, terminal);

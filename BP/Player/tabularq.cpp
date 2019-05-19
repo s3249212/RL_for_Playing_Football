@@ -1,10 +1,11 @@
 #include "tabularq.h"
+#include "player.h"
 #include <stdlib.h>
 #include <math.h>
 
 using namespace std;
 
-TabularQ::TabularQ():
+TabularQ::TabularQ()
 {
     
 }
@@ -28,7 +29,7 @@ void TabularQ::initialize(int nStates, int nActions){
     }
 }
 
-void TabularQ::learn(vector<double> input, double reward){
+void TabularQ::learn(vector<double> input, double reward, bool terminal){
     int currentState = static_cast<int>(input.at(0));
 
     if(prevAction != -1){
@@ -48,7 +49,7 @@ void TabularQ::learn(vector<double> input, double reward){
 }
 
 int TabularQ::act(vector<double> input){
-    int state = static_cast<int>(input.at(0));
+    int currentState = static_cast<int>(input.at(0));
 
     int selectedAction = selectAction(currentState);
 
@@ -73,16 +74,6 @@ void TabularQ::resetAfterMatch()
 {
     prevAction = -1;
     prevState = -1;
-}
-
-//goes to ih.
-int TabularQ::getStateNumber(vector<int> input){
-    int idx = input.at(0);
-    for(int i = 1; i < 6; i++){
-        int mFactor = i % 2? world->getHeight(): world->getWidth();
-        idx = mFactor * idx + input.at(i);
-    }
-    return idx;
 }
 
 
@@ -176,7 +167,7 @@ void TabularQ::printQTable(){
     for(int i = 0; i < nStates; i++){
         for(int j = 0; j < nActions; j++){
             if(qTable[i][j] != 0){
-                qDebug() << "State: " << i << ", action: " << j << ", Q value:"<< qTable[i][j] << "\n";
+                //qDebug() << "State: " << i << ", action: " << j << ", Q value:"<< qTable[i][j] << "\n";
             }
         }
     }

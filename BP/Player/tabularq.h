@@ -1,13 +1,10 @@
 #ifndef TABULARQ_H
 #define TABULARQ_H
 
-#include "Player/player.h"
-#include "World/Gridworld/gridworld.h"
-#include "Interaction_Handler/Gridworld/gridworld_ih.h"
-
-
 #include <array>
 #include <vector>
+
+#include "player.h"
 
 class TabularQ : public Player
 {
@@ -53,14 +50,15 @@ private:
 
 public:
     TabularQ();
+    ~TabularQ();
 
     void initialize(int nStates, int nActions);
 
-    void learn(vector<double> input, double reward);
+    void learn(vector<double> input, double reward, bool terminal = 0);
 
     void resetAfterMatch();
 
-    int act(vector<double> input, double reward);
+    int act(vector<double> input);
     void printQTable();
 };
 

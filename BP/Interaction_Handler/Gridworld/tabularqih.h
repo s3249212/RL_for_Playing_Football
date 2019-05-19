@@ -2,6 +2,7 @@
 #define TABULARQIH_H
 
 #include <vector>
+#include "gridworld_ih.h"
 
 class TabularQIH: public Gridworld_IH
 {
@@ -11,9 +12,11 @@ public:
     void update(bool terminal = 0);
     void resetAfterMatch();
 
-    vector<int> generateInput();
+    vector<double> generateInput();
 
 private:
+    int getStateNumber(vector<double> input);
+
     TabularQ* tabularQPlayer;
 };
 
