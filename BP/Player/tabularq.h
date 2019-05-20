@@ -30,7 +30,7 @@ private:
     float gamma = 0.99f; //discount factor
     float epsilon = 0.1f; //initial epsilon value for random action selection
 
-    Hyperparameter_Change_t learning_rate_change = Constant;
+    Hyperparameter_Change_t learning_rate_change = Exponential_decay;
     Hyperparameter_Change_t epsilon_change = Constant;
 
     float k_learning_rate = 0.01f;
@@ -44,7 +44,6 @@ private:
     int highestQActionSelection(int state);
     int randomActionSelection();
 
-    float learning_rate_f();
     float exponential_decay(float init, float k, int t);
     float epsilon_f();
 
@@ -59,6 +58,9 @@ public:
     void resetAfterMatch();
 
     int act(vector<double> input);
+
+    float learning_rate_f();
+
     void printQTable();
 };
 

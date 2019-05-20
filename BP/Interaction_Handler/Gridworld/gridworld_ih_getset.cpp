@@ -12,8 +12,9 @@ Player* Gridworld_IH::getPlayer(){
 
 string Gridworld_IH::getStatistics()
 {
-        stringstream stream;
+    stringstream stream;
     stream << world->getScore()[team] << "\t";
+    stream << totalreward;
     return stream.str();
 }
 

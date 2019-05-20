@@ -37,8 +37,8 @@ public:
     void addAgent(Gridworld_Agent* agent);
     void setMode(Mode mode);
 
-    string getStatistics();
-    void resetMatchStatistics();
+    virtual string getStatistics();
+    virtual void resetMatchStatistics();
 
 protected:
     Player* player;
@@ -46,6 +46,8 @@ protected:
     int team;
 
     vector<Gridworld_Agent*> agents;
+
+    int totalreward = 0;
 
 private:
     Mode mode;
@@ -69,8 +71,6 @@ private:
     int rewardGoalTouch();
 
     void initRewardGeneration();
-
-    int totalreward = 0;
 };
 
 #endif // GRIDWORLD_IH_H

@@ -1,3 +1,4 @@
+#include <sstream>
 #include "tabularqih.h"
 #include "gridworld_ih.h"
 
@@ -24,6 +25,15 @@ vector<double> TabularQIH::generateInput(){
     input.push_back(world->getTeam(opponentTeam).at(0)[1]);
 
     return input;
+}
+
+string TabularQIH::getStatistics()
+{
+    stringstream stream;
+    stream << world->getScore()[team] << "\t";
+    stream << totalreward << "\t";
+    stream << tabularQPlayer->learning_rate_f();
+    return stream.str();
 }
 
 int TabularQIH::getStateNumber(vector<double> input){

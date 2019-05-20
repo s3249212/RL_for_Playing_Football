@@ -14,6 +14,9 @@ public:
 
     vector<double> generateInput();
 
+    string getStatistics();
+    /*void resetMatchStatistics();*/
+
 private:
     int getStateNumber(vector<double> input);
 

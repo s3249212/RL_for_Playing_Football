@@ -188,8 +188,9 @@ void Gridworld::resetAfterMatch(){
 
 void Gridworld::resetEventLog(){
     for(Gridworld_Event* e: eventLog){
-        removeFromEventLog(e);
+        delete e;
     }
+    eventLog.clear();
 }
 
 void Gridworld::resetLocations(){

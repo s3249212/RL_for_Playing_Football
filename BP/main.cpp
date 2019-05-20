@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     GridworldView* view;
 
     QApplication* a = new QApplication(argc, argv);
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile27");
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile30");
 
     TabularQ* player = new TabularQ();
     gridworld->addPlayer(player, 0);
