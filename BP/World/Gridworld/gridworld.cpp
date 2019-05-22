@@ -56,7 +56,7 @@ void Gridworld::runMatch(bool training = 0){
     }
 
     for(Gridworld_IH* ih: ihs){
-        ih->update(true);
+        //ih->update(true);
         ih->resetAfterMatch();
     }
 }

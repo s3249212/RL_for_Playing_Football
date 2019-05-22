@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include "tabularqih.h"
 #include "gridworld_ih.h"
 
@@ -32,7 +33,9 @@ string TabularQIH::getStatistics()
     stringstream stream;
     stream << world->getScore()[team] << "\t";
     stream << totalreward << "\t";
+    //std::cout << totalreward << std::endl;
     stream << tabularQPlayer->learning_rate_f();
+    resetMatchStatistics();
     return stream.str();
 }
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "tabularq.h"
 #include "player.h"
 #include <stdlib.h>
@@ -32,7 +33,11 @@ void TabularQ::initialize(int nStates, int nActions){
 void TabularQ::learn(vector<double> input, double reward, bool terminal){
     int currentState = static_cast<int>(input.at(0));
 
+    //cout << "Actually learning :)\n";
+    cout << "Reward: " << reward << endl;
+
     if(prevAction != -1){
+        //cout << "prevAction is not -1" << endl;
         float maxQAction = qTable[currentState][0];
 
         for(int i = 1; i < nActions; i++){
@@ -57,6 +62,8 @@ int TabularQ::act(vector<double> input){
 
     nSteps++;
 
+    //cout << "Selected action: " << selectedAction << endl;
+
     return selectedAction;
 }
 
@@ -65,8 +72,12 @@ float TabularQ::learning_rate_f(){
     default:
     case Constant:
         return learning_rate;
+        break;
     case Exponential_decay:
-        return exponential_decay(learning_rate, k_learning_rate, nSteps);
+        float lr = exponential_decay(learning_rate, k_learning_rate, nSteps);
+        //std::cout << "Learning rate: " << lr << "\n";
+        return lr;
+        break;
     }
 }
 
@@ -88,6 +99,7 @@ float TabularQ::epsilon_f(){
 }
 
 float TabularQ::exponential_decay(float init, float k, int t){
+    //std::cout << init << " k:" << k << " t:" << t << "\n";
     return init * exp(-k * t);
 }
 
@@ -100,10 +112,13 @@ int TabularQ::selectAction(int state)
     switch(actionSelection){
     case Softmax:
         selectedAction = softmaxActionSelection(state);
+        break;
     case HighestQ:
         selectedAction = highestQActionSelection(state);
+        break;
     case Random:
     default:
+        cout << "Selecting random action" << endl;
         selectedAction = randomActionSelection();
     }
 

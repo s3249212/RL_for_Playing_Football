@@ -15,6 +15,7 @@ string Gridworld_IH::getStatistics()
     stringstream stream;
     stream << world->getScore()[team] << "\t";
     stream << totalreward;
+    resetMatchStatistics();
     return stream.str();
 }
 

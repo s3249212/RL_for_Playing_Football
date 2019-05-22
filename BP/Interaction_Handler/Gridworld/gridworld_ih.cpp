@@ -8,10 +8,14 @@ void Gridworld_IH::update(bool terminal){
     vector<double> input = generateInput();
     double reward = generateReward();
 
-    if(mode == TRAINING){
+    totalreward += reward;
+
+    //if(mode == TRAINING){
         player->learn(input, reward, terminal);
-    }
+    //}
     int output = player->act(input);
+
+    //cout << "Team: " << team << "Chosen action: " << output << endl;
 
     handleOutput(output);
 }

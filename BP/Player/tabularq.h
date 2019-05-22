@@ -10,11 +10,11 @@ class TabularQ : public Player
 {
 private:
     enum ActionSelection_t {
-        Random, HighestQ, Softmax
+        Random = 0, HighestQ, Softmax
     };
 
     enum Hyperparameter_Change_t {
-        Constant, Exponential_decay
+        Constant = 0, Exponential_decay
     };
 
     ActionSelection_t actionSelection = Softmax;
@@ -30,10 +30,10 @@ private:
     float gamma = 0.99f; //discount factor
     float epsilon = 0.1f; //initial epsilon value for random action selection
 
-    Hyperparameter_Change_t learning_rate_change = Exponential_decay;
+    Hyperparameter_Change_t learning_rate_change = Constant;
     Hyperparameter_Change_t epsilon_change = Constant;
 
-    float k_learning_rate = 0.01f;
+    float k_learning_rate = 0.0000000001f;
     float k_epsilon = 0.01f;
 
     int nSteps = 0;
