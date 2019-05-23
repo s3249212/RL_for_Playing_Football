@@ -55,7 +55,7 @@ private:
     int requiredNumberOfAgents = 1;
 
     InputType inputType;
-    RewardType rewardType;
+    RewardType rewardType = GOAL_TOUCH;
     OutputType outputType;
 
     enum Event_actor{

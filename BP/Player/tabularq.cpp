@@ -34,7 +34,7 @@ void TabularQ::learn(vector<double> input, double reward, bool terminal){
     int currentState = static_cast<int>(input.at(0));
 
     //cout << "Actually learning :)\n";
-    cout << "Reward: " << reward << endl;
+    //cout << "Reward: " << reward << endl;
 
     if(prevAction != -1){
         //cout << "prevAction is not -1" << endl;
@@ -69,7 +69,6 @@ int TabularQ::act(vector<double> input){
 
 float TabularQ::learning_rate_f(){
     switch(learning_rate_change){
-    default:
     case Constant:
         return learning_rate;
         break;
@@ -90,7 +89,6 @@ void TabularQ::resetAfterMatch()
 
 float TabularQ::epsilon_f(){
     switch(epsilon_change){
-    default:
     case Constant:
         return epsilon;
     case Exponential_decay:

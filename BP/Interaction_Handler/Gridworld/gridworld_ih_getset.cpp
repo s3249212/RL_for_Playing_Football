@@ -1,6 +1,7 @@
 #include "gridworld_ih.h"
 
 #include <sstream>
+#include <iostream>
 
 int Gridworld_IH::getTeam(){
     return team;

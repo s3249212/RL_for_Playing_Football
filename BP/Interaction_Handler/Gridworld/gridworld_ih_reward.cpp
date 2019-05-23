@@ -1,4 +1,5 @@
 #include "gridworld_ih.h"
+#include <iostream>
 
 double Gridworld_IH::generateReward(){
     switch(rewardType){
@@ -12,26 +13,32 @@ int Gridworld_IH::rewardGoalTouch(){
     int reward = 0;
 
     vector<Gridworld_Event*> events = world->getEventLog();
+    int nevents = events.size();
 
     for(Gridworld_Event* event: events){
         Event_actor team;
+
         if(event->team == this->team){
             if(event->player == player){
                 team = SAME_PLAYER;
-                world->removeFromEventLog(event);
             } else {
                 team = SAME_TEAM;
             }
         } else {
             if(event->player == player){
                 team = PLAYER_TO_OPPONENT;
-                world->removeFromEventLog(event);
             } else {
                 team = OPPOSITE_TEAM;
             }
         }
+
         reward += rewards[team][event->event_type];
+
+        if(event->player == player){
+            world->removeFromEventLog(event);
+        }
     }
+
     return reward;
 }
 

@@ -11,6 +11,7 @@ tabularQPlayer(player)
     this->team = team;
 
     int nstates = world->getWidth() * world->getHeight();
+    nstates = nstates * nstates * nstates;
     int nactions = 8;
     tabularQPlayer->initialize(nstates, nactions);
 }
@@ -25,6 +26,10 @@ vector<double> TabularQIH::generateInput(){
     input.push_back(world->getTeam(opponentTeam).at(0)[0]);
     input.push_back(world->getTeam(opponentTeam).at(0)[1]);
 
+    int state = getStateNumber(input);
+    input.clear();
+    input.push_back(state);
+
     return input;
 }
 
@@ -33,7 +38,6 @@ string TabularQIH::getStatistics()
     stringstream stream;
     stream << world->getScore()[team] << "\t";
     stream << totalreward << "\t";
-    //std::cout << totalreward << std::endl;
     stream << tabularQPlayer->learning_rate_f();
     resetMatchStatistics();
     return stream.str();

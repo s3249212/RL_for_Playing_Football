@@ -22,10 +22,10 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    GridworldView* view;
+    //GridworldView* view;
 
-    QApplication* a = new QApplication(argc, argv);
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile31");
+    //QApplication* a = new QApplication(argc, argv);
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile35");
 
     TabularQ* player = new TabularQ();
     gridworld->addPlayer(player, 0);
@@ -33,17 +33,18 @@ int main(int argc, char *argv[])
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
 
-    view = new GridworldView();
-    view->setWorld(gridworld);
-    view->show();
+    //view = new GridworldView();
+    //view->setWorld(gridworld);
+    //view->show();
 
     gridworld->runTraining();
 
     //std::thread t1(threadFunction, gridworld);
 
-    a->exec();
+    //a->exec();
 
     //t1.join();
+    delete gridworld;
 
     return 0;
 }

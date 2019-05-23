@@ -75,7 +75,6 @@ void Gridworld::saveStatistics(){
             savefile << "\t";
         }
         savefile << ih->getStatistics();
-        ih->resetMatchStatistics();
     }
     savefile << endl;
 }

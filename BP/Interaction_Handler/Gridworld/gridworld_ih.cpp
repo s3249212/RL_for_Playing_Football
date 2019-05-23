@@ -15,8 +15,6 @@ void Gridworld_IH::update(bool terminal){
     //}
     int output = player->act(input);
 
-    //cout << "Team: " << team << "Chosen action: " << output << endl;
-
     handleOutput(output);
 }
 
