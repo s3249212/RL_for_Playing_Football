@@ -7,7 +7,15 @@
 class MLPQIH: public Gridworld_IH
 {
 public:
-    MLPQIH();
+    MLPQIH(Gridworld* gridworld, MLPQ* player, int team);
+
+    void update(bool terminal = 0);
+    void resetAfterMatch();
+
+    vector<double> generateInput();
+
+private:
+    MLPQ* MLPQPlayer;
 };
 
 #endif // MLPQIH_H

@@ -27,7 +27,7 @@ private:
     int nStates;
 
     float learning_rate = 0.01f;
-    float gamma = 0.99f; //discount factor
+    float discount_factor = 0.99f; //discount factor
     float epsilon = 0.1f; //initial epsilon value for random action selection
 
     Hyperparameter_Change_t learning_rate_change = Constant;
@@ -53,7 +53,7 @@ public:
 
     void initialize(int nStates, int nActions);
 
-    void learn(vector<double> input, double reward, bool terminal = 0);
+    void train(vector<double> input, double reward, bool terminal = 0);
 
     void resetAfterMatch();
 

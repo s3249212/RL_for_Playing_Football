@@ -77,7 +77,7 @@ void GridworldView::setWorld(Gridworld* world){
     gridworld = world;
 
     initialize();
-    timer->start(1000.0 / 60.0);
+    timer->start(1000.0 / 20.0);
 }
 
 /*void GridworldView::update(){
@@ -204,6 +204,7 @@ Gridworld *GridworldView::getWorld()
 }
 
 void GridworldView::draw(){
+    //gridworld->runStep();
     //qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
     //qDebug() << "Blue team" << gw_agents.size();

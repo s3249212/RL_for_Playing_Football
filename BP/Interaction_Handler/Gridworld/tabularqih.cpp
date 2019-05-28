@@ -12,7 +12,7 @@ tabularQPlayer(player)
 
     int nstates = world->getWidth() * world->getHeight();
     nstates = nstates * nstates * nstates;
-    int nactions = 8;
+    int nactions = 18;
     tabularQPlayer->initialize(nstates, nactions);
 }
 

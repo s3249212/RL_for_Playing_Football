@@ -14,6 +14,10 @@ private:
     int y = 2;
     Gridworld* world;
 
+    int automaticDeltaX = 0;
+    int automaticDeltaY = 0;
+    int automaticLevel = 0;
+
 public:
     Gridworld_Ball(Gridworld* world);
     Gridworld_Ball(Gridworld* world, array<int, 2> coord);
@@ -26,6 +30,10 @@ public:
     void move(int deltaX, int deltaY);
 
     void setCoord(array<int, 2> coord);
+
+    void setMovement(int deltaX, int deltaY, int level);
+    void automaticMove();
+
 };
 
 #endif // GRIDWORLD_BALL_H

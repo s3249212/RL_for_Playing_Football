@@ -12,7 +12,13 @@ TabularQ::TabularQ()
 }
 
 TabularQ::~TabularQ(){
+    this->nStates = nStates;
+    this->nActions = nActions;
 
+    for(int i = 0; i < nStates; i++){
+        delete[] qTable[i]; //action size
+    }
+    delete[] qTable;
 }
 
 void TabularQ::initialize(int nStates, int nActions){
@@ -30,14 +36,10 @@ void TabularQ::initialize(int nStates, int nActions){
     }
 }
 
-void TabularQ::learn(vector<double> input, double reward, bool terminal){
+void TabularQ::train(vector<double> input, double reward, bool terminal){
     int currentState = static_cast<int>(input.at(0));
 
-    //cout << "Actually learning :)\n";
-    //cout << "Reward: " << reward << endl;
-
     if(prevAction != -1){
-        //cout << "prevAction is not -1" << endl;
         float maxQAction = qTable[currentState][0];
 
         for(int i = 1; i < nActions; i++){
@@ -47,7 +49,7 @@ void TabularQ::learn(vector<double> input, double reward, bool terminal){
         }
 
         qTable[prevState][prevAction] *= 1 - learning_rate_f();
-        qTable[prevState][prevAction] += learning_rate_f() * (reward + gamma * maxQAction);
+        qTable[prevState][prevAction] += learning_rate_f() * (reward + discount_factor * maxQAction);
     }
 
     prevState = currentState;
@@ -62,8 +64,6 @@ int TabularQ::act(vector<double> input){
 
     nSteps++;
 
-    //cout << "Selected action: " << selectedAction << endl;
-
     return selectedAction;
 }
 
@@ -74,7 +74,6 @@ float TabularQ::learning_rate_f(){
         break;
     case Exponential_decay:
         float lr = exponential_decay(learning_rate, k_learning_rate, nSteps);
-        //std::cout << "Learning rate: " << lr << "\n";
         return lr;
         break;
     }

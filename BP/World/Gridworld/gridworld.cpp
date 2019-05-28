@@ -10,6 +10,7 @@
 
 #include "Interaction_Handler/Gridworld/tabularqih.h"
 #include "Interaction_Handler/Gridworld/randomih.h"
+#include "Interaction_Handler/Gridworld/mlpqih.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -65,6 +66,7 @@ void Gridworld::runStep(){
     for(Gridworld_IH* ih: ihs){
         this->ih = ih;
         ih->update();
+        ball->automaticMove();
     }
 }
 
@@ -105,6 +107,17 @@ void Gridworld::addPlayer(TabularQ *player, int team)
     addIH(ih);
 }
 
+void Gridworld::addPlayer(MLPQ *player, int team)
+{
+    Gridworld_IH* ih = new MLPQIH(this, player, team);
+    addIH(ih);
+}
+
+vector<Gridworld_IH *> Gridworld::getihs()
+{
+    return ihs;
+}
+
 void Gridworld::addPlayer(RandomPlayer *player, int team){
     Gridworld_IH* ih = new RandomIH(this, player, team);
     addIH(ih);
@@ -128,21 +141,46 @@ void Gridworld::addAgent(Gridworld_Agent *agent){
     agents.push_back(agent);
 }
 
-bool Gridworld::isWithinBounds(array<int, 2> coord){
-    bool b = true;
+int Gridworld::hitsWall(array<int, 2> coord){
+    int n = 0; //number of wall
 
-    b = b && coord[0] > 0;
-    b = b && coord[0] < width - 1;
-    b = b && coord[1] > 0;
-    b = b && coord[1] < height -1;
+    int x = coord[0];
+    int y = coord[1];
 
-    b = b && coord != ball->getCoord();
-
-    for(Gridworld_Agent* a: agents){
-        b = b && coord != a->getCoord();
+    if(y == 0){
+        n += 1;
+    }
+    if(y == height - 1){
+        n += 2;
+    }
+    if(x == 0){
+        n += 6;
+    }
+    if(x == width - 1){
+        n += 3;
     }
 
-    return b;
+    return n;
+}
+
+bool Gridworld::hitsPlayer(array<int,2> coord){
+    bool p = false;
+
+    for(Gridworld_Agent* a: agents){
+        if(coord == a->getCoord()){
+            p = true;
+        }
+    }
+
+    return p;
+}
+
+bool Gridworld::hitsBall(array<int, 2> coord){
+    return coord == ball->getCoord();
+}
+
+bool Gridworld::isFree(array<int, 2> coord){
+    return !hitsWall(coord) && !hitsPlayer(coord) && !hitsBall(coord);
 }
 
 bool Gridworld::isInGoal(array<int, 2> coord)

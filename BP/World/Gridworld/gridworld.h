@@ -15,6 +15,7 @@
 
 #include "Player/tabularq.h"
 #include "Player/randomplayer.h"
+#include "Player/mlpq.h"
 
 using namespace std;
 
@@ -47,7 +48,6 @@ private:
     Gridworld_IH* ih;
 
     void runMatch(bool training);
-    void runStep();
 
     void saveStatistics();
 
@@ -59,7 +59,8 @@ public:
 
     void addPlayer(TabularQ* player, int team);
     void addPlayer(RandomPlayer* player, int team);
-
+    void addPlayer(MLPQ* player, int team);
+    vector<Gridworld_IH*> getihs();
     int getHeight();
     int getWidth();
 
@@ -77,8 +78,10 @@ public:
 
     vector<Gridworld_Event*> getEventLog();
 
-    bool isWithinBounds(array<int, 2> coord);
-
+    int hitsWall(array<int, 2> coord);
+    bool hitsPlayer(array<int, 2> coord);
+    bool hitsBall(array<int, 2> coord);
+    bool isFree(array<int, 2> coord);
     bool isInGoal(array<int, 2> coord);
     void updateAfterGoal(array<int, 2> coord);
 
@@ -87,15 +90,12 @@ public:
     void addEvent(Gridworld_Event::Event_type event_type, int team);
 
     void runTraining();
+    void runStep();
 
     void resetLocations();
     void resetAfterMatch();
 
     void removeFromEventLog(Gridworld_Event *event);
-
-
-public slots:
-    void run();
 
 };
 

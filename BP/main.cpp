@@ -12,6 +12,7 @@
 #include "Player/player.h"
 #include "Player/randomplayer.h"
 #include "Player/tabularq.h"
+#include "Player/mlpq.h"
 #include "Interaction_Handler/Gridworld/gridworld_ih.h"
 
 void threadFunction(Gridworld* gridworld){
@@ -22,20 +23,20 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    //GridworldView* view;
+    GridworldView* view;
 
-    //QApplication* a = new QApplication(argc, argv);
+    QApplication* a = new QApplication(argc, argv);
     Gridworld* gridworld = new Gridworld("/home/julian/savefile35");
 
-    TabularQ* player = new TabularQ();
+    MLPQ* player = new MLPQ();
     gridworld->addPlayer(player, 0);
 
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
 
-    //view = new GridworldView();
-    //view->setWorld(gridworld);
-    //view->show();
+    view = new GridworldView();
+    view->setWorld(gridworld);
+    view->show();
 
     gridworld->runTraining();
 
@@ -44,6 +45,8 @@ int main(int argc, char *argv[])
     //a->exec();
 
     //t1.join();
+    delete player;
+    delete player2;
     delete gridworld;
 
     return 0;

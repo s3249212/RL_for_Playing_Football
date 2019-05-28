@@ -4,7 +4,7 @@ Player::Player(){
 
 }
 
-void Player::learn(vector<double> input, double reward, bool terminal)
+void Player::train(vector<double> input, double reward, bool terminal)
 {
 
 }

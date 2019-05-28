@@ -40,6 +40,9 @@ public:
     virtual string getStatistics();
     virtual void resetMatchStatistics();
 
+    ~Gridworld_IH();
+
+    vector<Gridworld_Agent *> getAgents();
 protected:
     Player* player;
     Gridworld* world;

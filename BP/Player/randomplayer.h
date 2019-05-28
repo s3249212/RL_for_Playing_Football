@@ -9,9 +9,12 @@ class RandomPlayer: public Player
 public:
     RandomPlayer();
 
-    void learn(vector<double> input, double reward, bool terminal = 0);
+    void train(vector<double> input, double reward, bool terminal = 0);
     int act(vector<double> input);
-    void resetAfterMatch();    
+    void resetAfterMatch();
+
+private:
+    int nActions = 18;
 };
 
 #endif // RANDOMPLAYER_H
