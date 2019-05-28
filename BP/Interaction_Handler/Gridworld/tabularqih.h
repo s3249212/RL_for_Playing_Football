@@ -9,6 +9,8 @@ class TabularQIH: public Gridworld_IH
 public:
     TabularQIH(Gridworld* world, TabularQ* player, int team);
 
+    void initialize();
+
     void update(bool terminal = 0);
     void resetAfterMatch();
 

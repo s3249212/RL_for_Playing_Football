@@ -1,12 +1,10 @@
 #include <chrono>
 #include <vector>
-#include <QDebug>
+#include <iostream>
 
 #include "gridworld.h"
 #include "gridworld_agent.h"
 #include "gridworld_score.h"
-
-#include "View/Gridworld/gridworldview.h"
 
 #include "Interaction_Handler/Gridworld/tabularqih.h"
 #include "Interaction_Handler/Gridworld/randomih.h"
@@ -25,6 +23,7 @@ void Gridworld::runTraining(){
         }
 
         for(int j = 0; j < nTestPerBlock; j++){
+            cout << "Running match: " << j << endl;
             runMatch(TEST);
             saveStatistics();
             resetAfterMatch();
@@ -35,7 +34,7 @@ void Gridworld::runTraining(){
         auto duration = duration_cast<microseconds>( t2 - t1 ).count();
         auto expectedTime = duration * (nBlocks - i - 1);
 
-        qDebug() << "Block:" << i << "out of" << nBlocks << ". Duration of a match: " << duration << ". Expected time left:" << expectedTime / 3600000000 << "hours," << expectedTime % 3600000000 / 60000000 << "minutes," << expectedTime % 60000000 / 1000000 << "seconds," << expectedTime % 1000000 << "microseconds.";
+        cout << "Block: " << i << " out of " << nBlocks << ". Duration of a match: " << duration << ". Expected time left: " << expectedTime / 3600000000 << " hours, " << expectedTime % 3600000000 / 60000000 << " minutes, " << expectedTime % 60000000 / 1000000 << " seconds, " << expectedTime % 1000000 << " microseconds." << endl;
     }
 }
 
@@ -99,6 +98,13 @@ Gridworld::~Gridworld(){
         delete ih;
     }
     delete score;
+}
+
+void Gridworld::initialize()
+{
+    for(Gridworld_IH* ih: ihs){
+        ih->initialize();
+    }
 }
 
 void Gridworld::addPlayer(TabularQ *player, int team)

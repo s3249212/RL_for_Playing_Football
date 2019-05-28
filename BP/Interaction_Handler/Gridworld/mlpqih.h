@@ -9,6 +9,8 @@ class MLPQIH: public Gridworld_IH
 public:
     MLPQIH(Gridworld* gridworld, MLPQ* player, int team);
 
+    void initialize();
+
     void update(bool terminal = 0);
     void resetAfterMatch();
 

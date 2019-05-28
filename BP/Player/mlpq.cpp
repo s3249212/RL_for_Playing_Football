@@ -12,6 +12,7 @@ MLPQ::MLPQ()
 
 MLPQ::~MLPQ()
 {
+    nn->print();
     delete nn;
 }
 
@@ -29,6 +30,10 @@ void MLPQ::initialize(int nInput, int nActions){
 
 void MLPQ::train(vector<double> input, double reward, bool terminal)
 {
+    if(prevInput.size() == 0){
+        return;
+    }
+
     vector<double> output;
     int qValue, maxQValue;
 
@@ -51,15 +56,24 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
     double target = reward + discount_factor * maxQValue;
 
     nn->backwardPass({target});
+
+    //nn->print();
 }
 
 int MLPQ::act(vector<double> input){
     int selectedAction = selectAction(input);
 
     prevAction = selectedAction;
+    prevInput = input;
 
     nSteps++;
     return selectedAction;
+}
+
+void MLPQ::resetAfterMatch()
+{
+    prevAction = -1;
+    prevInput.clear();
 }
 
 int MLPQ::selectAction(vector<double> input)

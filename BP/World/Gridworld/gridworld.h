@@ -57,6 +57,8 @@ public:
     Gridworld(string savefilename);
     ~Gridworld();
 
+    void initialize();
+
     void addPlayer(TabularQ* player, int team);
     void addPlayer(RandomPlayer* player, int team);
     void addPlayer(MLPQ* player, int team);

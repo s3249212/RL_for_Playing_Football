@@ -12,6 +12,8 @@ class RandomIH : public Gridworld_IH
 public:
     RandomIH(Gridworld* gridworld, RandomPlayer* player, int team);
 
+    void initialize();
+
     /*string getStatistics();
     void resetMatchStatistics();*/
 

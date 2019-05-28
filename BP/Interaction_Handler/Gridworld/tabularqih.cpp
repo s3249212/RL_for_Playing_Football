@@ -9,7 +9,10 @@ tabularQPlayer(player)
     this->player = player;
     this->world = gridworld;
     this->team = team;
+}
 
+void TabularQIH::initialize()
+{
     int nstates = world->getWidth() * world->getHeight();
     nstates = nstates * nstates * nstates;
     int nactions = 18;

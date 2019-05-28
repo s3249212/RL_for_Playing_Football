@@ -18,7 +18,7 @@ class Neural_network{
     Node_t** nodes;
     double*** weights;
 
-    double learning_rate = 0.01f;
+    double learning_rate = 0.001f;
 
     double bias = 1.0f;
 

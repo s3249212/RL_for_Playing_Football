@@ -7,3 +7,8 @@ RandomIH::RandomIH(Gridworld* gridworld, RandomPlayer* player, int team)
     this->team = team;
 }
 
+void RandomIH::initialize()
+{
+
+}
+

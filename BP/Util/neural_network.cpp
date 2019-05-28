@@ -24,7 +24,7 @@ layerSizes(layerSizes)
             for(int j = 0; j < layerSizes.at(i) + 1; j++){
                 weights[i][j] = new double[layerSizes.at(i + 1)];
                 for(int k = 0; k < layerSizes.at(i + 1); k++){
-                    weights[i][j][k] = minInit + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (maxInit - minInit)));
+                    weights[i][j][k] = 0;//minInit + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (maxInit - minInit)));
                 }
             }
         }
@@ -93,9 +93,9 @@ void Neural_network::backwardPass(vector<double> targets){
 
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
         nodes[layerSizes.size() - 1][i].errdiff = nodes[layerSizes.size() - 1][i].out - targets.at(i);
-        cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
+        //cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
     }
-    cout << endl;
+    //cout << endl;
 
     for(int i = layerSizes.size() -1; i > 0; i--){
         for(int j = 0; j < layerSizes.at(i); j++){
@@ -104,9 +104,9 @@ void Neural_network::backwardPass(vector<double> targets){
                     nodes[i - 1][k].errdiff += nodes[i][j].errdiff * dActivationFunction(nodes[i][j].in) * weights[i - 1][k][j];
                 }
                 float diff_w = nodes[i][j].errdiff * dActivationFunction(nodes[i][j].in) * nodes[i - 1][k].out;
-                cout << "Diff_w" << diff_w << endl;
+                //cout << "Diff_w" << diff_w << endl;
                 weights[i - 1][k][j] -= learning_rate * diff_w;
-                cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
+                //cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
             }
         }
     }
@@ -120,6 +120,17 @@ void Neural_network::print(){
                 cout << weights[i][j][k] << " ";
             }
             cout << "\n";
+        }
+        cout << "\n";
+    }
+
+    for(int i = 0; i < layerSizes.size(); i++){
+        cout << "Layer " << i << endl;
+        cout << "Output of the neurons" << endl;
+        cout << "______________" << endl;
+
+        for(int j = 0; j < layerSizes.at(i) + 1; j++){
+            cout << nodes[i][j].out << "\t";
         }
         cout << "\n";
     }

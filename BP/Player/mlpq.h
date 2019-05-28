@@ -15,10 +15,12 @@ public:
     void train(vector<double> input, double reward, bool terminal = 0);
     int act(vector<double> input);
 
+    void resetAfterMatch();
+
 private:
     Neural_network* nn;
 
-    double discount_factor;
+    double discount_factor = 0.9;
 
     int nHiddenLayers = 1;
     int nHiddenNeuronsPerLayer = 20;
@@ -38,7 +40,7 @@ private:
     Hyperparameter_Change_t learning_rate_change = Constant;
     Hyperparameter_Change_t epsilon_change = Constant;
 
-    Actionoptions actionSelection;
+    Actionoptions actionSelection = Softmax;
 
     float exponential_decay(float init, float k, int t);
     float epsilon_f();
