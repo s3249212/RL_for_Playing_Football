@@ -1,8 +1,8 @@
 #include "world.h"
 
-View* World::getView(){
+/*View* World::getView(){
     return view;
-}
+}*/
 
 /*void World::runTraining(){
     for(int i = 0; i < nBlocks; i++){

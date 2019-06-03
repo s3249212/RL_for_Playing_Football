@@ -3,10 +3,8 @@
 
 #include <array>
 #include <vector>
-#include <QTimer>
 
 #include "../world.h"
-#include "../../View/view.h"
 #include "gridworld_agent.h"
 #include "gridworld_ball.h"
 #include "Interaction_Handler/Gridworld/gridworld_ih.h"

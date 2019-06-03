@@ -1,8 +1,6 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "../View/view.h"
-
 #include <iostream>
 #include <fstream>
 
@@ -12,17 +10,12 @@ public:
     enum Mode{
         TEST = 0, TRAINING
     };
-
-    View* getView();
-
     virtual void runTraining(){};
     //void setPaused(int boolean);
 
     /*save load delete restart start (= run)*/
 
 protected:
-    View* view;
-
     std::ofstream savefile;
 
     int nBlocks = 50;
