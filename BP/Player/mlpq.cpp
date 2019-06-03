@@ -20,11 +20,11 @@ void MLPQ::initialize(int nInput, int nActions){
     this->nActions = nActions;
 
     vector<int> layerSizes;
-    layerSizes.push_back(nInput + 1);
+    layerSizes.push_back(nInput);
     for(int i = 0; i < nHiddenLayers; i++){
         layerSizes.push_back(nHiddenNeuronsPerLayer);
     }
-    layerSizes.push_back(1);
+    layerSizes.push_back(nActions);
     nn = new Neural_network(layerSizes);
 }
 
@@ -34,28 +34,27 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
         return;
     }
 
-    vector<double> output;
-    int qValue, maxQValue;
+    vector<double> output = nn->forwardPass(input);
 
-    input.push_back(0);
+    double maxQValue;
+
     output = nn->forwardPass(input);
-    maxQValue = output[0];
 
-    for(int i = 1; i < nActions; i++){
-        input.at(input.size() - 1) = i;
-        output = nn->forwardPass(input);
-        qValue = output[0];
-        if(qValue > maxQValue){
-            maxQValue = qValue;
+    maxQValue = output[0];
+    for(int i = 0; i < nActions; i++){
+        if(output[i] > maxQValue){
+            maxQValue = output[i];
         }
     }
 
-    prevInput.push_back(prevAction);
-    nn->forwardPass(prevInput).at(0);
+    nn->forwardPass(prevInput);
 
     double target = reward + discount_factor * maxQValue;
 
-    nn->backwardPass({target});
+    vector<double> targetvector(nActions, 0);
+    targetvector[prevAction] = target;
+
+    nn->backwardPass(targetvector);
 
     //nn->print();
 }
@@ -67,6 +66,7 @@ int MLPQ::act(vector<double> input){
     prevInput = input;
 
     nSteps++;
+
     return selectedAction;
 }
 
@@ -78,15 +78,7 @@ void MLPQ::resetAfterMatch()
 
 int MLPQ::selectAction(vector<double> input)
 {
-    vector<double> output, qValues;
-
-    input.push_back(0);
-
-    for(int i = 0; i < nActions; i++){
-        input.at(input.size() - 1) = i;
-        output = nn->forwardPass(input);
-        qValues.push_back(output[0]);
-    }
+    vector<double> qValues = nn->forwardPass(input);
 
     int selectedAction;
     switch(actionSelection){
