@@ -16,7 +16,10 @@ void MLPQIH::initialize()
     int nInput = 2 * (world->getBlueTeam().size() + world->getRedTeam().size() + 1);
     int nActions = 18;
     MLPQPlayer->initialize(nInput, nActions);
+
+
 }
+
 
 vector<double> MLPQIH::generateInput()
 {

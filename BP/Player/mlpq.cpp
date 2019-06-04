@@ -26,6 +26,7 @@ void MLPQ::initialize(int nInput, int nActions){
     }
     layerSizes.push_back(nActions);
     nn = new Neural_network(layerSizes);
+
 }
 
 void MLPQ::train(vector<double> input, double reward, bool terminal)

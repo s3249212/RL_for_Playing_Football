@@ -18,12 +18,12 @@ class Neural_network{
     Node_t** nodes;
     double*** weights;
 
-    double learning_rate = 0.001f;
+    double learning_rate = 0.001;
 
     double bias = 1.0f;
 
-    double minInit = -1.0f;
-    double maxInit = 1.0f;
+    double minInit = -1.0;
+    double maxInit = 1.0;
 
     double activationFunction(double input);
     double dActivationFunction(double input);
