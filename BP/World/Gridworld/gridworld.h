@@ -28,8 +28,8 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 8;
-    int width = 10;
+    int height = 9;
+    int width = 15;
     int goallength = 3;
 
 

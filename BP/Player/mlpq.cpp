@@ -38,10 +38,8 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     double maxQValue;
 
-    output = nn->forwardPass(input);
-
     maxQValue = output[0];
-    for(int i = 0; i < nActions; i++){
+    for(int i = 1; i < nActions; i++){
         if(output[i] > maxQValue){
             maxQValue = output[i];
         }
@@ -93,7 +91,7 @@ int MLPQ::selectAction(vector<double> input)
         selectedAction = randomActionSelection();
     }
 
-    if(selectedAction == -1 || rand() % 100 / 100.0f <= epsilon_f()){
+    if(selectedAction == -1 || rand() / static_cast <float> (RAND_MAX)<= epsilon_f()){
         selectedAction = randomActionSelection();
     }
 
@@ -105,7 +103,7 @@ int MLPQ::softmaxActionSelection(vector<double> qValues)
     int selectedAction = -1;
 
     float sum = 0;
-    float minQAction = qValues[0];
+    float minQAction = exp(qValues[0]);
 
     for(int i = 1; i < nActions; i++){
         qValues[i] = exp(qValues[i]);
@@ -118,7 +116,7 @@ int MLPQ::softmaxActionSelection(vector<double> qValues)
     sum += -minQAction * nActions;
 
     float currentSum = 0.0f;
-    float random = rand() % 1000000 / 1000000.0f;
+    float random = rand() / static_cast <float> (RAND_MAX);
     for(int i = 0; i < nActions; i++){
         currentSum += qValues[i] + -minQAction;
         if(random < currentSum / (sum + 0.000001f)){
