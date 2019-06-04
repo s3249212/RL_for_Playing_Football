@@ -49,9 +49,30 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     double target = reward + discount_factor * maxQValue;
 
+    cout << "BackwardPass results:" << endl;
+    cout << "Previous output" << endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl;
+
     output[prevAction] = target;
 
+    cout << "Target:"<< endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl;
+
     nn->backwardPass(output);
+
+    output = nn->forwardPass(prevInput);
+
+    cout << "New output:" << endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl << endl;
 
     //nn->print();
 }
@@ -91,7 +112,7 @@ int MLPQ::selectAction(vector<double> input)
         selectedAction = randomActionSelection();
     }
 
-    if(selectedAction == -1 || rand() / static_cast <float> (RAND_MAX)<= epsilon_f()){
+    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX)<= epsilon_f()){
         selectedAction = randomActionSelection();
     }
 
@@ -102,8 +123,8 @@ int MLPQ::softmaxActionSelection(vector<double> qValues)
 {
     int selectedAction = -1;
 
-    float sum = 0;
-    float minQAction = exp(qValues[0]);
+    double sum = 0;
+    double minQAction = exp(qValues[0]);
 
     for(int i = 1; i < nActions; i++){
         qValues[i] = exp(qValues[i]);
@@ -115,11 +136,11 @@ int MLPQ::softmaxActionSelection(vector<double> qValues)
 
     sum += -minQAction * nActions;
 
-    float currentSum = 0.0f;
-    float random = rand() / static_cast <float> (RAND_MAX);
+    double currentSum = 0.0;
+    double random = rand() / static_cast <double> (RAND_MAX);
     for(int i = 0; i < nActions; i++){
         currentSum += qValues[i] + -minQAction;
-        if(random < currentSum / (sum + 0.000001f)){
+        if(random < currentSum / (sum + 0.000001)){
             selectedAction = i;
             break;
         }
@@ -149,7 +170,7 @@ int MLPQ::randomActionSelection()
     return rand() % nActions;
 }
 
-float MLPQ::epsilon_f(){
+double MLPQ::epsilon_f(){
     switch(epsilon_change){
     case Constant:
         return epsilon;
@@ -158,6 +179,6 @@ float MLPQ::epsilon_f(){
     }
 }
 
-float MLPQ::exponential_decay(float init, float k, int t){
+double MLPQ::exponential_decay(double init, double k, int t){
     return init * exp(-k * t);
 }

@@ -103,7 +103,7 @@ void Neural_network::backwardPass(vector<double> targets){
                 if(k < layerSizes.at(i -1)){
                     nodes[i - 1][k].errdiff += nodes[i][j].errdiff * dActivationFunction(nodes[i][j].in) * weights[i - 1][k][j];
                 }
-                float diff_w = nodes[i][j].errdiff * nodes[i - 1][k].out;
+                double diff_w = nodes[i][j].errdiff * nodes[i - 1][k].out;
                 //cout << "Diff_w" << diff_w << endl;
                 weights[i - 1][k][j] -= learning_rate * diff_w;
                 //cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;

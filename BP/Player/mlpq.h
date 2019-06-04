@@ -42,11 +42,11 @@ private:
 
     Actionoptions actionSelection = Softmax;
 
-    float exponential_decay(float init, float k, int t);
-    float epsilon_f();
+    double exponential_decay(double init, double k, int t);
+    double epsilon_f();
 
-    float epsilon = 0.1;
-    float k_epsilon = 0.000000001;
+    double epsilon = 0.1;
+    double k_epsilon = 0.000000001;
 
     vector<double> prevInput;
     int prevAction = -1;
