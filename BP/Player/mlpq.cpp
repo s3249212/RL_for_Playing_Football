@@ -47,14 +47,13 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
         }
     }
 
-    nn->forwardPass(prevInput);
+    output = nn->forwardPass(prevInput);
 
     double target = reward + discount_factor * maxQValue;
 
-    vector<double> targetvector(nActions, 0);
-    targetvector[prevAction] = target;
+    output[prevAction] = target;
 
-    nn->backwardPass(targetvector);
+    nn->backwardPass(output);
 
     //nn->print();
 }

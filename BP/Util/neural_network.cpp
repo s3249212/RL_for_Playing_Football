@@ -93,9 +93,9 @@ void Neural_network::backwardPass(vector<double> targets){
 
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
         nodes[layerSizes.size() - 1][i].errdiff = nodes[layerSizes.size() - 1][i].out - targets.at(i);
-        cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
+        //cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
     }
-    cout << endl;
+    //cout << endl;
 
     for(int i = layerSizes.size() -1; i > 0; i--){
         for(int j = 0; j < layerSizes.at(i); j++){
@@ -106,7 +106,7 @@ void Neural_network::backwardPass(vector<double> targets){
                 float diff_w = nodes[i][j].errdiff * dActivationFunction(nodes[i][j].in) * nodes[i - 1][k].out;
                 //cout << "Diff_w" << diff_w << endl;
                 weights[i - 1][k][j] -= learning_rate * diff_w;
-                cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
+                //cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
             }
         }
     }
