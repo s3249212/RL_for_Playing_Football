@@ -10,7 +10,7 @@ public:
     enum Mode{
         TEST = 0, TRAINING
     };
-    virtual void runTraining(){};
+    virtual void runTraining() = 0;
     //void setPaused(int boolean);
 
     /*save load delete restart start (= run)*/
@@ -18,14 +18,14 @@ public:
 protected:
     std::ofstream savefile;
 
-    int nBlocks = 50;
+    int nBlocks = 300;
 
     int nTrainingPerBlock = 0;
     int nTestPerBlock = 100;
 
-    virtual void runMatch(Mode mode){};
+    //virtual void runMatch(Mode mode) = 0;
 
-    virtual void saveStatistics(){};
+    //virtual void saveStatistics() = 0;
 };
 
 #endif // WORLD_H

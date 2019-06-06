@@ -26,6 +26,7 @@ public:
     };
 
     Gridworld_IH();
+    ~Gridworld_IH();
 
     virtual void initialize() = 0;
 
@@ -42,9 +43,11 @@ public:
     virtual string getStatistics();
     virtual void resetMatchStatistics();
 
-    ~Gridworld_IH();
-
     vector<Gridworld_Agent *> getAgents();
+
+    void save(string filename);
+    void load(string filename);
+
 protected:
     Player* player;
     Gridworld* world;

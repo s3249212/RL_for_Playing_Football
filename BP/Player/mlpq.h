@@ -17,6 +17,10 @@ public:
 
     void resetAfterMatch();
 
+    void save(string filename);
+    void load(string filename);
+
+    MLPQ(string filename);
 private:
     Neural_network* nn;
 
@@ -54,6 +58,8 @@ private:
     int highestQActionSelection(vector<double> qValues);
     int randomActionSelection();
     int selectAction(vector<double> input);
+
+    string sourcefile;
 };
 
 #endif // MLPQ_H

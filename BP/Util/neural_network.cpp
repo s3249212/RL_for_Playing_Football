@@ -1,6 +1,7 @@
 #include "neural_network.h"
 
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 
 double Neural_network::activationFunction(double input){
@@ -29,6 +30,11 @@ layerSizes(layerSizes)
             }
         }
     }
+}
+
+Neural_network::Neural_network(string filename)
+{
+    load(filename);
 }
 
 Neural_network::~Neural_network(){
@@ -110,6 +116,65 @@ void Neural_network::backwardPass(vector<double> targets){
             }
         }
     }
+}
+
+void Neural_network::save(string filename)
+{
+    std::ofstream filestream(filename);
+
+    filestream << learning_rate << " ";
+    filestream << bias << " ";
+    filestream << minInit << " ";
+    filestream << maxInit << " ";
+    filestream << layerSizes.size() << " ";
+    for(int l: layerSizes){
+        filestream << l << " ";
+    }
+
+    for(int i = 0; i < layerSizes.size() - 1; i++){
+        for(int j = 0; j < layerSizes.at(i) + 1; j++){
+            for(int k = 0; k < layerSizes.at(i + 1); k++){
+                filestream << weights[i][j][k] << " ";
+            }
+        }
+    }
+    filestream.close();
+}
+
+void Neural_network::load(string filename){
+    ifstream filestream(filename);
+    filestream >> learning_rate;
+    filestream >> bias;
+    filestream >> minInit;
+    filestream >> maxInit;
+
+    int nLayers;
+    filestream >> nLayers;
+    layerSizes.clear();
+
+    for(int i = 0; i < nLayers; i++){
+        int l;
+        filestream >> l;
+        layerSizes.push_back(l);
+    }
+
+    nodes = new Node_t*[layerSizes.size()];
+    weights = new double**[layerSizes.size() - 1];
+    for(int i = 0; i < layerSizes.size(); i++){
+        nodes[i] = new Node_t[layerSizes.at(i) + 1];
+        nodes[i][layerSizes.at(i)].out = bias;
+        if(i < layerSizes.size() - 1){
+            weights[i] = new double*[layerSizes.at(i) + 1];
+            for(int j = 0; j < layerSizes.at(i) + 1; j++){
+                weights[i][j] = new double[layerSizes.at(i + 1)];
+                for(int k = 0; k < layerSizes.at(i + 1); k++){
+                    filestream >> weights[i][j][k];
+                }
+            }
+        }
+    }
+
+    filestream.close();
 }
 
 void Neural_network::print(){

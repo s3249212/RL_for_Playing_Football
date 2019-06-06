@@ -4,8 +4,15 @@
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 
 MLPQ::MLPQ()
+{
+
+}
+
+MLPQ::MLPQ(string filename):
+sourcefile(filename)
 {
 
 }
@@ -17,6 +24,10 @@ MLPQ::~MLPQ()
 }
 
 void MLPQ::initialize(int nInput, int nActions){
+    if(sourcefile != ""){
+        load(sourcefile);
+        return;
+    }
     this->nActions = nActions;
 
     vector<int> layerSizes;
@@ -50,30 +61,30 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     double target = reward + discount_factor * maxQValue;
 
-    cout << "BackwardPass results:" << endl;
+    /*cout << "BackwardPass results:" << endl;
     cout << "Previous output" << endl;
     for(double d: output){
         cout << d << "\t";
     }
-    cout << endl;
+    cout << endl;*/
 
     output[prevAction] = target;
 
-    cout << "Target:"<< endl;
+    /*cout << "Target:"<< endl;
     for(double d: output){
         cout << d << "\t";
     }
-    cout << endl;
+    cout << endl;*/
 
     nn->backwardPass(output);
 
     output = nn->forwardPass(prevInput);
 
-    cout << "New output:" << endl;
+    /*cout << "New output:" << endl;
     for(double d: output){
         cout << d << "\t";
     }
-    cout << endl << endl;
+    cout << endl << endl;*/
 
     //nn->print();
 }
@@ -93,6 +104,51 @@ void MLPQ::resetAfterMatch()
 {
     prevAction = -1;
     prevInput.clear();
+}
+
+void MLPQ::save(string filename)
+{
+    std::ofstream filestream(filename);
+    filestream << discount_factor << " ";
+    filestream << nHiddenLayers << " ";
+    filestream << nHiddenNeuronsPerLayer << " ";
+    filestream << nActions << " ";
+    filestream << nSteps << " ";
+    filestream << learning_rate_change;
+    filestream << epsilon_change << " ";
+    filestream << actionSelection << " ";
+
+    filestream << epsilon << " ";
+    filestream << k_epsilon << " ";
+
+    string nnfilename = filename.append("nn");
+    filestream << nnfilename << " ";
+    nn->save(nnfilename);
+}
+
+void MLPQ::load(string filename)
+{
+    std::ifstream filestream(filename);
+    filestream >> discount_factor;
+    filestream >> nHiddenLayers;
+    filestream >> nHiddenNeuronsPerLayer;
+    filestream >> nActions;
+    filestream >> nSteps;
+
+    int helper;
+    filestream >> helper;
+    learning_rate_change = static_cast<Hyperparameter_Change_t>(helper);
+    filestream >> helper;
+    epsilon_change = static_cast<Hyperparameter_Change_t>(helper);
+    filestream >> helper;
+    actionSelection = static_cast<Actionoptions>(helper);
+
+    filestream >> epsilon;
+    filestream >> k_epsilon;
+
+    string nnfilename;
+    filestream >> nnfilename;
+    nn = new Neural_network(zfilename);
 }
 
 int MLPQ::selectAction(vector<double> input)

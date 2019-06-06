@@ -29,7 +29,7 @@ private:
     };
 
     int height = 5;
-    int width = 9;
+    int width = 7;
     int goallength = 2;
 
 

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 #include "gridworld.h"
 #include "gridworld_agent.h"
@@ -24,10 +25,17 @@ void Gridworld::runTraining(){
         }
 
         for(int j = 0; j < nTestPerBlock; j++){
-            cout << "Running match: " << j << endl;
+            //cout << "Running match: " << j << endl;
             runMatch(TEST);
             saveStatistics();
             resetAfterMatch();
+        }
+
+        int k = 0;
+        string filename = "/home/julian/playersavefile";
+        for(Gridworld_IH* ih: ihs){
+            ih->save(filename + to_string(k));
+            k++;
         }
 
         high_resolution_clock::time_point t2 = high_resolution_clock::now();

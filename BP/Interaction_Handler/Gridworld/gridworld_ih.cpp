@@ -42,4 +42,14 @@ vector<Gridworld_Agent*> Gridworld_IH::getAgents(){
     return agents;
 }
 
+void Gridworld_IH::save(string filename)
+{
+    player->save(filename);
+}
+
+void Gridworld_IH::load(string filename)
+{
+    player->load(filename);
+}
+
 

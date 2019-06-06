@@ -17,5 +17,15 @@ int RandomPlayer::act(vector<double> input){
 
 void RandomPlayer::resetAfterMatch()
 {
+    
+}
 
+void RandomPlayer::save(string filename)
+{
+    
+}
+
+void RandomPlayer::load(string filename)
+{
+    
 }

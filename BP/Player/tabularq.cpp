@@ -3,6 +3,7 @@
 #include "player.h"
 #include <stdlib.h>
 #include <math.h>
+#include <fstream>
 
 using namespace std;
 
@@ -29,8 +30,6 @@ void TabularQ::initialize(int nStates, int nActions){
     for(int i = 0; i < nStates; i++){
         qTable[i] = new float[nActions](); //action size
         for(int j = 0; j < nActions; j++){
-            float minInit = -10.0f;
-            float maxInit = 10.0f;
             qTable[i][j] =  minInit + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxInit - minInit)));
         }
     }
@@ -65,6 +64,67 @@ int TabularQ::act(vector<double> input){
     nSteps++;
 
     return selectedAction;
+}
+
+void TabularQ::save(string filename)
+{
+    ofstream filestream(filename);
+    filestream << actionSelection << " ";
+    filestream << maxInit << " " << minInit << " ";
+    filestream << nActions << " " << nStates << " ";
+
+    filestream << learning_rate << " ";
+    filestream << discount_factor << " "; //discount factor
+    filestream << epsilon << " "; //initial epsilon value for random action selection
+
+    filestream << learning_rate_change << " ";
+    filestream << epsilon_change << " ";
+
+    filestream << k_learning_rate << " ";
+    filestream << k_epsilon << " ";
+
+    filestream << nSteps << " ";
+    for(int i = 0; i < nStates; i++){
+        for(int j = 0; j < nActions; j++){
+            filestream << qTable[i][j] << " ";
+        }
+    }
+
+    filestream.close();
+}
+
+void TabularQ::load(string filename)
+{
+    ifstream filestream(filename);
+    int helper;
+
+    filestream >> helper;
+    actionSelection = static_cast<ActionSelection_t>(helper);
+
+    filestream >> nActions >> nStates;
+
+    filestream >> learning_rate;
+    filestream >> discount_factor; //discount factor
+    filestream >> epsilon; //initial epsilon value for random action selection
+
+    filestream >> helper;
+    learning_rate_change = static_cast<Hyperparameter_Change_t>(helper);
+    filestream >> helper;
+    epsilon_change = static_cast<Hyperparameter_Change_t>(helper);
+
+    filestream >> k_learning_rate;
+    filestream >> k_epsilon;
+
+    filestream >> nSteps;
+
+    qTable = new float*[nStates]();
+    for(int i = 0; i < nStates; i++){
+        qTable[i] = new float[nActions](); //action size
+        for(int j = 0; j < nActions; j++){
+            filestream >> qTable[i][j];
+        }
+    }
+    filestream.close();
 }
 
 float TabularQ::learning_rate_f(){

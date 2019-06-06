@@ -38,6 +38,9 @@ private:
 
     int nSteps = 0;
 
+    float minInit = -10.0f;
+    float maxInit = 10.0f;
+
     int selectAction(int state);
 
     int softmaxActionSelection(int state);
@@ -59,7 +62,11 @@ public:
 
     int act(vector<double> input);
 
+    void save(string filename);
+    void load(string filename);
+
     float learning_rate_f();
+
 
     void printQTable();
 };
