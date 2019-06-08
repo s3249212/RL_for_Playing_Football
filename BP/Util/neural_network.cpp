@@ -143,6 +143,13 @@ void Neural_network::save(string filename)
 
 void Neural_network::load(string filename){
     ifstream filestream(filename);
+    /*char* str = new char[200];
+    filestream.getline(str, 199);
+    cout << str;
+    string helper;
+    filestream >> helper;
+    cout << helper;*/
+    //learning_rate = static_cast<double>(helper);
     filestream >> learning_rate;
     filestream >> bias;
     filestream >> minInit;

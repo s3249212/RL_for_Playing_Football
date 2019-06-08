@@ -114,7 +114,7 @@ void MLPQ::save(string filename)
     filestream << nHiddenNeuronsPerLayer << " ";
     filestream << nActions << " ";
     filestream << nSteps << " ";
-    filestream << learning_rate_change;
+    filestream << learning_rate_change << " ";
     filestream << epsilon_change << " ";
     filestream << actionSelection << " ";
 
@@ -148,7 +148,7 @@ void MLPQ::load(string filename)
 
     string nnfilename;
     filestream >> nnfilename;
-    nn = new Neural_network(zfilename);
+    nn = new Neural_network(nnfilename);
 }
 
 int MLPQ::selectAction(vector<double> input)

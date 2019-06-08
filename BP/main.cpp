@@ -34,21 +34,21 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile4");
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile5");
 
-    MLPQ* player = new MLPQ("/home/julian/playersavefile0");
+    TabularQ* player = new TabularQ();
     gridworld->addPlayer(player, 0);
 
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
+
+    gridworld->initialize();
 
 #if USEQT == 1
     view = new GridworldView();
     view->setWorld(gridworld);
     view->show();
 #endif
-
-    gridworld->initialize();
 
     gridworld->runTraining();
 

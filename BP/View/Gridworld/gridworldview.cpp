@@ -204,7 +204,7 @@ Gridworld *GridworldView::getWorld()
 }
 
 void GridworldView::draw(){
-    //gridworld->runStep();
+    gridworld->runStep();
     //qDebug() << "Drawing";
     vector<array<int, 2>> gw_agents = gridworld->getBlueTeam();
     //qDebug() << "Blue team" << gw_agents.size();
