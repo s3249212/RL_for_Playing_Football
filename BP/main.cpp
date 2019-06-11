@@ -1,4 +1,4 @@
-#define USEQT 0
+#define USEQT 1
 #if USEQT == 1
 #include <QApplication>
 #include <QGraphicsScene>

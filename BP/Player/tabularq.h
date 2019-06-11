@@ -50,8 +50,11 @@ private:
     float exponential_decay(float init, float k, int t);
     float epsilon_f();
 
+    string sourcefile = "";
+
 public:
     TabularQ();
+    TabularQ(string savefile);
     ~TabularQ();
 
     void initialize(int nStates, int nActions);

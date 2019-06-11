@@ -12,6 +12,12 @@ TabularQ::TabularQ()
     
 }
 
+TabularQ::TabularQ(string savefile):
+    sourcefile(savefile)
+{
+
+}
+
 TabularQ::~TabularQ(){
     this->nStates = nStates;
     this->nActions = nActions;
@@ -23,6 +29,12 @@ TabularQ::~TabularQ(){
 }
 
 void TabularQ::initialize(int nStates, int nActions){
+    if(sourcefile != ""){
+        cout << "Loading the sourcefile" << endl;
+        load(sourcefile);
+        save("/home/julian/testsavefile");
+        return;
+    }
     this->nStates = nStates;
     this->nActions = nActions;
 
@@ -99,7 +111,10 @@ void TabularQ::load(string filename)
     int helper;
 
     filestream >> helper;
+
     actionSelection = static_cast<ActionSelection_t>(helper);
+
+    filestream >> maxInit >> minInit;
 
     filestream >> nActions >> nStates;
 
