@@ -38,11 +38,11 @@ void TabularQ::initialize(int nStates, int nActions){
     this->nStates = nStates;
     this->nActions = nActions;
 
-    qTable = new float*[nStates]();
+    qTable = new double*[nStates]();
     for(int i = 0; i < nStates; i++){
-        qTable[i] = new float[nActions](); //action size
+        qTable[i] = new double[nActions](); //action size
         for(int j = 0; j < nActions; j++){
-            qTable[i][j] =  minInit + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxInit - minInit)));
+            qTable[i][j] =  minInit + static_cast <double> (rand()) / (static_cast <double> (RAND_MAX / (maxInit - minInit)));
         }
     }
 }
@@ -51,7 +51,7 @@ void TabularQ::train(vector<double> input, double reward, bool terminal){
     int currentState = static_cast<int>(input.at(0));
 
     if(prevAction != -1){
-        float maxQAction = qTable[currentState][0];
+        double maxQAction = qTable[currentState][0];
 
         for(int i = 1; i < nActions; i++){
             if(qTable[currentState][i] > maxQAction){
@@ -132,9 +132,9 @@ void TabularQ::load(string filename)
 
     filestream >> nSteps;
 
-    qTable = new float*[nStates]();
+    qTable = new double*[nStates]();
     for(int i = 0; i < nStates; i++){
-        qTable[i] = new float[nActions](); //action size
+        qTable[i] = new double[nActions](); //action size
         for(int j = 0; j < nActions; j++){
             filestream >> qTable[i][j];
         }
@@ -142,13 +142,13 @@ void TabularQ::load(string filename)
     filestream.close();
 }
 
-float TabularQ::learning_rate_f(){
+double TabularQ::learning_rate_f(){
     switch(learning_rate_change){
     case Constant:
         return learning_rate;
         break;
     case Exponential_decay:
-        float lr = exponential_decay(learning_rate, k_learning_rate, nSteps);
+        double lr = exponential_decay(learning_rate, k_learning_rate, nSteps);
         return lr;
         break;
     }
@@ -161,7 +161,7 @@ void TabularQ::resetAfterMatch()
 }
 
 
-float TabularQ::epsilon_f(){
+double TabularQ::epsilon_f(){
     switch(epsilon_change){
     case Constant:
         return epsilon;
@@ -170,7 +170,7 @@ float TabularQ::epsilon_f(){
     }
 }
 
-float TabularQ::exponential_decay(float init, float k, int t){
+double TabularQ::exponential_decay(double init, double k, int t){
     //std::cout << init << " k:" << k << " t:" << t << "\n";
     return init * exp(-k * t);
 }
@@ -201,27 +201,23 @@ int TabularQ::softmaxActionSelection(int state)
 {
     int selectedAction = -1;
 
-    float sum = 0;
-    float minQAction = qTable[state][0];
+    double sum = 0;
 
-    for(int i = 1; i < nActions; i++){
-        if(qTable[state][i] < minQAction){
-            minQAction = qTable[state][i];
-        }
-        sum += qTable[state][i];
+    for(int i = 0; i < nActions; i++){
+        sum += exp(softMaxTemp * qTable[state][i]);
     }
 
-    sum += -minQAction * nActions;
+    double currentSum = 0.0;
+    double random = rand() / static_cast <double> (RAND_MAX);
 
-    float currentSum = 0.0f;
-    float random = rand() % 1000000 / 1000000.0f;
     for(int i = 0; i < nActions; i++){
-        currentSum += qTable[state][i] + -minQAction;
-        if(random < currentSum / (sum + 0.000001f)){
+        currentSum += exp(softMaxTemp * qTable[state][i]);
+        if(random < currentSum / sum){
             selectedAction = i;
             break;
         }
     }
+
     return selectedAction;
 }
 
@@ -229,7 +225,7 @@ int TabularQ::highestQActionSelection(int state)
 {
     int selectedAction = -1;
 
-    float maxQAction = qTable[state][0];
+    double maxQAction = qTable[state][0];
 
     for(int i = 1; i < nActions; i++){
         if(qTable[state][i] > maxQAction){
@@ -238,7 +234,7 @@ int TabularQ::highestQActionSelection(int state)
         }
     }
 
-    if(selectedAction == -1 || rand() % 100 / 100.0f <= epsilon_f()){
+    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX) <= epsilon_f()){
         selectedAction = randomActionSelection();
     }
 

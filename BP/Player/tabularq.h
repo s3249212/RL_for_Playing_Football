@@ -22,24 +22,25 @@ private:
     int prevAction = -1;
     int prevState = -1;
 
-    float** qTable;
+    double** qTable;
     int nActions;
     int nStates;
 
-    float learning_rate = 0.01f;
-    float discount_factor = 0.99f; //discount factor
-    float epsilon = 0.1f; //initial epsilon value for random action selection
+    double learning_rate = 0.01;
+    double discount_factor = 0.99; //discount factor
+    double epsilon = 0.1; //initial epsilon value for random action selection
+    double softMaxTemp = 0.1;
 
     Hyperparameter_Change_t learning_rate_change = Constant;
     Hyperparameter_Change_t epsilon_change = Constant;
 
-    float k_learning_rate = 0.0000000001f;
-    float k_epsilon = 0.01f;
+    double k_learning_rate = 0.0000000001;
+    double k_epsilon = 0.01;
 
     int nSteps = 0;
 
-    float minInit = -10.0f;
-    float maxInit = 10.0f;
+    double minInit = -10.0;
+    double maxInit = 10.0;
 
     int selectAction(int state);
 
@@ -47,8 +48,8 @@ private:
     int highestQActionSelection(int state);
     int randomActionSelection();
 
-    float exponential_decay(float init, float k, int t);
-    float epsilon_f();
+    double exponential_decay(double init, double k, int t);
+    double epsilon_f();
 
     string sourcefile = "";
 
@@ -68,7 +69,7 @@ public:
     void save(string filename);
     void load(string filename);
 
-    float learning_rate_f();
+    double learning_rate_f();
 
 
     void printQTable();

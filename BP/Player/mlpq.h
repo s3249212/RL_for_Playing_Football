@@ -29,6 +29,8 @@ private:
     int nHiddenLayers = 1;
     int nHiddenNeuronsPerLayer = 20;
 
+    double softMaxTemp = 0.1;
+
     int nActions;
 
     int nSteps = 0;

@@ -176,23 +176,17 @@ int MLPQ::softmaxActionSelection(vector<double> qValues)
     int selectedAction = -1;
 
     double sum = 0;
-    double minQAction = exp(qValues[0]);
 
-    for(int i = 1; i < nActions; i++){
-        qValues[i] = exp(qValues[i]);
-        if(qValues[i] < minQAction){
-            minQAction = qValues[i];
-        }
-        sum += qValues[i];
+    for(int i = 0; i < nActions; i++){
+        sum += exp(softMaxTemp * qValues[i]);
     }
-
-    sum += -minQAction * nActions;
 
     double currentSum = 0.0;
     double random = rand() / static_cast <double> (RAND_MAX);
+
     for(int i = 0; i < nActions; i++){
-        currentSum += qValues[i] + -minQAction;
-        if(random < currentSum / (sum + 0.000001)){
+        currentSum += exp(softMaxTemp * qValues[i]);
+        if(random < currentSum / sum){
             selectedAction = i;
             break;
         }
