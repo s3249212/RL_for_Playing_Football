@@ -194,10 +194,6 @@ int TabularQ::selectAction(int state)
         selectedAction = randomActionSelection();
     }
 
-    if(selectedAction == -1 || rand() % 100 / 100.0f <= epsilon_f()){
-        selectedAction = randomActionSelection();
-    }
-
     return selectedAction;
 }
 
@@ -240,6 +236,10 @@ int TabularQ::highestQActionSelection(int state)
             maxQAction = qTable[state][i];
             selectedAction = i;
         }
+    }
+
+    if(selectedAction == -1 || rand() % 100 / 100.0f <= epsilon_f()){
+        selectedAction = randomActionSelection();
     }
 
     return selectedAction;

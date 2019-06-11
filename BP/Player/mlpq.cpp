@@ -168,11 +168,6 @@ int MLPQ::selectAction(vector<double> input)
         cout << "Selecting random action" << endl;
         selectedAction = randomActionSelection();
     }
-
-    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX)<= epsilon_f()){
-        selectedAction = randomActionSelection();
-    }
-
     return selectedAction;
 }
 
@@ -217,6 +212,10 @@ int MLPQ::highestQActionSelection(vector<double> qValues)
             selectedAction = i;
         }
         i++;
+    }
+
+    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX)<= epsilon_f()){
+        selectedAction = randomActionSelection();
     }
 
     return selectedAction;
