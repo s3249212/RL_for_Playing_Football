@@ -28,9 +28,9 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 5;
-    int width = 7;
-    int goallength = 2;
+    int height = 15;
+    int width = 15;
+    int goallength = 3;
 
 
     vector<Gridworld_Agent*> agents;

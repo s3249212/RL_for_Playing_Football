@@ -34,12 +34,16 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile5");
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile9");
 
-    TabularQ* player = new TabularQ();
+    MLPQ* player = new MLPQ();
+    gridworld->addPlayer(player, 0);
+    player = new MLPQ();
     gridworld->addPlayer(player, 0);
 
     RandomPlayer* player2 = new RandomPlayer();
+    gridworld->addPlayer(player2, 1);
+    player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
 
     gridworld->initialize();

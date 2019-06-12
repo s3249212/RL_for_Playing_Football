@@ -32,7 +32,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile2_";
+        string filename = "/home/julian/playersavefile3_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;

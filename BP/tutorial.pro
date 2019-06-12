@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     Interaction_Handler/Gridworld/randomih.cpp \
     Util/neural_network.cpp \
     World/Gridworld/gridworld_score.cpp \
-    Player/mlpq.cpp
+    Player/mlpq.cpp \
+    Util/util_functions.cpp
     Util/neural_network.cpp \
 
 HEADERS  += \
@@ -59,7 +60,8 @@ HEADERS  += \
     Interaction_Handler/Gridworld/tabularqih.h \
     Interaction_Handler/Gridworld/mlpqih.h \
     Interaction_Handler/Gridworld/randomih.h \
-    Player/mlpq.h
+    Player/mlpq.h \
+    Util/util_functions.h
 
 FORMS    += \
     mainwindow.ui
