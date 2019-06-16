@@ -17,6 +17,9 @@ public:
     virtual void resetAfterMatch() = 0;
     virtual void save(string filename) = 0;
     virtual void load(string filename) = 0;
+
+protected:
+    string sourcefile = "";
 };
 
 #endif

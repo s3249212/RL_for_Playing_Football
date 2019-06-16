@@ -37,3 +37,7 @@ int softmaxActionSelection(vector<double> values, double temp){
     vector<double> probabilities = softmax(values, temp);
     return weightedRandomSelection(probabilities);
 }
+
+double exponential_decay(double init, double k, int t){
+    return init * exp(-k * t);
+}

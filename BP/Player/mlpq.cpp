@@ -11,10 +11,9 @@ MLPQ::MLPQ()
 
 }
 
-MLPQ::MLPQ(string filename):
-sourcefile(filename)
+MLPQ::MLPQ(string filename)
 {
-
+    this->sourcefile = filename;
 }
 
 MLPQ::~MLPQ()
@@ -90,7 +89,9 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 }
 
 int MLPQ::act(vector<double> input){
-    int selectedAction = selectAction(input);
+    vector<double> qValues = nn->forwardPass(input);
+
+    int selectedAction = selectAction(qValues);
 
     prevAction = selectedAction;
     prevInput = input;
@@ -141,7 +142,7 @@ void MLPQ::load(string filename)
     filestream >> helper;
     epsilon_change = static_cast<Hyperparameter_Change_t>(helper);
     filestream >> helper;
-    actionSelection = static_cast<Actionoptions>(helper);
+    actionSelection = static_cast<ActionSelection_t>(helper);
 
     filestream >> epsilon;
     filestream >> k_epsilon;
@@ -149,86 +150,4 @@ void MLPQ::load(string filename)
     string nnfilename;
     filestream >> nnfilename;
     nn = new Neural_network(nnfilename);
-}
-
-int MLPQ::selectAction(vector<double> input)
-{
-    vector<double> qValues = nn->forwardPass(input);
-
-    int selectedAction;
-    switch(actionSelection){
-    case Softmax:
-        selectedAction = softmaxActionSelection(qValues);
-        break;
-    case HighestQ:
-        selectedAction = highestQActionSelection(qValues);
-        break;
-    case Random:
-    default:
-        cout << "Selecting random action" << endl;
-        selectedAction = randomActionSelection();
-    }
-    return selectedAction;
-}
-
-int MLPQ::softmaxActionSelection(vector<double> qValues)
-{
-    int selectedAction = -1;
-
-    double sum = 0;
-
-    for(int i = 0; i < nActions; i++){
-        sum += exp(softMaxTemp * qValues[i]);
-    }
-
-    double currentSum = 0.0;
-    double random = rand() / static_cast <double> (RAND_MAX);
-
-    for(int i = 0; i < nActions; i++){
-        currentSum += exp(softMaxTemp * qValues[i]);
-        if(random < currentSum / sum){
-            selectedAction = i;
-            break;
-        }
-    }
-    return selectedAction;
-}
-
-int MLPQ::highestQActionSelection(vector<double> qValues)
-{
-    int selectedAction = -1;
-    double maxQValue;
-    int i = 0;
-
-    for(auto qValue : qValues){
-        if(qValue > maxQValue || selectedAction == -1){
-            maxQValue = qValue;
-            selectedAction = i;
-        }
-        i++;
-    }
-
-    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX)<= epsilon_f()){
-        selectedAction = randomActionSelection();
-    }
-
-    return selectedAction;
-}
-
-int MLPQ::randomActionSelection()
-{
-    return rand() % nActions;
-}
-
-double MLPQ::epsilon_f(){
-    switch(epsilon_change){
-    case Constant:
-        return epsilon;
-    case Exponential_decay:
-        return exponential_decay(epsilon, k_epsilon, nSteps);
-    }
-}
-
-double MLPQ::exponential_decay(double init, double k, int t){
-    return init * exp(-k * t);
 }

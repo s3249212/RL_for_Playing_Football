@@ -1,6 +1,5 @@
 #include <iostream>
 #include "tabularq.h"
-#include "player.h"
 #include <stdlib.h>
 #include <math.h>
 #include <fstream>
@@ -12,10 +11,9 @@ TabularQ::TabularQ()
     
 }
 
-TabularQ::TabularQ(string savefile):
-    sourcefile(savefile)
+TabularQ::TabularQ(string savefile)
 {
-
+    this->sourcefile = savefile;
 }
 
 TabularQ::~TabularQ(){
@@ -66,10 +64,20 @@ void TabularQ::train(vector<double> input, double reward, bool terminal){
     prevState = currentState;
 }
 
+vector<double> TabularQ::getQValues(int currentState){
+    vector<double> qValues(nActions, 0);
+    for(int i = 0; i < nActions; i++){
+        qValues[i] = qTable[currentState][i];
+    }
+    return qValues;
+}
+
 int TabularQ::act(vector<double> input){
     int currentState = static_cast<int>(input.at(0));
 
-    int selectedAction = selectAction(currentState);
+    vector<double> qValues = getQValues(currentState);
+
+    int selectedAction = selectAction(qValues);
 
     prevAction = selectedAction;
 
@@ -142,108 +150,10 @@ void TabularQ::load(string filename)
     filestream.close();
 }
 
-double TabularQ::learning_rate_f(){
-    switch(learning_rate_change){
-    case Constant:
-        return learning_rate;
-        break;
-    case Exponential_decay:
-        double lr = exponential_decay(learning_rate, k_learning_rate, nSteps);
-        return lr;
-        break;
-    }
-}
-
 void TabularQ::resetAfterMatch()
 {
     prevAction = -1;
     prevState = -1;
-}
-
-
-double TabularQ::epsilon_f(){
-    switch(epsilon_change){
-    case Constant:
-        return epsilon;
-    case Exponential_decay:
-        return exponential_decay(epsilon, k_epsilon, nSteps);
-    }
-}
-
-double TabularQ::exponential_decay(double init, double k, int t){
-    //std::cout << init << " k:" << k << " t:" << t << "\n";
-    return init * exp(-k * t);
-}
-
-//update the value estimate matrix given a new experience
-//state = the environment state the experience happened
-//finished = whether the episode has ended
-int TabularQ::selectAction(int state)
-{
-    int selectedAction;
-    switch(actionSelection){
-    case Softmax:
-        selectedAction = softmaxActionSelection(state);
-        break;
-    case HighestQ:
-        selectedAction = highestQActionSelection(state);
-        break;
-    case Random:
-    default:
-        cout << "Selecting random action" << endl;
-        selectedAction = randomActionSelection();
-    }
-
-    return selectedAction;
-}
-
-int TabularQ::softmaxActionSelection(int state)
-{
-    int selectedAction = -1;
-
-    double sum = 0;
-
-    for(int i = 0; i < nActions; i++){
-        sum += exp(softMaxTemp * qTable[state][i]);
-    }
-
-    double currentSum = 0.0;
-    double random = rand() / static_cast <double> (RAND_MAX);
-
-    for(int i = 0; i < nActions; i++){
-        currentSum += exp(softMaxTemp * qTable[state][i]);
-        if(random < currentSum / sum){
-            selectedAction = i;
-            break;
-        }
-    }
-
-    return selectedAction;
-}
-
-int TabularQ::highestQActionSelection(int state)
-{
-    int selectedAction = -1;
-
-    double maxQAction = qTable[state][0];
-
-    for(int i = 1; i < nActions; i++){
-        if(qTable[state][i] > maxQAction){
-            maxQAction = qTable[state][i];
-            selectedAction = i;
-        }
-    }
-
-    if(selectedAction == -1 || rand() / static_cast <double> (RAND_MAX) <= epsilon_f()){
-        selectedAction = randomActionSelection();
-    }
-
-    return selectedAction;
-}
-
-int TabularQ::randomActionSelection()
-{
-    return rand() % nActions;
 }
 
 void TabularQ::printQTable(){
