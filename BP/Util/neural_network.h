@@ -7,30 +7,12 @@
 using namespace std;
 
 class Neural_network{
-    private:
-    typedef struct{
-        double in;
-        double out;
-        double errdiff;
-    } Node_t;
-
-    vector<int> layerSizes;
-
-    Node_t** nodes;
-    double*** weights;
-
-    double learning_rate = 0.01;
-
-    double bias = 1.0f;
-
-    double minInit = -1.0;
-    double maxInit = 1.0;
-
-    double activationFunction(double input);
-    double dActivationFunction(double input);
-
     public:
-    Neural_network(vector<int> layerSizes);
+    enum Activation_t{
+        LINEAR, SIGMOID
+    };
+
+    Neural_network(vector<int> layerSizes, vector<Activation_t> activationfunctions);
     Neural_network(string filename);
     ~Neural_network();
     vector<double> forwardPass(vector<double> input);
@@ -39,6 +21,31 @@ class Neural_network{
     void load(string filename);
 
     void print();
+
+    private:
+    typedef struct{
+        double in;
+        double out;
+        double errdiff;
+    } Node_t;
+
+    vector<int> layerSizes;
+    vector<Activation_t> activationfunctions;
+
+    Node_t** nodes;
+    double*** weights;
+
+    double learning_rate = 0.1;
+
+    double bias = 1.0f;
+
+    double minInit = -1.0;
+    double maxInit = 1.0;
+
+    double activationFunction(double input, int layerIdx);
+    double dActivationFunction(double input, int layerIdx);
+
+    
 };
 
 #endif

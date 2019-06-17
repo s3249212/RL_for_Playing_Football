@@ -35,7 +35,13 @@ void MLPQ::initialize(int nInput, int nActions){
         layerSizes.push_back(nHiddenNeuronsPerLayer);
     }
     layerSizes.push_back(nActions);
-    nn = new Neural_network(layerSizes);
+
+    vector<Neural_network::Activation_t> activationFunctions;
+    for(int i = 0; i < layerSizes.size(); i++){
+        activationFunctions.push_back(Neural_network::LINEAR);
+    }
+
+    nn = new Neural_network(layerSizes, activationFunctions);
 
 }
 

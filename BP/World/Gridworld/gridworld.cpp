@@ -26,7 +26,7 @@ void Gridworld::runTraining(){
         }
 
         for(int j = 0; j < nTestPerBlock; j++){
-            //cout << "Running match: " << j << endl;
+            cout << "Running match: " << j << " " << duration_cast<microseconds>( high_resolution_clock::now() - t1 ).count() << endl;
             runMatch(TEST);
             saveStatistics();
             resetAfterMatch();
@@ -125,7 +125,7 @@ void Gridworld::addPlayer(TabularQ *player, int team)
 
 void Gridworld::addPlayer(MLPQ *player, int team)
 {
-    Gridworld_IH* ih = new VisionGrid_IH(this, player, team, {1, 3});
+    Gridworld_IH* ih = new MLPQ_IH(this, player, team, {1, 3});
     addIH(ih);
 }
 

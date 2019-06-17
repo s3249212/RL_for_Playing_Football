@@ -3,17 +3,32 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <cmath>
 
-double Neural_network::activationFunction(double input){
-return input;
+double Neural_network::activationFunction(double input, int layerIdx){
+    Activation_t activation_type = activationfunctions[layerIdx - 1];
+    switch(activation_type){
+        case LINEAR:
+            return input;
+        case SIGMOID:
+            return 1.0 / (1.0 + exp(-input));
+    }
 }
 
-double Neural_network::dActivationFunction(double input){
-return 1;
+double Neural_network::dActivationFunction(double input, int layerIdx){
+    Activation_t activation_type = activationfunctions[layerIdx - 1];
+    switch(activation_type){
+        case LINEAR:
+            return 1;
+        case SIGMOID:
+            double output = 1.0 / (1.0 + exp(-input));
+            return output * (1 - output);
+    }
 }
 
-Neural_network::Neural_network(vector<int> layerSizes):
-layerSizes(layerSizes)
+Neural_network::Neural_network(vector<int> layerSizes, vector<Activation_t> activationfunctions):
+layerSizes(layerSizes),
+activationfunctions(activationfunctions)
 {
     nodes = new Node_t*[layerSizes.size()];
     weights = new double**[layerSizes.size() - 1];
@@ -79,7 +94,7 @@ vector<double> Neural_network::forwardPass(vector<double> input){
         }
         for(int j = 0; j < layerSizes.at(i + 1); j++){
             nodes[i + 1][j].in += bias * weights[i][layerSizes.at(i)][j];
-            nodes[i + 1][j].out = activationFunction(nodes[i + 1][j].in);
+            nodes[i + 1][j].out = activationFunction(nodes[i + 1][j].in, i + 1);
         }
     }
 
@@ -97,21 +112,27 @@ void Neural_network::backwardPass(vector<double> targets){
         exit(-145);
     }
 
+    for(int i = 0; i < layerSizes.size() - 1; i++){
+        for(int j = 0; j < layerSizes[i]; j++){
+            nodes[i][i].errdiff = 0;
+        }
+    }
+
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
-        nodes[layerSizes.size() - 1][i].errdiff = nodes[layerSizes.size() - 1][i].out - targets.at(i);
+        nodes[layerSizes.size() - 1][i].errdiff = (nodes[layerSizes.size() - 1][i].out - targets.at(i)) * dActivationFunction(nodes[layerSizes.size() - 1][i].in, layerSizes.size() - 1);
         //cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
     }
     //cout << endl;
 
     for(int i = layerSizes.size() -1; i > 0; i--){
-        for(int j = 0; j < layerSizes.at(i); j++){
-            for(int k = 0; k < layerSizes.at(i - 1) + 1; k++){
-                if(k < layerSizes.at(i -1)){
-                    nodes[i - 1][k].errdiff += nodes[i][j].errdiff * dActivationFunction(nodes[i][j].in) * weights[i - 1][k][j];
+        for(int k = 0; k < layerSizes.at(i); k++){
+            for(int j = 0; j < layerSizes.at(i - 1) + 1; j++){
+                if(j < layerSizes.at(i -1)){
+                    nodes[i - 1][j].errdiff += nodes[i][k].errdiff * dActivationFunction(nodes[i - 1][j].in, i - 1) * weights[i - 1][j][k];
                 }
-                double diff_w = nodes[i][j].errdiff * nodes[i - 1][k].out;
-                //cout << "Diff_w" << diff_w << endl;
-                weights[i - 1][k][j] -= learning_rate * diff_w;
+                double diff_w = nodes[i][k].errdiff * nodes[i - 1][j].out;
+                //cout << i - 1 << " " << j + 1 << " " << k + 1 << "Diff_w" << diff_w << endl;
+                weights[i - 1][j][k] -= learning_rate * diff_w;
                 //cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
             }
         }
@@ -202,7 +223,7 @@ void Neural_network::print(){
         cout << "______________" << endl;
 
         for(int j = 0; j < layerSizes.at(i) + 1; j++){
-            cout << nodes[i][j].out << "\t";
+            cout << "Node " << j << " In:" << nodes[i][j].in << "\tOut:" << nodes[i][j].out << "\tErrdiff:" << nodes[i][j].errdiff << endl;
         }
         cout << "\n";
     }
