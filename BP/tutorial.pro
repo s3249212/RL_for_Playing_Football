@@ -38,7 +38,8 @@ SOURCES += main.cpp \
     World/Gridworld/gridworld_score.cpp \
     Player/mlpq.cpp \
     Util/util_functions.cpp \
-    Player/qlearningplayer.cpp
+    Player/qlearningplayer.cpp \
+    Interaction_Handler/Gridworld/visiongrid_ih.cpp
     Util/neural_network.cpp \
 
 HEADERS  += \
@@ -63,7 +64,8 @@ HEADERS  += \
     Interaction_Handler/Gridworld/randomih.h \
     Player/mlpq.h \
     Util/util_functions.h \
-    Player/qlearningplayer.h
+    Player/qlearningplayer.h \
+    Interaction_Handler/Gridworld/visiongrid_ih.h
 
 FORMS    += \
     mainwindow.ui

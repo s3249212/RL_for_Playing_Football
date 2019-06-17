@@ -7,6 +7,7 @@ class QLearningPlayer : public Player
 {
 public:
     QLearningPlayer();
+    virtual ~QLearningPlayer();
 
     double learning_rate_f();
 
@@ -30,6 +31,8 @@ protected:
     double discount_factor = 0.99; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
     double softMaxTemp = 0.1;
+
+    int nActions;
 
     int nSteps = 0;
 

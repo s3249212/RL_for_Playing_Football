@@ -13,7 +13,6 @@ int Gridworld_IH::rewardGoalTouch(){
     int reward = 0;
 
     vector<Gridworld_Event*> events = world->getEventLog();
-    int nevents = events.size();
 
     for(Gridworld_Event* event: events){
         Event_actor team;

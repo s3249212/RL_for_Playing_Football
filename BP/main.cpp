@@ -54,6 +54,8 @@ int main(int argc, char *argv[])
     view->show();
 #endif
 
+    vector<int> v = {1, 2, 4};
+
     gridworld->runTraining();
 
     //std::thread t1(threadFunction, gridworld);

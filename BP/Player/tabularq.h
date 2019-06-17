@@ -13,7 +13,6 @@ private:
     int prevState = -1;
 
     double** qTable;
-    int nActions;
     int nStates; 
 
     double minInit = -10.0;

@@ -27,8 +27,6 @@ private:
     int nHiddenLayers = 1;
     int nHiddenNeuronsPerLayer = 20;
 
-    int nActions;
-
     vector<double> prevInput;
     int prevAction = -1;
 };
