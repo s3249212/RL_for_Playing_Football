@@ -1,4 +1,4 @@
-#define USEQT 1
+#define USEQT 0
 #if USEQT == 1
 #include <QApplication>
 #include <QGraphicsScene>
@@ -34,17 +34,17 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile9");
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile10");
 
     MLPQ* player = new MLPQ();
     gridworld->addPlayer(player, 0);
-    player = new MLPQ();
-    gridworld->addPlayer(player, 0);
+    /*player = new MLPQ();
+    gridworld->addPlayer(player, 0);*/
 
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
-    player2 = new RandomPlayer();
-    gridworld->addPlayer(player2, 1);
+    /*player2 = new RandomPlayer();
+    gridworld->addPlayer(player2, 1);*/
 
     gridworld->initialize();
 

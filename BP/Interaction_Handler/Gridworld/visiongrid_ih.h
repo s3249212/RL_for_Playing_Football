@@ -6,7 +6,7 @@
 class VisionGrid_IH : public Gridworld_IH
 {
 public:
-    VisionGrid_IH(Gridworld* gridworld, MLPQ* player, int team);
+    VisionGrid_IH(Gridworld *gridworld, MLPQ *player, int team, vector<int> gridSizes);
 
     void initialize();
 
@@ -14,7 +14,6 @@ public:
     void resetAfterMatch();
 
     vector<double> generateInput();
-
 private:
     MLPQ* MLPQPlayer;
 

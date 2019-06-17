@@ -41,7 +41,7 @@ void MLPQ::initialize(int nInput, int nActions){
 
 void MLPQ::train(vector<double> input, double reward, bool terminal)
 {
-    if(prevInput.size() == 0){
+    if(prevInput.size() == 0 || prevAction < 0){
         return;
     }
 

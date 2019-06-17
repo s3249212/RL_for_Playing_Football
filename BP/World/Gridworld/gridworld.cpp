@@ -11,6 +11,7 @@
 #include "Interaction_Handler/Gridworld/tabularqih.h"
 #include "Interaction_Handler/Gridworld/randomih.h"
 #include "Interaction_Handler/Gridworld/mlpqih.h"
+#include "Interaction_Handler/Gridworld/visiongrid_ih.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -32,7 +33,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile3_";
+        string filename = "/home/julian/playersavefile4_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -124,7 +125,7 @@ void Gridworld::addPlayer(TabularQ *player, int team)
 
 void Gridworld::addPlayer(MLPQ *player, int team)
 {
-    Gridworld_IH* ih = new MLPQIH(this, player, team);
+    Gridworld_IH* ih = new VisionGrid_IH(this, player, team, {1, 3});
     addIH(ih);
 }
 
@@ -267,4 +268,44 @@ void Gridworld::removeFromEventLog(Gridworld_Event *event)
      std::vector<Gridworld_Event *>::iterator i = std::find(eventLog.begin(), eventLog.end(), event);
      eventLog.erase(i);
      delete event;
+}
+
+array<bool, 6> Gridworld::getPixelData(array<int, 2> coord, int team){
+    array<bool, 6> result;
+
+    //Ball
+    result[0] = (ball->getCoord() == coord);
+
+    //your team
+    result[1] = false;
+    for(Gridworld_Agent* agent: agents){
+        if(agent->getTeam() == team){
+            result[1] = true;
+            break;
+        }
+    }
+
+    //opponent team
+    result[2] = false;
+    for(Gridworld_Agent* agent: agents){
+        if(agent->getTeam() != team){
+            result[2] = true;
+            break;
+        }
+    }
+
+    //wall
+    result[3] = (coord[0] <= 0 || coord[0] >= width - 1 || coord[1] <= 0 || coord[1] >= height - 1);
+
+    int minGoalY = height / 2 - goallength + height % 2;
+    int maxGoalY = minGoalY + 2 * goallength - height % 2;
+    //own goal
+    int goalX = team * (width - 1);
+    result[4] = (goalX == coord[0] && minGoalY <= coord[1] && maxGoalY >= coord[1]);
+
+    //other goal
+    goalX = (1 - team) * (width - 1);
+    result[5] = (goalX == coord[0] && minGoalY <= coord[1] && maxGoalY >= coord[1]);
+
+    return result;
 }
