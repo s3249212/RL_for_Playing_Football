@@ -125,7 +125,7 @@ void Gridworld::addPlayer(TabularQ *player, int team)
 
 void Gridworld::addPlayer(MLPQ *player, int team)
 {
-    Gridworld_IH* ih = new MLPQ_IH(this, player, team, {1, 3});
+    Gridworld_IH* ih = new MLPQIH(this, player, team);
     addIH(ih);
 }
 
