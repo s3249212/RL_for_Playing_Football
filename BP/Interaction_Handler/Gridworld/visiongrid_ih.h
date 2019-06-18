@@ -18,6 +18,8 @@ private:
     MLPQ* MLPQPlayer;
 
     vector<int> gridSizes;
+
+    vector<double>* input;
 };
 
 #endif // VISIONGRID_IH_H

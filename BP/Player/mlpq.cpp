@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 MLPQ::MLPQ()
 {
 
@@ -50,20 +52,30 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
         return;
     }
 
+    if(reward > 100){
+        cout << "High reward!" << endl;
+    }
+
     vector<double> output = nn->forwardPass(input);
 
     double maxQValue;
 
     maxQValue = output[0];
     for(int i = 1; i < nActions; i++){
+        //cout << output[i] << "\t";
         if(output[i] > maxQValue){
             maxQValue = output[i];
         }
     }
+    //cout << endl;
+    //cout << "Max Q Value: " << maxQValue << endl;
 
     output = nn->forwardPass(prevInput);
 
     double target = reward + discount_factor * maxQValue;
+
+    //cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
+    //cout << endl;
 
     /*cout << "BackwardPass results:" << endl;
     cout << "Previous output" << endl;
@@ -82,7 +94,7 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     nn->backwardPass(output);
 
-    output = nn->forwardPass(prevInput);
+    //output = nn->forwardPass(prevInput);
 
     /*cout << "New output:" << endl;
     for(double d: output){
@@ -99,6 +111,10 @@ int MLPQ::act(vector<double> input){
     int selectedAction = selectAction(qValues);
 
     prevAction = selectedAction;
+    if(selectedAction < 0){
+        cout << "Selected action: "<< selectedAction;
+        exit(0);
+    }
     prevInput = input;
 
     nSteps++;

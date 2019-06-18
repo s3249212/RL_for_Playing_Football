@@ -3,19 +3,30 @@
 #include <vector>
 #include <stdlib.h>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
 vector<double> softmax(vector<double> values, double temp)
 {
     double sum = 0.0;
+
+    double maxValue = values[0];
+    for(int i = 1; i < values.size(); i++){
+        if(maxValue < values[i]){
+            maxValue = values[i];
+        }
+    }
+
     for(int i = 0; i < values.size(); i++){
-        values[i] = exp(values[i] / temp);
+        values[i] = exp((values[i] - maxValue) / temp);
         sum += values[i];
     }
+
     for(int i = 0; i < values.size(); i++){
         values[i] = values[i] / sum;
     }
+
     return values;
 }
 

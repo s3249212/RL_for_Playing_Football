@@ -17,10 +17,22 @@ void VisionGrid_IH::initialize()
     int nInput = ((2 * n + 1) * (2 * n + 1) - 1) * l;
     int nActions = 18;
     MLPQPlayer->initialize(nInput, nActions);
+
+    input = new vector<double>(nInput, 0);
+
+    //layerBounds = new int[]
 }
 
 vector<double> VisionGrid_IH::generateInput()
 {
+    /*for(int i = 0; i < nInput; i++){
+        input[i] = 0;
+    }
+
+    array<int, 2> agentCoord = agents[0]->getCoord();*/
+
+
+
    vector<double> input;
 
    array<int, 2> agentCoord = agents[0]->getCoord();

@@ -30,7 +30,7 @@ protected:
     double learning_rate = 0.01;
     double discount_factor = 0.99; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
-    double softMaxTemp = 0.1;
+    double softMaxTemp = 10;
 
     int nActions;
 

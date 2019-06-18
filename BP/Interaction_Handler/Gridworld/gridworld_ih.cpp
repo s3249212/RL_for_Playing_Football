@@ -22,6 +22,11 @@ void Gridworld_IH::update(bool terminal){
     //}
     int output = player->act(input);
 
+    if(totalreward > 1000){
+        cout << "High reward?! " << totalreward << endl;
+        cout << output << endl << endl;
+    }
+
     handleOutput(output);
 }
 
