@@ -14,25 +14,81 @@ void VisionGrid_IH::initialize()
 {
     int n = gridSizes.size();
     int l = 6;
-    int nInput = ((2 * n + 1) * (2 * n + 1) - 1) * l;
+    nInput = ((2 * n + 1) * (2 * n + 1) - 1) * l;
     int nActions = 18;
     MLPQPlayer->initialize(nInput, nActions);
 
     input = new vector<double>(nInput, 0);
 
-    //layerBounds = new int[]
+    nLayerBounds = 2 * (gridSizes.size() + 1);
+    layerBounds = new int[nLayerBounds];
+
+    int lIdx = nLayerBounds / 2 - 1;
+    int rIdx = nLayerBounds / 2;
+
+    layerBounds[lIdx] = 0;
+    layerBounds[rIdx] = 1;
+
+    for(int g: gridSizes){
+        lIdx--;
+        rIdx++;
+        layerBounds[lIdx] = layerBounds[lIdx + 1] - g;
+        layerBounds[rIdx] = layerBounds[rIdx - 1] + g;
+    }
+}
+
+bool isInVisionGrid(int x, int y, int* xIdx, int* yIdx){
+
 }
 
 vector<double> VisionGrid_IH::generateInput()
 {
-    /*for(int i = 0; i < nInput; i++){
-        input[i] = 0;
+    for(int i = 0; i < nInput; i++){
+        (*input)[i] = 0;
     }
 
-    array<int, 2> agentCoord = agents[0]->getCoord();*/
+    int agentX = agents[0]->getX(), agentY = agents[0]->getY();
+
+    int nDepth = 6;
+    int sameTeamIdx = 0;
+    int opponentIdx = 1;
+    int ballIdx = 2;
+    int wallIdx = 3;
+    int ownGoalIdx = 4;
+    int opponentGoalIdx = 5;
+
+    vector<Gridworld_Agent*> agents = world->getAgents();
+
+    for(Gridworld_Agent* agent: agents){
+        if(agent->getX() < agentX - layerBounds[0] &&
+                agent->getX() >= agentX + layerBounds[nLayerBounds - 1] &&
+                agent->getY() < agentY - layerBounds[0] &&
+                agent->getY() >= agentY + layerBounds[nLayerBounds - 1]){
+            int xIdx, yIdx;
+
+            for(xIdx = 0; xIdx < nLayerBounds - 2; xIdx++){
+                if(agent->getX() < agentX - layerBounds[xIdx] &&
+                        agent->getX() >= agentX + layerBounds[xIdx + 1]){
+                    break;
+                }
+            }
+
+            for(yIdx = 0; yIdx < nLayerBounds - 2; yIdx++){
+                if(agent->getY() < agentY - layerBounds[yIdx] &&
+                        agent->getY() >= agentY + layerBounds[yIdx + 1]){
+                    break;
+                }
+            }
+
+            int inputPixelIdx = (nLayerBounds - 1) * yIdx + xIdx
+                    + ((yIdx == layerBounds / 2 && xIdx > layerBounds / 2) || yIdx > layerBounds / 2);
+
+            int inputIdx = nDepth * inputPixelIdx + (agent->getTeam() == team? sameTeamIdx: opponentIdx);
+        }
+    }
 
 
-
+/*
    vector<double> input;
 
    array<int, 2> agentCoord = agents[0]->getCoord();
@@ -78,4 +134,5 @@ vector<double> VisionGrid_IH::generateInput()
        curStartX += width;
    }
    return input;
+   */
 }

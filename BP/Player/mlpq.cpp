@@ -74,10 +74,10 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     double target = reward + discount_factor * maxQValue;
 
-    //cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
+    /*cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
     //cout << endl;
 
-    /*cout << "BackwardPass results:" << endl;
+    cout << "BackwardPass results:" << endl;
     cout << "Previous output" << endl;
     for(double d: output){
         cout << d << "\t";
@@ -94,9 +94,9 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
 
     nn->backwardPass(output);
 
-    //output = nn->forwardPass(prevInput);
+    /*output = nn->forwardPass(prevInput);
 
-    /*cout << "New output:" << endl;
+    cout << "New output:" << endl;
     for(double d: output){
         cout << d << "\t";
     }

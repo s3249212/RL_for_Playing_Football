@@ -19,7 +19,12 @@ private:
 
     vector<int> gridSizes;
 
+    int nInput;
     vector<double>* input;
+
+    int nLayerBounds;
+    int* layerBounds;
+
 };
 
 #endif // VISIONGRID_IH_H
