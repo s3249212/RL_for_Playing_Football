@@ -37,8 +37,71 @@ void VisionGrid_IH::initialize()
     }
 }
 
-bool isInVisionGrid(int x, int y, int* xIdx, int* yIdx){
+bool VisionGrid_IH::isInVisionGrid(int x, int y, int* xIdx, int* yIdx){
+    int agentX = agents[0]->getX(), agentY = agents[0]->getY();
 
+    if(!(x < agentX - layerBounds[0] &&
+            x >= agentX + layerBounds[nLayerBounds - 1] &&
+            y < agentY - layerBounds[0] &&
+            y >= agentY + layerBounds[nLayerBounds - 1])){
+        return false;
+    }
+
+    for(*xIdx = 0; *xIdx < nLayerBounds - 2; *xIdx++){
+        if(x < agentX - layerBounds[*xIdx] &&
+                x >= agentX + layerBounds[*xIdx + 1]){
+            break;
+        }
+    }
+
+    for(*yIdx = 0; *yIdx < nLayerBounds - 2; *yIdx++){
+        if(y < agentY - layerBounds[*yIdx] &&
+                y >= agentY + layerBounds[*yIdx + 1]){
+            break;
+        }
+    }
+
+    return true;
+}
+
+int VisionGrid_IH::getGridArea(int xIdx, int yIdx){
+    int xLayer, yLayer;
+    int centreIdx = nLayerBounds / 2 - 1;
+    xLayer = xIdx < centreIdx? centreIdx - xIdx: xIdx - centreIdx;
+    yLayer = yIdx < centreIdx? centreIdx - yIdx: yIdx - centreIdx;
+    int width = gridSizes[xLayer];
+    int height = gridSizes[yLayer];
+    return width * height;
+}
+
+int VisionGrid_IH::getInputIdx(int xIdx, int yIdx, int offset, int nDepth){
+    int inputPixelIdx = (nLayerBounds - 1) * yIdx + xIdx
+            + ((yIdx == nLayerBounds / 2 - 1 && xIdx > nLayerBounds / 2 - 1) || yIdx > nLayerBounds / 2 - 1);
+
+    return nDepth * inputPixelIdx + offset;
+}
+
+void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, int nDepth){
+
+}
+
+void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int nDepth){
+
+}
+
+void VisionGrid_IH::addLineToGrid(int x0, int y0, int x1, int y1, int offset, int nDepth){
+    if(x0 - x1 != 0 && y0 - y1 != 0){
+        cout << "Does not work with diagonal lines" << endl;
+        exit(-1);
+    }
+
+    if(x0 - x1 == 0){
+        addVerticalLineToGrid(y0, y1, x0, offset, nDepth);
+    }
+
+    if(y0 - y1 == 0){
+        addHorizontalLineToGrid(x0, x1, y0, offset, nDepth);
+    }
 }
 
 vector<double> VisionGrid_IH::generateInput()
@@ -57,37 +120,29 @@ vector<double> VisionGrid_IH::generateInput()
     int ownGoalIdx = 4;
     int opponentGoalIdx = 5;
 
+    int xIdx, yIdx;
+
     vector<Gridworld_Agent*> agents = world->getAgents();
 
     for(Gridworld_Agent* agent: agents){
-        if(agent->getX() < agentX - layerBounds[0] &&
-                agent->getX() >= agentX + layerBounds[nLayerBounds - 1] &&
-                agent->getY() < agentY - layerBounds[0] &&
-                agent->getY() >= agentY + layerBounds[nLayerBounds - 1]){
-            int xIdx, yIdx;
-
-            for(xIdx = 0; xIdx < nLayerBounds - 2; xIdx++){
-                if(agent->getX() < agentX - layerBounds[xIdx] &&
-                        agent->getX() >= agentX + layerBounds[xIdx + 1]){
-                    break;
-                }
-            }
-
-            for(yIdx = 0; yIdx < nLayerBounds - 2; yIdx++){
-                if(agent->getY() < agentY - layerBounds[yIdx] &&
-                        agent->getY() >= agentY + layerBounds[yIdx + 1]){
-                    break;
-                }
-            }
-
-            int inputPixelIdx = (nLayerBounds - 1) * yIdx + xIdx
-                    + ((yIdx == layerBounds / 2 && xIdx > layerBounds / 2) || yIdx > layerBounds / 2);
-
-            int inputIdx = nDepth * inputPixelIdx + (agent->getTeam() == team? sameTeamIdx: opponentIdx);
+        if(isInVisionGrid(agent->getX(), agent->getY(), &xIdx, &yIdx)){
+            int offset = agent->getTeam() == team? sameTeamIdx: opponentIdx;
+            int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
+            int area = getGridArea(xIdx, yIdx);
+            (*input)[inputIdx] += 1.0 / area;
         }
     }
 
+    if(isInVisionGrid(world->getBall()->getX(), world->getBall()->getY(), &xIdx, &yIdx)){
+        int offset = ballIdx;
+        int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
+        int area = getGridArea(xIdx, yIdx);
+        (*input)[inputIdx] += 1.0 / area;
+    }
 
+
+
+    return *input;
 /*
    vector<double> input;
 

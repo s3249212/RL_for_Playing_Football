@@ -25,6 +25,9 @@ private:
     int nLayerBounds;
     int* layerBounds;
 
+    int getInputIdx(int xIdx, int yIdx, int offset, int nDepth);
+    int getGridArea(int xIdx, int yIdx);
+    bool isInVisionGrid(int x, int y, int *xIdx, int *yIdx);
 };
 
 #endif // VISIONGRID_IH_H

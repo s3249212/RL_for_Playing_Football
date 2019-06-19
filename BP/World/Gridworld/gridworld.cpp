@@ -309,3 +309,8 @@ array<bool, 6> Gridworld::getPixelData(array<int, 2> coord, int team){
 
     return result;
 }
+
+vector<Gridworld_Agent *> Gridworld::getAgents()
+{
+    return agents;
+}

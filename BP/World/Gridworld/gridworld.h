@@ -98,6 +98,7 @@ public:
     void removeFromEventLog(Gridworld_Event *event);
 
     array<bool, 6> getPixelData(array<int, 2> coord, int team);
+    vector<Gridworld_Agent*> getAgents();
 };
 
 #endif // GRIDWORLD_H
