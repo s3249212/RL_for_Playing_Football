@@ -37,31 +37,34 @@ void VisionGrid_IH::initialize()
     }
 }
 
-bool VisionGrid_IH::isInVisionGrid(int x, int y, int* xIdx, int* yIdx){
-    int agentX = agents[0]->getX(), agentY = agents[0]->getY();
-
-    if(!(x < agentX - layerBounds[0] &&
-            x >= agentX + layerBounds[nLayerBounds - 1] &&
-            y < agentY - layerBounds[0] &&
-            y >= agentY + layerBounds[nLayerBounds - 1])){
+bool VisionGrid_IH::isXorYInVisionGrid(int value, int centre, int* idx){
+    if(!(value < centre - layerBounds[0] &&
+            value >= centre + layerBounds[nLayerBounds - 1])){
         return false;
     }
 
-    for(*xIdx = 0; *xIdx < nLayerBounds - 2; *xIdx++){
-        if(x < agentX - layerBounds[*xIdx] &&
-                x >= agentX + layerBounds[*xIdx + 1]){
-            break;
-        }
-    }
-
-    for(*yIdx = 0; *yIdx < nLayerBounds - 2; *yIdx++){
-        if(y < agentY - layerBounds[*yIdx] &&
-                y >= agentY + layerBounds[*yIdx + 1]){
+    for(*idx = 0; *idx < nLayerBounds - 2; *idx++){
+        if(value < centre - layerBounds[*idx] &&
+                value >= centre + layerBounds[*idx + 1]){
             break;
         }
     }
 
     return true;
+}
+
+bool VisionGrid_IH::isXInVisionGrid(int x, int* xIdx){
+    int agentX = agents[0]->getX();
+    return isXorYInVisionGrid(x, agentX, xIdx);
+}
+
+bool VisionGrid_IH::isYInVisionGrid(int y, int* yIdx){
+    int agentY = agents[0]->getY();
+    return isXorYInVisionGrid(y, agentY, yIdx);
+}
+
+bool VisionGrid_IH::isInVisionGrid(int x, int y, int* xIdx, int* yIdx){
+    return isXInVisionGrid(x, xIdx) && isYInVisionGrid(y, yIdx);
 }
 
 int VisionGrid_IH::getGridArea(int xIdx, int yIdx){
@@ -86,6 +89,16 @@ void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, i
 }
 
 void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int nDepth){
+    int xIdx, yIdx;
+
+    if(!isXInVisionGrid(x, &xIdx)){
+        return;
+    }
+
+    int y = y0 < y1? y0: y1;
+
+    y = y > agents[0]->getY() + layerBounds[0]? y: agents[0]->getY() + layerBounds[0];
+
 
 }
 

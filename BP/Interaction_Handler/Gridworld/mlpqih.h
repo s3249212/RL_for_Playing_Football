@@ -18,6 +18,9 @@ public:
 
 private:
     MLPQ* MLPQPlayer;
+
+    int nInput;
+    vector<double>* input;
 };
 
 #endif // MLPQIH_H

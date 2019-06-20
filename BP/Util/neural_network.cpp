@@ -49,6 +49,7 @@ activationfunctions(activationfunctions)
 
 Neural_network::Neural_network(string filename)
 {
+    activationfunctions = {SIGMOID, LINEAR};
     load(filename);
 }
 
@@ -87,13 +88,15 @@ vector<double> Neural_network::forwardPass(vector<double> input){
     }
 
     for(int i = 0; i < layerSizes.size() - 1; i++){
-        for(int j = 0; j < layerSizes.at(i); j++){
-            for(int k = 0; k < layerSizes.at(i + 1); k++){
-                nodes[i + 1][k].in += nodes[i][j].out * weights[i][j][k];
+        for(int j = 0; j < layerSizes.at(i) + 1; j++){
+            if(nodes[i][j].out != 0){
+                for(int k = 0; k < layerSizes.at(i + 1); k++){
+                    nodes[i + 1][k].in += nodes[i][j].out * weights[i][j][k];
+                }
             }
         }
         for(int j = 0; j < layerSizes.at(i + 1); j++){
-            nodes[i + 1][j].in += bias * weights[i][layerSizes.at(i)][j];
+            //nodes[i + 1][j].in += bias * weights[i][layerSizes.at(i)][j];
             nodes[i + 1][j].out = activationFunction(nodes[i + 1][j].in, i + 1);
         }
     }
@@ -114,26 +117,25 @@ void Neural_network::backwardPass(vector<double> targets){
 
     for(int i = 0; i < layerSizes.size() - 1; i++){
         for(int j = 0; j < layerSizes[i]; j++){
-            nodes[i][i].errdiff = 0;
+            nodes[i][j].errdiff = 0;
         }
     }
 
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
         nodes[layerSizes.size() - 1][i].errdiff = (nodes[layerSizes.size() - 1][i].out - targets.at(i)) * dActivationFunction(nodes[layerSizes.size() - 1][i].in, layerSizes.size() - 1);
-        //cout << "Errdiff: " << nodes[layerSizes.size() - 1][i].errdiff << endl;
     }
-    //cout << endl;
 
-    for(int i = layerSizes.size() -1; i > 0; i--){
+    for(int i = layerSizes.size() - 1; i > 0; i--){
         for(int k = 0; k < layerSizes.at(i); k++){
-            for(int j = 0; j < layerSizes.at(i - 1) + 1; j++){
-                if(j < layerSizes.at(i -1)){
-                    nodes[i - 1][j].errdiff += nodes[i][k].errdiff * dActivationFunction(nodes[i - 1][j].in, i - 1) * weights[i - 1][j][k];
+            if(nodes[i][k].errdiff != 0){
+                for(int j = 0; j < layerSizes.at(i - 1) + 1; j++){
+                    if(j < layerSizes.at(i -1)){
+                        nodes[i - 1][j].errdiff += nodes[i][k].errdiff * dActivationFunction(nodes[i - 1][j].in, i - 1) * weights[i - 1][j][k];
+                    }
+
+                    double diff_w = nodes[i][k].errdiff * nodes[i - 1][j].out;
+                    weights[i - 1][j][k] -= learning_rate * diff_w;
                 }
-                double diff_w = nodes[i][k].errdiff * nodes[i - 1][j].out;
-                //cout << i - 1 << " " << j + 1 << " " << k + 1 << "Diff_w" << diff_w << endl;
-                weights[i - 1][j][k] -= learning_rate * diff_w;
-                //cout << learning_rate << " " << diff_w << " " << learning_rate * diff_w << endl;
             }
         }
     }

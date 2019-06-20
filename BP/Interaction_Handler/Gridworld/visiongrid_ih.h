@@ -28,6 +28,12 @@ private:
     int getInputIdx(int xIdx, int yIdx, int offset, int nDepth);
     int getGridArea(int xIdx, int yIdx);
     bool isInVisionGrid(int x, int y, int *xIdx, int *yIdx);
+    bool isYInVisionGrid(int y, int *yIdx);
+    bool isXInVisionGrid(int x, int *xIdx);
+    bool isXorYInVisionGrid(int value, int centre, int *idx);
+    void addHorizontalLineToGrid(int x0, int x1, int y, int offset, int nDepth);
+    void addVerticalLineToGrid(int y0, int y1, int x, int offset, int nDepth);
+    void addLineToGrid(int x0, int y0, int x1, int y1, int offset, int nDepth);
 };
 
 #endif // VISIONGRID_IH_H

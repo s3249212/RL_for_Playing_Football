@@ -13,32 +13,34 @@ MLPQIH::MLPQIH(Gridworld *gridworld, MLPQ *player, int team)
 
 void MLPQIH::initialize()
 {
-    int nInput = 2 * (world->getBlueTeam().size() + world->getRedTeam().size() + 1);
+    nInput = 4 * world->getWidth() * world->getHeight();
     int nActions = 18;
+    input = new vector<double>(nInput, 0);
     MLPQPlayer->initialize(nInput, nActions);
 }
 
 vector<double> MLPQIH::generateInput()
 {
-    vector<double> input;
-    input.push_back(agents[0]->getX() / world->getWidth());
-    input.push_back(agents[0]->getY() / world->getHeight());
-    for(Gridworld_IH* ih: world->getihs()){
-        if(ih->getPlayer()!=player && ih->getTeam() == team){
-            Gridworld_Agent* agent = ih->getAgents()[0];
-            input.push_back(agent->getX() / world->getWidth());
-            input.push_back(agent->getY() / world->getHeight());
+    for(int i = 0; i < nInput; i++){
+        (*input)[i] = 0;
+    }
+
+    int idx = agents[0]->getX() * world->getHeight() + agents[0]->getY();
+    (*input)[idx] = 1;
+
+    for(Gridworld_Agent* agent: world->getAgents()){
+        idx = agent->getX() * world->getHeight() + agent->getY();
+        if(agent->getTeam() == team && agent != agents[0]){
+            idx += world->getWidth() * world->getHeight();
+            (*input)[idx] = 1;
+        } else if(agent->getTeam() != team){
+            idx += 2 * world->getWidth() * world->getHeight();
+            (*input)[idx] = 1;
         }
     }
-    for(Gridworld_IH* ih: world->getihs()){
-        if(ih->getTeam() != team){
-            Gridworld_Agent* agent = ih->getAgents()[0];
-            input.push_back(agent->getX() / world->getWidth());
-            input.push_back(agent->getY() / world->getHeight());
-        }
-    }
-    Gridworld_Ball *ball = world->getBall();
-    input.push_back(ball->getX() / world->getWidth());
-    input.push_back(ball->getY() / world->getHeight());
-    return input;
+
+    idx = world->getBall()->getX() * world->getHeight() + world->getBall()->getY() + 3 * world->getWidth() * world->getHeight();
+    (*input)[idx] = 1;
+
+    return *input;
 }

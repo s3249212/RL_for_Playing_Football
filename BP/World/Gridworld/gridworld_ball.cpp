@@ -103,9 +103,10 @@ void Gridworld_Ball::automaticMove()
     for(int i = 0; i < automaticLevel; i++){
         move(automaticDeltaX, automaticDeltaY);
     }
-    if(automaticLevel > 0){
+    automaticLevel = 0;
+    /*if(automaticLevel > 0){
         automaticLevel--;
-    }
+    }*/
 }
 
 

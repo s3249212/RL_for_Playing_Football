@@ -49,19 +49,19 @@ void Gridworld_IH::initRewardGeneration(){
               rewards[i] = new int [3];
             }
 
-            rewards[SAME_PLAYER][Gridworld_Event::GOAL] = 100;
+            rewards[SAME_PLAYER][Gridworld_Event::GOAL] = 1;
             rewards[SAME_PLAYER][Gridworld_Event::TOUCH] = 0;
             rewards[SAME_PLAYER][Gridworld_Event::PASS] = 0;
 
-            rewards[SAME_TEAM][Gridworld_Event::GOAL] = 100;
+            rewards[SAME_TEAM][Gridworld_Event::GOAL] = 1;
             rewards[SAME_TEAM][Gridworld_Event::TOUCH] = 0;
             rewards[SAME_TEAM][Gridworld_Event::PASS] = 0;
 
-            rewards[PLAYER_TO_OPPONENT][Gridworld_Event::GOAL] = -100;
+            rewards[PLAYER_TO_OPPONENT][Gridworld_Event::GOAL] = -1;
             rewards[PLAYER_TO_OPPONENT][Gridworld_Event::TOUCH] = 0;
-            rewards[PLAYER_TO_OPPONENT][Gridworld_Event::PASS] = -5;
+            rewards[PLAYER_TO_OPPONENT][Gridworld_Event::PASS] = 0;
 
-            rewards[OPPOSITE_TEAM][Gridworld_Event::GOAL] = -100;
+            rewards[OPPOSITE_TEAM][Gridworld_Event::GOAL] = -1;
             rewards[OPPOSITE_TEAM][Gridworld_Event::TOUCH] = 0;
             rewards[OPPOSITE_TEAM][Gridworld_Event::PASS] = 0;
         break;
