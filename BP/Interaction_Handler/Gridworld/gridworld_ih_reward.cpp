@@ -1,15 +1,15 @@
 #include "gridworld_ih.h"
 #include <iostream>
 
-double Gridworld_IH::generateReward(){
+double Gridworld_IH::generateReward(bool terminal){
     switch(rewardType){
         case GOAL_TOUCH:
-            return rewardGoalTouch();
+            return rewardGoalTouch(terminal);
     }
     return 0;
 }
 
-int Gridworld_IH::rewardGoalTouch(){
+int Gridworld_IH::rewardGoalTouch(bool terminal){
     int reward = 0;
 
     vector<Gridworld_Event*> events = world->getEventLog();
@@ -33,7 +33,7 @@ int Gridworld_IH::rewardGoalTouch(){
 
         reward += rewards[team][event->event_type];
 
-        if(event->player == player){
+        if(!terminal && event->player == player){
             world->removeFromEventLog(event);
         }
     }

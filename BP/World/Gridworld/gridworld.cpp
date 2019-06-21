@@ -33,7 +33,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile16_";
+        string filename = "/home/s3249212/playersavefile2_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -227,6 +227,8 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
         ih->update(true);
         ih->resetAfterEpisode();
     }
+
+    resetEventLog();
 }
 
 void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
@@ -252,7 +254,7 @@ void Gridworld::resetEventLog(){
 }
 
 void Gridworld::resetLocations(){
-    int nred = 0, nblue = 0;
+    /*int nred = 0, nblue = 0;
     for(Gridworld_Agent* agent: agents){
         int x;
         if(agent->getTeam() == 0){
@@ -265,7 +267,25 @@ void Gridworld::resetLocations(){
         agent->setCoord({x, 1});
     }
 
+    ball->setCoord({width / 2, height / 2});*/
     ball->setCoord({width / 2, height / 2});
+    for(int i = 0; i < agents.size(); i++){
+        int x;
+        int y;
+        bool isFree;
+        do{
+            x = rand() % (width - 2) + 1;
+            y = rand() % (height - 2) + 1;
+
+            isFree = (x != ball->getX() && y != ball->getY());
+            int j = 0;
+            while(j < i && isFree){
+                isFree = (x != agents[0]->getX() && y != agents[0]->getY());
+                j++;
+            }
+        } while(!isFree);
+        agents[i]->setCoord({x, y});
+    }
 }
 
 void Gridworld::removeFromEventLog(Gridworld_Event *event)

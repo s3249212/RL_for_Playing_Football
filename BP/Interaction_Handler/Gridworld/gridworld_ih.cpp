@@ -13,7 +13,7 @@ Gridworld_IH::~Gridworld_IH(){
 
 void Gridworld_IH::update(bool terminal){
     vector<double> input = generateInput();
-    double reward = generateReward();
+    double reward = generateReward(terminal);
 
     totalreward += reward;
 

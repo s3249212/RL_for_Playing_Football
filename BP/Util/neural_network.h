@@ -15,10 +15,10 @@ class Neural_network{
     Neural_network(vector<int> layerSizes, vector<Activation_t> activationfunctions);
     Neural_network(string filename);
     ~Neural_network();
-    vector<double> forwardPass(vector<double> input);
-    void backwardPass(vector<double> targets);
-    void save(string filename);
-    void load(string filename);
+    vector<double> forwardPass(vector<double>& input);
+    void backwardPass(vector<double>& targets);
+    void save(string& filename);
+    void load(string& filename);
 
     void print();
 
@@ -35,7 +35,7 @@ class Neural_network{
     Node_t** nodes;
     double*** weights;
 
-    double learning_rate = 0.1;
+    double learning_rate = 0.02;
 
     double bias = 1.0f;
 

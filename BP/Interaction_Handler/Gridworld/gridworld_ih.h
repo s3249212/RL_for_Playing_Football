@@ -73,10 +73,10 @@ private:
     int** rewards;
 
     virtual vector<double> generateInput(); //where to get input?
-    double generateReward();
+    double generateReward(bool terminal = false);
     void handleOutput(int output);
 
-    int rewardGoalTouch();
+    int rewardGoalTouch(bool terminal = false);
 
     void initRewardGeneration();
 };
