@@ -20,19 +20,16 @@ void Gridworld_IH::update(bool terminal){
     //if(mode == TRAINING){
         player->train(input, reward, terminal);
     //}
-    int output = player->act(input);
+    if(!terminal){
+        int output = player->act(input);
 
-    if(totalreward > 1000){
-        cout << "High reward?! " << totalreward << endl;
-        cout << output << endl << endl;
+        handleOutput(output);
     }
-
-    handleOutput(output);
 }
 
-void Gridworld_IH::resetAfterMatch()
+void Gridworld_IH::resetAfterEpisode()
 {
-    player->resetAfterMatch();
+    player->resetAfterEpisode();
 }
 
 void Gridworld_IH::handleOutput(int output){

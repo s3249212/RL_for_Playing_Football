@@ -33,7 +33,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile13_";
+        string filename = "/home/julian/playersavefile16_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -66,8 +66,8 @@ void Gridworld::runMatch(bool training = 0){
     }
 
     for(Gridworld_IH* ih: ihs){
-        //ih->update(true);
-        ih->resetAfterMatch();
+        ih->update(true);
+        ih->resetAfterEpisode();
     }
 }
 
@@ -222,6 +222,11 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
     addEvent(Gridworld_Event::GOAL, team);
 
     resetLocations();
+
+    for(Gridworld_IH* ih: ihs){
+        ih->update(true);
+        ih->resetAfterEpisode();
+    }
 }
 
 void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
