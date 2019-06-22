@@ -19,7 +19,6 @@ SOURCES += main.cpp \
     World/Gridworld/gridworld_ball.cpp \
     World/Gridworld/gridworld_event.cpp \
     World/Gridworld/gridworld_getset.cpp \
-    World/Gridworld/gridworld_score.cpp \
     View/view.cpp \
     View/Gridworld/gridworldview.cpp \
     View/Gridworld/gridworldview_agent.cpp \
@@ -28,18 +27,20 @@ SOURCES += main.cpp \
     Player/player.cpp \
     Player/randomplayer.cpp \
     Player/tabularq.cpp \
-    Player/mlpq.cpp \
-    Player/qlearningplayer.cpp \
     Interaction_Handler/Gridworld/gridworld_ih.cpp \
     Interaction_Handler/Gridworld/tabularqih.cpp \
     Interaction_Handler/Gridworld/mlpqih.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_getset.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_input.cpp \
     Interaction_Handler/Gridworld/gridworld_ih_reward.cpp \
-    Interaction_Handler/Gridworld/visiongrid_ih.cpp \
     Interaction_Handler/Gridworld/randomih.cpp \
     Util/neural_network.cpp \
+    World/Gridworld/gridworld_score.cpp \
+    Player/mlpq.cpp \
     Util/util_functions.cpp \
+    Player/qlearningplayer.cpp \
+    Interaction_Handler/Gridworld/visiongrid_ih.cpp
+    Util/neural_network.cpp \
 
 HEADERS  += \
     World/world.h \
@@ -56,15 +57,15 @@ HEADERS  += \
     Player/player.h \
     Player/randomplayer.h \
     Player/tabularq.h \
-    Player/mlpq.h \
-    Player/qlearningplayer.h \
+    Util/neural_network.h \
     Interaction_Handler/Gridworld/gridworld_ih.h \
     Interaction_Handler/Gridworld/tabularqih.h \
     Interaction_Handler/Gridworld/mlpqih.h \
     Interaction_Handler/Gridworld/randomih.h \
-    Interaction_Handler/Gridworld/visiongrid_ih.h \
-    Util/neural_network.h \
+    Player/mlpq.h \
     Util/util_functions.h \
+    Player/qlearningplayer.h \
+    Interaction_Handler/Gridworld/visiongrid_ih.h
 
 FORMS    += \
     mainwindow.ui

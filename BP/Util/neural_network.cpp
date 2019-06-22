@@ -67,7 +67,7 @@ Neural_network::~Neural_network(){
     delete[] weights;
 }
 
-vector<double> Neural_network::forwardPass(vector<double>& input){
+vector<double> Neural_network::forwardPass(vector<double> input){
     if(input.size() != layerSizes.at(0)){
         cerr << "Given input size is not equal to the size of the input layer!";
         exit(-144);
@@ -109,7 +109,7 @@ vector<double> Neural_network::forwardPass(vector<double>& input){
     return output;
 }
 
-void Neural_network::backwardPass(vector<double>& targets){
+void Neural_network::backwardPass(vector<double> targets){
     if(targets.size() != layerSizes.at(layerSizes.size() - 1)){
         cerr << "Given target size is not equal to the size of the output layer!";
         exit(-145);
@@ -141,7 +141,7 @@ void Neural_network::backwardPass(vector<double>& targets){
     }
 }
 
-void Neural_network::save(string& filename)
+void Neural_network::save(string filename)
 {
     std::ofstream filestream(filename);
 
@@ -164,7 +164,7 @@ void Neural_network::save(string& filename)
     filestream.close();
 }
 
-void Neural_network::load(string& filename){
+void Neural_network::load(string filename){
     ifstream filestream(filename);
     /*char* str = new char[200];
     filestream.getline(str, 199);
