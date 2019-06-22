@@ -33,7 +33,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile30_";
+        string filename = "/home/julian/playersavefile32_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -67,6 +67,7 @@ void Gridworld::runMatch(bool training = 0){
 
     for(Gridworld_IH* ih: ihs){
         //ih->update(true);
+        ih->updateEndEpisode();
         ih->resetAfterEpisode();
     }
 }

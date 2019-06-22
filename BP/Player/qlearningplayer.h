@@ -30,7 +30,9 @@ protected:
     double learning_rate = 0.01;
     double discount_factor = 0.99; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
-    double softMaxTemp = 0.35;
+    int softMaxDecreasingPeriod = 2000000;
+    double maxSoftMaxTemp = 1;
+    double minSoftMaxTemp = 0.05;
 
     int nActions;
 
@@ -43,6 +45,7 @@ protected:
     int randomActionSelection();
 
     double epsilon_f();
+    double getSoftMaxTemp();
 };
 
 #endif // QLEARNINGPLAYER_H

@@ -57,9 +57,17 @@ int QLearningPlayer::selectAction(vector<double> qValues)
     return selectedAction;
 }
 
+double QLearningPlayer::getSoftMaxTemp(){
+    if(nSteps > softMaxDecreasingPeriod){
+        return minSoftMaxTemp;
+    }
+    double time_factor = nSteps / static_cast<double>(softMaxDecreasingPeriod);
+    return (1 - time_factor) * maxSoftMaxTemp + time_factor * minSoftMaxTemp;
+}
+
 int QLearningPlayer::softmaxActionSelection(vector<double> qValues)
 {
-    vector<double> probabilities = softmax(qValues, softMaxTemp);
+    vector<double> probabilities = softmax(qValues, getSoftMaxTemp());
     return weightedRandomSelection(probabilities);
 }
 

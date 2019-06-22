@@ -39,8 +39,8 @@ class Neural_network{
 
     double bias = 1.0f;
 
-    double minInit = -0.1;
-    double maxInit = 0.1;
+    double minInit = -0.01;
+    double maxInit = 0.01;
 
     double activationFunction(double input, int layerIdx);
     double dActivationFunction(double input, int layerIdx);
