@@ -40,7 +40,6 @@ SOURCES += main.cpp \
     Util/util_functions.cpp \
     Player/qlearningplayer.cpp \
     Interaction_Handler/Gridworld/visiongrid_ih.cpp
-    Util/neural_network.cpp \
 
 HEADERS  += \
     World/world.h \
@@ -73,7 +72,8 @@ FORMS    += \
 RESOURCES += \
     res.qrc
 
-CONFIG += c++11
+CONFIG += c++11 \
+    o3
 
 DISTFILES += \
     tutorial.pro.user.ad5f1f3.4.8-pre1

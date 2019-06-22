@@ -47,6 +47,7 @@ private:
     void runMatch(bool training);
 
     void saveStatistics();
+    void writeStatistics();
 
     void resetEventLog();
 

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 class World
 {
@@ -17,6 +18,7 @@ public:
 
 protected:
     std::ofstream savefile;
+    std::stringstream savestream;
 
     int nBlocks = 50;
 

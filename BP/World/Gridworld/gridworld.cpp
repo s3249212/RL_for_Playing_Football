@@ -33,11 +33,12 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile32_";
+        string filename = "/home/s3249212/playersavefile32_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
         }
+        writeStatistics();
 
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
 
@@ -84,11 +85,16 @@ void Gridworld::saveStatistics(){
     for(int i = 0; i < ihs.size(); i++){
         Gridworld_IH* ih = ihs.at(i);
         if(i > 0){
-            savefile << "\t";
+            savestream << "\t";
         }
-        savefile << ih->getStatistics();
+        savestream << ih->getStatistics();
     }
-    savefile << endl;
+    savestream << endl;
+}
+
+void Gridworld::writeStatistics()
+{
+    savefile << savestream.str();
 }
 
 Gridworld::Gridworld(string savefilename){
