@@ -150,7 +150,7 @@ void TabularQ::load(string filename)
     filestream.close();
 }
 
-void TabularQ::resetAfterEpisode()
+void TabularQ::resetAfterMatch()
 {
     prevAction = -1;
     prevState = -1;

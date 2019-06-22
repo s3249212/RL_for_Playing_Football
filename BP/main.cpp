@@ -1,4 +1,4 @@
-#define USEQT 0
+#define USEQT 1
 #if USEQT == 1
 #include <QApplication>
 #include <QGraphicsScene>
@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile23");
+    Gridworld* gridworld = new Gridworld("/home/julian/savefile19");
 
-    MLPQ* player = new MLPQ();
+    MLPQ* player = new MLPQ("/home/julian/playersavefile12_0");
     gridworld->addPlayer(player, 0);
     /*player = new MLPQ();
     gridworld->addPlayer(player, 0);*/
@@ -52,12 +52,17 @@ int main(int argc, char *argv[])
     view = new GridworldView();
     view->setWorld(gridworld);
     view->show();
-
-    a->exec();
 #endif
 
-    gridworld->runTraining();
+    vector<int> v = {1, 2, 4};
 
+    //gridworld->runTraining();
+
+    //std::thread t1(threadFunction, gridworld);
+
+    a->exec();
+
+    //t1.join();
     delete player;
     delete player2;
     delete gridworld;

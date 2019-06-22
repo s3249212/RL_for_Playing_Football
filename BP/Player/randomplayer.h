@@ -11,7 +11,7 @@ public:
 
     void train(vector<double> input, double reward, bool terminal = 0);
     int act(vector<double> input);
-    void resetAfterEpisode();
+    void resetAfterMatch();
     void save(string filename);
     void load(string filename);
 

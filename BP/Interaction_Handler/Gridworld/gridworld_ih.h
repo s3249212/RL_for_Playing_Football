@@ -31,7 +31,7 @@ public:
     virtual void initialize() = 0;
 
     void update(bool terminal = 0);
-    void resetAfterEpisode();
+    void resetAfterMatch();
 
     int getNumberOfAgents();
     int getTeam();

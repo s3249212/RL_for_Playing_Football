@@ -28,7 +28,7 @@ public:
 
     void train(vector<double> input, double reward, bool terminal = 0);
 
-    void resetAfterEpisode();
+    void resetAfterMatch();
 
     int act(vector<double> input);
 

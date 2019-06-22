@@ -52,32 +52,57 @@ void MLPQ::train(vector<double> input, double reward, bool terminal)
         return;
     }
 
-    vector<double> output;
-    double target;
-
-    if(!terminal){
-        output = nn->forwardPass(input);
-
-        double maxQValue;
-
-        maxQValue = output[0];
-        for(int i = 1; i < nActions; i++){
-            if(output[i] > maxQValue){
-                maxQValue = output[i];
-            }
-        }
-        target = reward + discount_factor * maxQValue;
-    } else {
-        target = reward;
+    if(reward > 100){
+        cout << "High reward!" << endl;
     }
 
+    vector<double> output = nn->forwardPass(input);
+
+    double maxQValue;
+
+    maxQValue = output[0];
+    for(int i = 1; i < nActions; i++){
+        //cout << output[i] << "\t";
+        if(output[i] > maxQValue){
+            maxQValue = output[i];
+        }
+    }
+    //cout << endl;
+    //cout << "Max Q Value: " << maxQValue << endl;
+
     output = nn->forwardPass(prevInput);
+
+    double target = reward + discount_factor * maxQValue;
+
+    /*cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
+    //cout << endl;
+
+    cout << "BackwardPass results:" << endl;
+    cout << "Previous output" << endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl;*/
 
     output[prevAction] = target;
 
+    /*cout << "Target:"<< endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl;*/
+
     nn->backwardPass(output);
 
-    output = nn->forwardPass(prevInput);
+    /*output = nn->forwardPass(prevInput);
+
+    cout << "New output:" << endl;
+    for(double d: output){
+        cout << d << "\t";
+    }
+    cout << endl << endl;*/
+
+    //nn->print();
 }
 
 int MLPQ::act(vector<double> input){
@@ -97,7 +122,7 @@ int MLPQ::act(vector<double> input){
     return selectedAction;
 }
 
-void MLPQ::resetAfterEpisode()
+void MLPQ::resetAfterMatch()
 {
     prevAction = -1;
     prevInput.clear();

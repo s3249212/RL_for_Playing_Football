@@ -15,7 +15,7 @@ int RandomPlayer::act(vector<double> input){
     return rand() % nActions;
 }
 
-void RandomPlayer::resetAfterEpisode()
+void RandomPlayer::resetAfterMatch()
 {
     
 }
