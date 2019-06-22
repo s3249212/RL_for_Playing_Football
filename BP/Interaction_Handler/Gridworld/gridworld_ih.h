@@ -30,8 +30,9 @@ public:
 
     virtual void initialize() = 0;
 
-    void update(bool terminal = 0);
-    void resetAfterMatch();
+    void updateEndEpisode();
+    void update();
+    void resetAfterEpisode();
 
     int getNumberOfAgents();
     int getTeam();
@@ -47,6 +48,8 @@ public:
 
     void save(string filename);
     void load(string filename);
+
+    double generateRewardEndEpisode();
 
 protected:
     Player* player;
@@ -79,6 +82,7 @@ private:
     int rewardGoalTouch();
 
     void initRewardGeneration();
+    int rewardGoalTouchEndEpisode();
 };
 
 #endif // GRIDWORLD_IH_H

@@ -7,7 +7,12 @@ RandomPlayer::RandomPlayer()
 
 }
 
-void RandomPlayer::train(vector<double> input, double reward, bool terminal){
+void RandomPlayer::train(double reward)
+{
+
+}
+
+void RandomPlayer::train(vector<double> input, double reward){
 
 }
 
@@ -15,7 +20,7 @@ int RandomPlayer::act(vector<double> input){
     return rand() % nActions;
 }
 
-void RandomPlayer::resetAfterMatch()
+void RandomPlayer::resetAfterEpisode()
 {
     
 }

@@ -10,8 +10,8 @@ public:
 
     void initialize();
 
-    void update(bool terminal = 0);
-    void resetAfterMatch();
+    void update(bool terminal = false);
+    void resetAfterEpisode();
 
     vector<double> generateInput();
 private:

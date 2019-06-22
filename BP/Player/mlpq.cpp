@@ -46,14 +46,24 @@ void MLPQ::initialize(int nInput, int nActions){
 
 }
 
-void MLPQ::train(vector<double> input, double reward, bool terminal)
-{
+void MLPQ::train(double reward){
     if(prevInput.size() == 0 || prevAction < 0){
         return;
     }
 
-    if(reward > 100){
-        cout << "High reward!" << endl;
+    vector<double> output = nn->forwardPass(prevInput);
+
+    double target = reward;
+
+    output[prevAction] = target;
+
+    nn->backwardPass(output);
+}
+
+void MLPQ::train(vector<double> input, double reward)
+{
+    if(prevInput.size() == 0 || prevAction < 0){
+        return;
     }
 
     vector<double> output = nn->forwardPass(input);
@@ -111,10 +121,12 @@ int MLPQ::act(vector<double> input){
     int selectedAction = selectAction(qValues);
 
     prevAction = selectedAction;
+
     if(selectedAction < 0){
         cout << "Selected action: "<< selectedAction;
         exit(0);
     }
+
     prevInput = input;
 
     nSteps++;
@@ -122,7 +134,7 @@ int MLPQ::act(vector<double> input){
     return selectedAction;
 }
 
-void MLPQ::resetAfterMatch()
+void MLPQ::resetAfterEpisode()
 {
     prevAction = -1;
     prevInput.clear();

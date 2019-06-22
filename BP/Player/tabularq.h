@@ -26,9 +26,10 @@ public:
 
     void initialize(int nStates, int nActions);
 
-    void train(vector<double> input, double reward, bool terminal = 0);
+    void train(double reward);
+    void train(vector<double> input, double reward);
 
-    void resetAfterMatch();
+    void resetAfterEpisode();
 
     int act(vector<double> input);
 

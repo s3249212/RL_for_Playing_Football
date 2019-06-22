@@ -13,10 +13,12 @@ public:
 
     void initialize(int nInput, int nActions);
 
-    void train(vector<double> input, double reward, bool terminal = 0);
+    void train(double reward);
+    void train(vector<double> input, double reward);
+
     int act(vector<double> input);
 
-    void resetAfterMatch();
+    void resetAfterEpisode();
 
     void save(string filename);
     void load(string filename);

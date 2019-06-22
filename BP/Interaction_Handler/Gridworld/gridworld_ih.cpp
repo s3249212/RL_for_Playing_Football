@@ -11,28 +11,33 @@ Gridworld_IH::~Gridworld_IH(){
     delete[] rewards;
 }
 
-void Gridworld_IH::update(bool terminal){
+void Gridworld_IH::updateEndEpisode()
+{
+    double reward = generateRewardEndEpisode();
+
+    totalreward += reward;
+
+    player->train(reward);
+}
+
+void Gridworld_IH::update(){
     vector<double> input = generateInput();
     double reward = generateReward();
 
     totalreward += reward;
 
     //if(mode == TRAINING){
-        player->train(input, reward, terminal);
+        player->train(input, reward);
     //}
-    int output = player->act(input);
 
-    if(totalreward > 1000){
-        cout << "High reward?! " << totalreward << endl;
-        cout << output << endl << endl;
-    }
+    int output = player->act(input);
 
     handleOutput(output);
 }
 
-void Gridworld_IH::resetAfterMatch()
+void Gridworld_IH::resetAfterEpisode()
 {
-    player->resetAfterMatch();
+    player->resetAfterEpisode();
 }
 
 void Gridworld_IH::handleOutput(int output){

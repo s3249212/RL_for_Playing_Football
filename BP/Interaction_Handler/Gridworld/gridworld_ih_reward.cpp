@@ -9,6 +9,42 @@ double Gridworld_IH::generateReward(){
     return 0;
 }
 
+double Gridworld_IH::generateRewardEndEpisode(){
+    switch(rewardType){
+        case GOAL_TOUCH:
+            return rewardGoalTouchEndEpisode();
+    }
+    return 0;
+}
+
+int Gridworld_IH::rewardGoalTouchEndEpisode(){
+    int reward = 0;
+
+    vector<Gridworld_Event*> events = world->getEventLog();
+
+    for(Gridworld_Event* event: events){
+        Event_actor team;
+
+        if(event->team == this->team){
+            if(event->player == player){
+                team = SAME_PLAYER;
+            } else {
+                team = SAME_TEAM;
+            }
+        } else {
+            if(event->player == player){
+                team = PLAYER_TO_OPPONENT;
+            } else {
+                team = OPPOSITE_TEAM;
+            }
+        }
+
+        reward += rewards[team][event->event_type];
+    }
+
+    return reward;
+}
+
 int Gridworld_IH::rewardGoalTouch(){
     int reward = 0;
 
