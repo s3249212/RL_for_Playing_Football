@@ -128,24 +128,53 @@ void Neural_network::backwardPass(vector<double> targets){
 
     //timer("Determining initial errdiffs");
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
-        nodes[layerSizes.size() - 1][i].errdiff = (nodes[layerSizes.size() - 1][i].out - targets.at(i)) * dActivationFunction(nodes[layerSizes.size() - 1][i].in, layerSizes.size() - 1);
+        nodes[layerSizes.size() - 1][i].errdiff = (nodes[layerSizes.size() - 1][i].out - targets.at(i));
     }
 
     //timer("Doing actual back prop");
-    for(int i = layerSizes.size() - 1; i > 0; i--){
+    for(int i = layerSizes.size() - 1; i > 1; i--){
         for(int k = 0; k < layerSizes.at(i); k++){
             if(nodes[i][k].errdiff != 0){
-                for(int j = 0; j < layerSizes.at(i - 1) + 1; j++){
-                    if(j < layerSizes.at(i -1)){
-                        nodes[i - 1][j].errdiff += nodes[i][k].errdiff * dActivationFunction(nodes[i - 1][j].in, i - 1) * weights[i - 1][j][k];
-                    }
-
-                    double diff_w = nodes[i][k].errdiff * nodes[i - 1][j].out;
-                    weights[i - 1][j][k] -= learning_rate * diff_w;
+                nodes[i][k].errdiff *= dActivationFunction(nodes[i][k].in, i);
+                for(int j = 0; j < layerSizes.at(i - 1); j++){
+                    nodes[i - 1][j].errdiff += nodes[i][k].errdiff * weights[i - 1][j][k];
                 }
             }
         }
     }
+
+    for(int i = 0; i < layerSizes.size() - 1; i++){
+        for(int j = 0; j < layerSizes[i] + 1; j++){
+            if(nodes[i][j].out != 0){
+                double lrtimesout = learning_rate * nodes[i][j].out;
+                for(int k = 0; k < layerSizes[i + 1]; k++){
+                    if(nodes[i + 1][k].errdiff != 0){
+                        //double diff_w = nodes[i + 1][k].errdiff ;
+                        weights[i][j][k] -= nodes[i + 1][k].errdiff * lrtimesout;//learning_rate * diff_w;
+                    }
+                }
+            }
+        }
+    }
+    /*
+    for(int i = layerSizes.size() - 1; i > 0; i--){
+        for(int k = 0; k < layerSizes.at(i); k++){
+            if(nodes[i][k].errdiff != 0){
+                nodes[i][k].errdiff *= dActivationFunction(nodes[i][k].in, i);
+                for(int j = 0; j < layerSizes.at(i - 1) + 1; j++){
+                    if(i != 1 && j < layerSizes.at(i -1)){
+                        nodes[i - 1][j].errdiff += nodes[i][k].errdiff * weights[i - 1][j][k];
+                    }
+
+                    if(nodes[i - 1][j].out != 0){
+                        double diff_w = nodes[i][k].errdiff * nodes[i - 1][j].out;
+                        weights[i - 1][j][k] -= learning_rate * diff_w;
+                    }
+                }
+            }
+        }
+    }
+    */
     //timer();
 }
 

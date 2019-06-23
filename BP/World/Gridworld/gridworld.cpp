@@ -35,12 +35,12 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/s3249212/playersavefile36_";
+        string filename = "/home/julian/playersavefile101_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
         }
-        writeStatistics();
+        //writeStatistics();
 
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
 
@@ -70,8 +70,8 @@ void Gridworld::runMatch(bool training = 0){
 
     for(Gridworld_IH* ih: ihs){
         //ih->update(true);
-        //ih->updateEndEpisode();
-        //ih->resetAfterEpisode();
+        ih->updateEndEpisode();
+        ih->resetAfterEpisode();
     }
 }
 
@@ -87,11 +87,11 @@ void Gridworld::saveStatistics(){
     for(int i = 0; i < ihs.size(); i++){
         Gridworld_IH* ih = ihs.at(i);
         if(i > 0){
-            savestream << "\t";
+            savefile << "\t";
         }
-        savestream << ih->getStatistics();
+        savefile << ih->getStatistics();
     }
-    savestream << endl;
+    savefile << endl;
 }
 
 void Gridworld::writeStatistics()
