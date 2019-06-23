@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <cmath>
 
+#include "Util/util_functions.h"
+
 double Neural_network::activationFunction(double input, int layerIdx){
     Activation_t activation_type = activationfunctions[layerIdx - 1];
     switch(activation_type){
@@ -87,6 +89,7 @@ vector<double> Neural_network::forwardPass(vector<double> input){
         nodes[0][i].out = input.at(i);
     }
 
+    //timer("Actual forward prop");
     for(int i = 0; i < layerSizes.size() - 1; i++){
         for(int j = 0; j < layerSizes.at(i) + 1; j++){
             if(nodes[i][j].out != 0){
@@ -100,6 +103,7 @@ vector<double> Neural_network::forwardPass(vector<double> input){
             nodes[i + 1][j].out = activationFunction(nodes[i + 1][j].in, i + 1);
         }
     }
+    //timer();
 
     vector<double> output;
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
@@ -115,16 +119,19 @@ void Neural_network::backwardPass(vector<double> targets){
         exit(-145);
     }
 
+    //timer("Setting errdiff to 0");
     for(int i = 0; i < layerSizes.size() - 1; i++){
         for(int j = 0; j < layerSizes[i]; j++){
             nodes[i][j].errdiff = 0;
         }
     }
 
+    //timer("Determining initial errdiffs");
     for(int i = 0; i < layerSizes.at(layerSizes.size() - 1); i++){
         nodes[layerSizes.size() - 1][i].errdiff = (nodes[layerSizes.size() - 1][i].out - targets.at(i)) * dActivationFunction(nodes[layerSizes.size() - 1][i].in, layerSizes.size() - 1);
     }
 
+    //timer("Doing actual back prop");
     for(int i = layerSizes.size() - 1; i > 0; i--){
         for(int k = 0; k < layerSizes.at(i); k++){
             if(nodes[i][k].errdiff != 0){
@@ -139,6 +146,7 @@ void Neural_network::backwardPass(vector<double> targets){
             }
         }
     }
+    //timer();
 }
 
 void Neural_network::save(string filename)

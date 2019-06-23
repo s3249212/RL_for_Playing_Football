@@ -13,6 +13,8 @@
 #include "Interaction_Handler/Gridworld/mlpqih.h"
 #include "Interaction_Handler/Gridworld/visiongrid_ih.h"
 
+#include "Util/util_functions.h"
+
 using namespace std;
 using namespace std::chrono;
 
@@ -33,7 +35,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/s3249212/playersavefile32_";
+        string filename = "/home/s3249212/playersavefile36_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -68,8 +70,8 @@ void Gridworld::runMatch(bool training = 0){
 
     for(Gridworld_IH* ih: ihs){
         //ih->update(true);
-        ih->updateEndEpisode();
-        ih->resetAfterEpisode();
+        //ih->updateEndEpisode();
+        //ih->resetAfterEpisode();
     }
 }
 
