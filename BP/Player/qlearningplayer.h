@@ -31,8 +31,8 @@ protected:
     double discount_factor = 0.99; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
     int softMaxDecreasingPeriod = 2000000;
-    double maxSoftMaxTemp = 0.5;
-    double minSoftMaxTemp = 0.05;
+    double maxSoftMaxTemp = 0.2;
+    double minSoftMaxTemp = 0.2;
 
     int nActions;
 

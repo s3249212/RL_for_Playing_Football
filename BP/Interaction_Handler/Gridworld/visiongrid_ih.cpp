@@ -85,7 +85,32 @@ int VisionGrid_IH::getInputIdx(int xIdx, int yIdx, int offset, int nDepth){
 }
 
 void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, int nDepth){
+    int xIdx, yIdx;
 
+    if(!isXInVisionGrid(y, &yIdx)){
+        return;
+    }
+
+    int minX = x0 < x1? x0: x1;
+    int maxX = x0 < x1? x1: x0;
+
+    //int y = y > agents[0]->getY() + layerBounds[0]? y: agents[0]->getY() + layerBounds[0];
+    int agentX = agents[0]->getX();
+
+    while(xIdx < nLayerBounds && minX >= layerBounds[xIdx + 1] + agentX){
+        xIdx++;
+    }
+
+    while(xIdx < nLayerBounds && maxX >= layerBounds[xIdx] + agentX){
+        if(minX < layerBounds[xIdx] + agentX){
+            minX = layerBounds[xIdx] + agentX;
+        }
+        int nextX = maxX < layerBounds[xIdx] + agentX - 1? maxX: layerBounds[xIdx] + agentX - 1;
+        int nBlocksInside = nextX - minX + 1;
+        int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
+        int area = getGridArea(xIdx, yIdx);
+        (*input)[inputIdx] += static_cast<double>(nBlocksInside) / area;
+    }
 }
 
 void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int nDepth){
@@ -95,11 +120,26 @@ void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int
         return;
     }
 
-    int y = y0 < y1? y0: y1;
+    int minY = y0 < y1? y0: y1;
+    int maxY = y0 < y1? y1: y0;
 
-    y = y > agents[0]->getY() + layerBounds[0]? y: agents[0]->getY() + layerBounds[0];
+    //int y = y > agents[0]->getY() + layerBounds[0]? y: agents[0]->getY() + layerBounds[0];
+    int agentY = agents[0]->getY();
 
+    while(yIdx < nLayerBounds && minY >= layerBounds[yIdx + 1] + agentY){
+        yIdx++;
+    }
 
+    while(yIdx < nLayerBounds && maxY >= layerBounds[yIdx] + agentY){
+        if(minY < layerBounds[yIdx] + agentY){
+            minY = layerBounds[yIdx] + agentY;
+        }
+        int nextY = maxY < layerBounds[yIdx] + agentY - 1? maxY: layerBounds[yIdx] + agentY - 1;
+        int nBlocksInside = nextY - minY + 1;
+        int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
+        int area = getGridArea(xIdx, yIdx);
+        (*input)[inputIdx] += static_cast<double>(nBlocksInside) / area;
+    }
 }
 
 void VisionGrid_IH::addLineToGrid(int x0, int y0, int x1, int y1, int offset, int nDepth){
@@ -153,7 +193,22 @@ vector<double> VisionGrid_IH::generateInput()
         (*input)[inputIdx] += 1.0 / area;
     }
 
+    int width = world->getWidth();
+    int height = world->getHeight();
+    addLineToGrid(0, 0, width - 1, 0, wallIdx, nDepth);
+    addLineToGrid(0, 1, 0, height - 1, wallIdx, nDepth);
+    addLineToGrid(1, height - 1, width - 1, height - 1, wallIdx, nDepth);
+    addLineToGrid(width - 1, 1, width - 1, height - 2, wallIdx, nDepth);
 
+    int minGoalY = world->getHeight() / 2 - world->getGoalLength() + world->getHeight() % 2;
+    int maxGoalY = minGoalY + 2 * world->getGoalLength() - world->getHeight() % 2;
+    addLineToGrid(0, minGoalY, 0, maxGoalY, team == 0? ownGoalIdx: opponentGoalIdx, nDepth);
+    addLineToGrid(width - 1, minGoalY, width - 1, maxGoalY, team == 0? opponentGoalIdx: ownGoalIdx, nDepth);
+
+    for(auto i: *input){
+        cout << i << "\t";
+    }
+    cout << endl;
 
     return *input;
 /*

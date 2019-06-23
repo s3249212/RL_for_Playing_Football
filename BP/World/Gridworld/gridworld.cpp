@@ -35,7 +35,7 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile101_";
+        string filename = "/home/julian/playersavefile106_";
         for(Gridworld_IH* ih: ihs){
             ih->save(filename + to_string(k));
             k++;
@@ -134,7 +134,7 @@ void Gridworld::addPlayer(TabularQ *player, int team)
 
 void Gridworld::addPlayer(MLPQ *player, int team)
 {
-    Gridworld_IH* ih = new MLPQIH(this, player, team);
+    Gridworld_IH* ih = new VisionGrid_IH(this, player, team);
     addIH(ih);
 }
 
