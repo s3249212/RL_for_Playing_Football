@@ -6,7 +6,7 @@
 class VisionGrid_IH : public Gridworld_IH
 {
 public:
-    VisionGrid_IH(Gridworld *gridworld, MLPQ *player, int team, vector<int> gridSizes = {1, 3, 3});
+    VisionGrid_IH(Gridworld *gridworld, MLPQ *player, int team, vector<int> gridSizes = {1, 3, 8});
 
     void initialize();
 

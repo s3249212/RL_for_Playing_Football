@@ -14,7 +14,7 @@ void VisionGrid_IH::initialize()
 {
     int n = gridSizes.size();
     int l = 6;
-    nInput = ((2 * n + 1) * (2 * n + 1) - 1) * l;
+    nInput = (2 * n + 1) * (2 * n + 1) * l;
     int nActions = 18;
     MLPQPlayer->initialize(nInput, nActions);
 
@@ -35,17 +35,18 @@ void VisionGrid_IH::initialize()
         layerBounds[lIdx] = layerBounds[lIdx + 1] - g;
         layerBounds[rIdx] = layerBounds[rIdx - 1] + g;
     }
+    gridSizes.insert(gridSizes.begin(), 1);
 }
 
 bool VisionGrid_IH::isXorYInVisionGrid(int value, int centre, int* idx){
-    if(!(value < centre - layerBounds[0] &&
-            value >= centre + layerBounds[nLayerBounds - 1])){
+    if(value < centre + layerBounds[0] ||
+            value >= centre + layerBounds[nLayerBounds - 1]){
         return false;
     }
 
-    for(*idx = 0; *idx < nLayerBounds - 2; *idx++){
-        if(value < centre - layerBounds[*idx] &&
-                value >= centre + layerBounds[*idx + 1]){
+    for(*idx = 0; *idx < nLayerBounds - 2; (*idx)++){
+        if(value >= centre + layerBounds[*idx] &&
+                value < centre + layerBounds[*idx + 1]){
             break;
         }
     }
@@ -78,14 +79,14 @@ int VisionGrid_IH::getGridArea(int xIdx, int yIdx){
 }
 
 int VisionGrid_IH::getInputIdx(int xIdx, int yIdx, int offset, int nDepth){
-    int inputPixelIdx = (nLayerBounds - 1) * yIdx + xIdx
-            + ((yIdx == nLayerBounds / 2 - 1 && xIdx > nLayerBounds / 2 - 1) || yIdx > nLayerBounds / 2 - 1);
+    int inputPixelIdx = (nLayerBounds - 1) * yIdx + xIdx;
+            //+ ((yIdx == nLayerBounds / 2 - 1 && xIdx > nLayerBounds / 2 - 1) || yIdx > nLayerBounds / 2 - 1);
 
     return nDepth * inputPixelIdx + offset;
 }
 
 void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, int nDepth){
-    int xIdx, yIdx;
+    int xIdx = 0, yIdx = 0;
 
     if(!isXInVisionGrid(y, &yIdx)){
         return;
@@ -105,16 +106,17 @@ void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, i
         if(minX < layerBounds[xIdx] + agentX){
             minX = layerBounds[xIdx] + agentX;
         }
-        int nextX = maxX < layerBounds[xIdx] + agentX - 1? maxX: layerBounds[xIdx] + agentX - 1;
+        int nextX = maxX < layerBounds[xIdx + 1] + agentX - 1? maxX: layerBounds[xIdx + 1] + agentX - 1;
         int nBlocksInside = nextX - minX + 1;
         int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
         int area = getGridArea(xIdx, yIdx);
         (*input)[inputIdx] += static_cast<double>(nBlocksInside) / area;
+        xIdx++;
     }
 }
 
 void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int nDepth){
-    int xIdx, yIdx;
+    int xIdx = 0, yIdx = 0;
 
     if(!isXInVisionGrid(x, &xIdx)){
         return;
@@ -134,11 +136,12 @@ void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int
         if(minY < layerBounds[yIdx] + agentY){
             minY = layerBounds[yIdx] + agentY;
         }
-        int nextY = maxY < layerBounds[yIdx] + agentY - 1? maxY: layerBounds[yIdx] + agentY - 1;
+        int nextY = maxY < layerBounds[yIdx + 1] + agentY - 1? maxY: layerBounds[yIdx + 1] + agentY - 1;
         int nBlocksInside = nextY - minY + 1;
         int inputIdx = getInputIdx(xIdx, yIdx, offset, nDepth);
         int area = getGridArea(xIdx, yIdx);
         (*input)[inputIdx] += static_cast<double>(nBlocksInside) / area;
+        yIdx++;
     }
 }
 
@@ -205,8 +208,15 @@ vector<double> VisionGrid_IH::generateInput()
     addLineToGrid(0, minGoalY, 0, maxGoalY, team == 0? ownGoalIdx: opponentGoalIdx, nDepth);
     addLineToGrid(width - 1, minGoalY, width - 1, maxGoalY, team == 0? opponentGoalIdx: ownGoalIdx, nDepth);
 
-    for(auto i: *input){
-        cout << i << "\t";
+    for(int i = 0; i < 7; i++){
+        for(int j = 0; j < 7; j++){
+            cout << "(";
+            for(int k = 0; k < 6; k++){
+                cout << (*input)[getInputIdx(j, i, k, 6)] << "\t";
+            }
+            cout << ")\t";
+        }
+        cout << endl;
     }
     cout << endl;
 

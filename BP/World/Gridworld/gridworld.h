@@ -29,7 +29,7 @@ private:
     };
 
     int height = 11;
-    int width = 7;
+    int width = 12;
     int goallength = 2;
 
     vector<Gridworld_Agent*> agents;
