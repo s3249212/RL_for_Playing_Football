@@ -34,8 +34,9 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/julian/savefile106");
+    Gridworld* gridworld = new Gridworld("/home/s3249212/");
 
+    //"playersavefile_1561388108_0"
     MLPQ* player = new MLPQ();
     gridworld->addPlayer(player, 0);
     /*player = new MLPQ();

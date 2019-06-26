@@ -3,6 +3,7 @@
 
 #include <array>
 #include <vector>
+#include <string>
 
 #include "../world.h"
 #include "gridworld_agent.h"
@@ -31,6 +32,8 @@ private:
     int height = 11;
     int width = 12;
     int goallength = 2;
+
+    string playersavefilename;
 
     vector<Gridworld_Agent*> agents;
 

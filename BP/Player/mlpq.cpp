@@ -158,6 +158,15 @@ void MLPQ::save(string filename)
     string nnfilename = filename.append("nn");
     filestream << nnfilename << " ";
     nn->save(nnfilename);
+
+    filestream << softMaxDecreasingPeriod << " ";
+    filestream << minSoftMaxTemp << " ";
+    filestream << maxSoftMaxTemp << " ";
+
+    filestream << gridSizes.size() << " ";
+    for(int g: gridSizes){
+        filestream << g << " ";
+    }
 }
 
 void MLPQ::load(string filename)

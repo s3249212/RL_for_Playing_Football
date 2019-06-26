@@ -11,6 +11,8 @@ public:
 
     double learning_rate_f();
 
+    vector<int> getGridSizes() const;
+
 protected:
     enum ActionSelection_t {
         Random = 0, HighestQ, Softmax
@@ -28,11 +30,13 @@ protected:
     double k_epsilon = 0.01;
 
     double learning_rate = 0.5;
-    double discount_factor = 0.99; //discount factor
+    double discount_factor = 0.8; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
-    int softMaxDecreasingPeriod = 2000000;
+    int softMaxDecreasingPeriod = 20000000;
     double maxSoftMaxTemp = 0.2;
     double minSoftMaxTemp = 0.2;
+
+    vector<int> gridSizes = {1, 1, 20};
 
     int nActions;
 

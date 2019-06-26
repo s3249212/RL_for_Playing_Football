@@ -1,4 +1,4 @@
-#include "visiongrid_ih.h"
+ #include "visiongrid_ih.h"
 
 VisionGrid_IH::VisionGrid_IH(Gridworld* gridworld, MLPQ* player, int team, vector<int> gridSizes)
 {
@@ -102,7 +102,7 @@ void VisionGrid_IH::addHorizontalLineToGrid(int x0, int x1, int y, int offset, i
         xIdx++;
     }
 
-    while(xIdx < nLayerBounds && maxX >= layerBounds[xIdx] + agentX){
+    while(xIdx < nLayerBounds - 1 && maxX >= layerBounds[xIdx] + agentX){
         if(minX < layerBounds[xIdx] + agentX){
             minX = layerBounds[xIdx] + agentX;
         }
@@ -132,7 +132,7 @@ void VisionGrid_IH::addVerticalLineToGrid(int y0, int y1, int x, int offset, int
         yIdx++;
     }
 
-    while(yIdx < nLayerBounds && maxY >= layerBounds[yIdx] + agentY){
+    while(yIdx < nLayerBounds - 1 && maxY >= layerBounds[yIdx] + agentY){
         if(minY < layerBounds[yIdx] + agentY){
             minY = layerBounds[yIdx] + agentY;
         }
@@ -165,8 +165,6 @@ vector<double> VisionGrid_IH::generateInput()
     for(int i = 0; i < nInput; i++){
         (*input)[i] = 0;
     }
-
-    int agentX = agents[0]->getX(), agentY = agents[0]->getY();
 
     int nDepth = 6;
     int sameTeamIdx = 0;
@@ -208,7 +206,7 @@ vector<double> VisionGrid_IH::generateInput()
     addLineToGrid(0, minGoalY, 0, maxGoalY, team == 0? ownGoalIdx: opponentGoalIdx, nDepth);
     addLineToGrid(width - 1, minGoalY, width - 1, maxGoalY, team == 0? opponentGoalIdx: ownGoalIdx, nDepth);
 
-    for(int i = 0; i < 7; i++){
+    /*for(int i = 0; i < 7; i++){
         for(int j = 0; j < 7; j++){
             cout << "(";
             for(int k = 0; k < 6; k++){
@@ -218,7 +216,7 @@ vector<double> VisionGrid_IH::generateInput()
         }
         cout << endl;
     }
-    cout << endl;
+    cout << endl;*/
 
     return *input;
 /*

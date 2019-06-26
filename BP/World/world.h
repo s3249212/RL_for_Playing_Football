@@ -18,7 +18,6 @@ public:
 
 protected:
     std::ofstream savefile;
-    std::stringstream savestream;
 
     int nBlocks = 50;
 

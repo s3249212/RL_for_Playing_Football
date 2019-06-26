@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <time.h>
 
 #include "gridworld.h"
 #include "gridworld_agent.h"
@@ -35,9 +36,8 @@ void Gridworld::runTraining(){
         }
 
         int k = 0;
-        string filename = "/home/julian/playersavefile106_";
         for(Gridworld_IH* ih: ihs){
-            ih->save(filename + to_string(k));
+            ih->save(playersavefilename + to_string(k));
             k++;
         }
         //writeStatistics();
@@ -94,16 +94,14 @@ void Gridworld::saveStatistics(){
     savefile << endl;
 }
 
-void Gridworld::writeStatistics()
-{
-    savefile << savestream.str();
-}
-
 Gridworld::Gridworld(string savefilename){
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
 
-    savefile.open(savefilename);
+    int t = static_cast<int>(time(NULL));
+    cout << t << endl << endl;
+    savefile.open(savefilename + "savefile_" + to_string(t));
+    playersavefilename = savefilename + "playersavefile_" + to_string(t) + "_";
 }
 
 Gridworld::~Gridworld(){
@@ -134,7 +132,7 @@ void Gridworld::addPlayer(TabularQ *player, int team)
 
 void Gridworld::addPlayer(MLPQ *player, int team)
 {
-    Gridworld_IH* ih = new VisionGrid_IH(this, player, team);
+    Gridworld_IH* ih = new VisionGrid_IH(this, player, team, player->getGridSizes());
     addIH(ih);
 }
 

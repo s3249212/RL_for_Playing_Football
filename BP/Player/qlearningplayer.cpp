@@ -25,6 +25,11 @@ double QLearningPlayer::learning_rate_f(){
     }
 }
 
+vector<int> QLearningPlayer::getGridSizes() const
+{
+    return gridSizes;
+}
+
 double QLearningPlayer::epsilon_f(){
     switch(epsilon_change){
     case Exponential_decay:
