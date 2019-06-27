@@ -46,3 +46,53 @@ array<int, 2> Gridworld::getScore()
 vector<Gridworld_Event*> Gridworld::getEventLog(){
     return eventLog;
 }
+
+vector<Gridworld_IH *> Gridworld::getihs()
+{
+    return ihs;
+}
+
+array<bool, 6> Gridworld::getPixelData(array<int, 2> coord, int team){
+    array<bool, 6> result;
+
+    //Ball
+    result[0] = (ball->getCoord() == coord);
+
+    //your team
+    result[1] = false;
+    for(Gridworld_Agent* agent: agents){
+        if(agent->getTeam() == team){
+            result[1] = true;
+            break;
+        }
+    }
+
+    //opponent team
+    result[2] = false;
+    for(Gridworld_Agent* agent: agents){
+        if(agent->getTeam() != team){
+            result[2] = true;
+            break;
+        }
+    }
+
+    //wall
+    result[3] = (coord[0] <= 0 || coord[0] >= width - 1 || coord[1] <= 0 || coord[1] >= height - 1);
+
+    int minGoalY = height / 2 - goallength + height % 2;
+    int maxGoalY = minGoalY + 2 * goallength - height % 2;
+    //own goal
+    int goalX = team * (width - 1);
+    result[4] = (goalX == coord[0] && minGoalY <= coord[1] && maxGoalY >= coord[1]);
+
+    //other goal
+    goalX = (1 - team) * (width - 1);
+    result[5] = (goalX == coord[0] && minGoalY <= coord[1] && maxGoalY >= coord[1]);
+
+    return result;
+}
+
+vector<Gridworld_Agent *> Gridworld::getAgents()
+{
+    return agents;
+}

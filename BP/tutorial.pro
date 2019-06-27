@@ -39,7 +39,12 @@ SOURCES += main.cpp \
     Player/mlpq.cpp \
     Util/util_functions.cpp \
     Player/qlearningplayer.cpp \
-    Interaction_Handler/Gridworld/visiongrid_ih.cpp
+    Interaction_Handler/Gridworld/visiongrid_ih.cpp \
+    World/Gridworld/gridworld_add_player.cpp \
+    World/Gridworld/gridworld_event_log.cpp \
+    World/Gridworld/gridworld_check_pixel.cpp \
+    World/Gridworld/gridworld_reset.cpp \
+    World/Gridworld/gridworld_simulation.cpp
 
 HEADERS  += \
     World/world.h \
