@@ -30,7 +30,7 @@ protected:
     double k_epsilon = 0.01;
 
     double learning_rate = 0.5;
-    double discount_factor = 0.8; //discount factor
+    double discount_factor = 0.9; //discount factor
     double epsilon = 0.1; //initial epsilon value for random action selection
     int softMaxDecreasingPeriod = 20000000;
     double maxSoftMaxTemp = 0.2;

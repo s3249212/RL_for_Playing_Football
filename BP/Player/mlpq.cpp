@@ -16,6 +16,7 @@ MLPQ::MLPQ()
 MLPQ::MLPQ(string filename)
 {
     this->sourcefile = filename;
+    load(sourcefile);
 }
 
 MLPQ::~MLPQ()
@@ -26,7 +27,6 @@ MLPQ::~MLPQ()
 
 void MLPQ::initialize(int nInput, int nActions){
     if(sourcefile != ""){
-        load(sourcefile);
         return;
     }
     this->nActions = nActions;
@@ -192,4 +192,17 @@ void MLPQ::load(string filename)
     string nnfilename;
     filestream >> nnfilename;
     nn = new Neural_network(nnfilename);
+
+    filestream >> softMaxDecreasingPeriod;
+    filestream >> minSoftMaxTemp;
+    filestream >> maxSoftMaxTemp;
+
+    int ngridsizes;
+    filestream >> ngridsizes;
+    gridSizes.clear();
+    for(int i = 0; i < ngridsizes; i++){
+        int g;
+        filestream >> g;
+        gridSizes.push_back(g);
+    }
 }
