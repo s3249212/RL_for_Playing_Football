@@ -2,6 +2,7 @@
 #define TABULARQ_H
 
 #include <array>
+#include <string>
 #include <vector>
 
 #include "qlearningplayer.h"

@@ -2,6 +2,7 @@
 #define GRIDWORLD_AGENT_H
 
 #include <array>
+#include <string>
 
 #include "gridworld.h"
 

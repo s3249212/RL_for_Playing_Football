@@ -1,6 +1,8 @@
 #ifndef QV_H
 #define QV_H
 
+#include <string>
+
 #include "qlearningplayer.h"
 #include "Util/neural_network.h"
 

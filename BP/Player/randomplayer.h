@@ -1,6 +1,7 @@
 #ifndef RANDOMPLAYER_H
 #define RANDOMPLAYER_H
 
+#include <string>
 #include <vector>
 #include "player.h"
 

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <chrono>
 #include <array>
+#include <string>
 
 using namespace std;
 using namespace std::chrono;

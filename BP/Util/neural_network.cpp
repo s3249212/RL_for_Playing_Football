@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <cmath>
+#include <string>
 
 #include "Util/util_functions.h"
 

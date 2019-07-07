@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gridworld.h"
 
 #include "Interaction_Handler/Gridworld/tabularqih.h"

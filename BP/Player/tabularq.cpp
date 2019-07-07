@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "tabularq.h"
 #include <stdlib.h>
 #include <math.h>

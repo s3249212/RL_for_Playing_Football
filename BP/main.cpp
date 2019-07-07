@@ -10,6 +10,7 @@
 #include <thread>
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 
 #include "World/Gridworld/gridworld.h"
 #if USEQT == 1

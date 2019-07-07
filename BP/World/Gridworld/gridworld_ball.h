@@ -1,6 +1,8 @@
 #ifndef GRIDWORLD_BALL_H
 #define GRIDWORLD_BALL_H
 
+#include <string>
+
 #include "gridworld.h"
 
 using namespace std;

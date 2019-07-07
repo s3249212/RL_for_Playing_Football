@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gridworld.h"
 
 int Gridworld::hitsWall(array<int, 2> coord){

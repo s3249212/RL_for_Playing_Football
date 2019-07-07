@@ -1,3 +1,4 @@
+#include <string>
 #include <stdlib.h>
 #include "player.h"
 #include "randomplayer.h"

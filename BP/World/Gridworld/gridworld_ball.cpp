@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gridworld_ball.h"
 
 Gridworld_Ball::Gridworld_Ball(Gridworld* world, array<int, 2> coord):

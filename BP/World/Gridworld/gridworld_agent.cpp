@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gridworld_agent.h"
 #include "gridworld.h"
 

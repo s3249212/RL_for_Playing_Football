@@ -1,6 +1,8 @@
 #ifndef QLEARNINGPLAYER_H
 #define QLEARNINGPLAYER_H
 
+#include <string>
+
 #include "player.h"
 
 class QLearningPlayer : public Player
