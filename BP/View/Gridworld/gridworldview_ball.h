@@ -1,3 +1,4 @@
+#if USEQT == 1
 #ifndef GRIDWORLDVIEW_BALL_H
 #define GRIDWORLDVIEW_BALL_H
 
@@ -16,3 +17,4 @@ public:
 
 
 #endif //GRIDWORLDVIEW_H
+#endif

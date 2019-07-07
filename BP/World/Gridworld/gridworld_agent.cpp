@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include "gridworld_agent.h"
 #include "gridworld.h"
 

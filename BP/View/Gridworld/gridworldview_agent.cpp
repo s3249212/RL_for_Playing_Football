@@ -1,3 +1,4 @@
+#if USEQT == 1
 #include <QBrush>
 #include <QPen>
 
@@ -18,3 +19,4 @@ GridworldView_Agent::GridworldView_Agent(Color color)
     setPen(QPen(c));
     setBrush(QBrush(c));
 }
+#endif

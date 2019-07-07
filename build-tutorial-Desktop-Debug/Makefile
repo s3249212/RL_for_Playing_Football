@@ -434,11 +434,7 @@ check: first
 compiler_rcc_make_all: qrc_res.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_res.cpp
-qrc_res.cpp: ../BP/res.qrc \
-		../BP/neuer.png \
-		../BP/lego_khedira.png \
-		../BP/field.png \
-		../BP/ball.png
+qrc_res.cpp: ../BP/res.qrc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name res ../BP/res.qrc -o qrc_res.cpp
 
 compiler_moc_header_make_all: moc_gridworldview_agent.cpp moc_gridworldview_ball.cpp moc_gridworldview.cpp

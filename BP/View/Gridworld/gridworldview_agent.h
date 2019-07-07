@@ -1,3 +1,4 @@
+#if USEQT == 1
 #ifndef GRIDWORLDVIEW_AGENT_H
 #define GRIDWORLDVIEW_AGENT_H
 
@@ -17,3 +18,4 @@ public:
 
 
 #endif //GRIDWORLDVIEW_H
+#endif

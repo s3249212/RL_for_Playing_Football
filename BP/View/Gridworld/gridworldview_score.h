@@ -1,3 +1,4 @@
+#if USEQT == 1
 #ifndef GRIDWORLDVIEW_SCORE_H
 #define GRIDWORLDVIEW_SCORE_H
 
@@ -19,3 +20,4 @@ public:
 };
 
 #endif // GRIDWORLDVIEW_SCORE_H
+#endif

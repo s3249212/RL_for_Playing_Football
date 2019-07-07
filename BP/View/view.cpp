@@ -1,3 +1,4 @@
+#if USEQT == 1
 #include "view.h"
 
 #include <QDebug>
@@ -18,3 +19,4 @@ void View::setRendering(bool boolean){
         draw();
     }
 }*/
+#endif

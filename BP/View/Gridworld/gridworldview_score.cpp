@@ -1,3 +1,4 @@
+#if USEQT == 1
 #include "gridworldview_score.h"
 
 #include <array>
@@ -19,4 +20,4 @@ void GridworldView_Score::update()
     array<int, 2> score = view->getWorld()->getScore();
     setPlainText(QString("Score: ") + QString::number(score[0]) + QString(" - ") + QString::number(score[1]));
 }
-
+#endif

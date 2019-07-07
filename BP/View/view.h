@@ -1,3 +1,4 @@
+#if USEQT == 1
 #ifndef VIEW_H
 #define VIEW_H
 
@@ -19,3 +20,4 @@ public:
 };
 
 #endif // VIEW_H
+#endif

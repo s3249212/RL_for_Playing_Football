@@ -1,3 +1,4 @@
+#if USEQT == 1
 #ifndef GRIDWORLDVIEW_H
 #define GRIDWORLDVIEW_H
 
@@ -55,3 +56,4 @@ public slots:
 };
 
 #endif // GRIDWORLDVIEW_H
+#endif

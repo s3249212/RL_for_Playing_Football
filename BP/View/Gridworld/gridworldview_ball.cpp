@@ -1,3 +1,4 @@
+#if USEQT == 1
 #include <QBrush>
 #include <QPen>
 
@@ -8,3 +9,4 @@ GridworldView_Ball::GridworldView_Ball()
     setBrush(QBrush(QColor(255, 255, 255)));
     setPen(QPen(QColor(255,255,255)));
 }
+#endif

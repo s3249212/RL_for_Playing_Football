@@ -1,9 +1,1 @@
-<RCC>
-    <qresource prefix="/sounds"/>
-    <qresource prefix="/images">
-        <file>lego_khedira.png</file>
-        <file>field.png</file>
-        <file>ball.png</file>
-        <file>neuer.png</file>
-    </qresource>
-</RCC>
+<RCC/>

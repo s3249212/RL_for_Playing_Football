@@ -1,3 +1,4 @@
+#if USEQT == 1
 #include "gridworldview.h"
 #include <QApplication>
 #include <QDebug>
@@ -234,3 +235,4 @@ void GridworldView::draw(){
     score->update();
 }
 
+#endif
