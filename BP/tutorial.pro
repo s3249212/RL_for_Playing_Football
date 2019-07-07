@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     World/Gridworld/gridworld_event_log.cpp \
     World/Gridworld/gridworld_check_pixel.cpp \
     World/Gridworld/gridworld_reset.cpp \
-    World/Gridworld/gridworld_simulation.cpp
+    World/Gridworld/gridworld_simulation.cpp \
+    Player/qv.cpp
 
 HEADERS  += \
     World/world.h \
@@ -69,7 +70,8 @@ HEADERS  += \
     Player/mlpq.h \
     Util/util_functions.h \
     Player/qlearningplayer.h \
-    Interaction_Handler/Gridworld/visiongrid_ih.h
+    Interaction_Handler/Gridworld/visiongrid_ih.h \
+    Player/qv.h
 
 FORMS    += \
     mainwindow.ui
