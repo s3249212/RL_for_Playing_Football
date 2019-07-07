@@ -24,8 +24,8 @@ public:
     void load(string filename);
 
 private:
-    Q_network* qn;
-    V_network* vn;
+    Neural_network* qn;
+    Neural_network* vn;
 
     int nHiddenLayers = 1;
     int nHiddenNeuronsPerLayer = 50;

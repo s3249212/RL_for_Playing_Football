@@ -15,14 +15,14 @@ public:
 
 protected:
     enum ActionSelection_t {
-        Random = 0, HighestQ, Softmax
+        Random = 0, Egreedy, Softmax
     };
 
     enum Hyperparameter_Change_t {
         Constant = 0, Exponential_decay
     };
 
-    ActionSelection_t actionSelection = Softmax;
+    ActionSelection_t actionSelection = Egreedy;
     Hyperparameter_Change_t learning_rate_change = Constant;
     Hyperparameter_Change_t epsilon_change = Constant;
 
@@ -45,7 +45,7 @@ protected:
     int selectAction(vector<double> qValues);
 
     int softmaxActionSelection(vector<double> qValues);
-    int highestQActionSelection(vector<double> qValues);
+    int eGreedyActionSelection(vector<double> qValues);
     int randomActionSelection();
 
     double epsilon_f();

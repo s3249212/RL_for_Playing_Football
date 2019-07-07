@@ -1,12 +1,5 @@
 #include "qv.h"
 
-QV::QV()
-{
-
-}
-
-#include "QV.h"
-
 #include "Util/neural_network.h"
 #include <math.h>
 #include <stdlib.h>
@@ -22,7 +15,6 @@ QV::QV(string filename)
 
 QV::~QV()
 {
-    nn->print();
     delete qn;
     delete vn;
 }
@@ -45,8 +37,8 @@ void QV::initialize(int nInput, int nActions){
 
     activationFunctions.push_back(Neural_network::SIGMOID);
     activationFunctions.push_back(Neural_network::LINEAR);
-    nn = new Neural_network(layerSizes, activationFunctions);
-
+    qn = new Neural_network(layerSizes, activationFunctions);
+    vn = new Neural_network(layerSizes, activationFunctions);
 }
 
 void QV::train(double reward){
@@ -54,13 +46,13 @@ void QV::train(double reward){
         return;
     }
 
-    vector<double> output = nn->forwardPass(prevInput);
+    vector<double> output = qn->forwardPass(prevInput);
 
     double target = reward;
 
     output[prevAction] = target;
 
-    nn->backwardPass(output);
+    qn->backwardPass(output);
 }
 
 void QV::train(vector<double> input, double reward)
@@ -69,23 +61,11 @@ void QV::train(vector<double> input, double reward)
         return;
     }
 
-    vector<double> output = nn->forwardPass(input);
+    double value = vn->forwardPass(input)[0];
 
-    double maxQValue;
+    vector<double> output = qn->forwardPass(prevInput);
 
-    maxQValue = output[0];
-    for(int i = 1; i < nActions; i++){
-        //cout << output[i] << "\t";
-        if(output[i] > maxQValue){
-            maxQValue = output[i];
-        }
-    }
-    //cout << endl;
-    //cout << "Max Q Value: " << maxQValue << endl;
-
-    output = nn->forwardPass(prevInput);
-
-    double target = reward + discount_factor * maxQValue;
+    double target = reward + discount_factor * value;
 
     /*cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
     //cout << endl;
@@ -105,8 +85,8 @@ void QV::train(vector<double> input, double reward)
     }
     cout << endl;*/
 
-    nn->backwardPass(output);
-
+    qn->backwardPass(output);
+    vn->backwardPass({target});
     /*output = nn->forwardPass(prevInput);
 
     cout << "New output:" << endl;
@@ -119,7 +99,7 @@ void QV::train(vector<double> input, double reward)
 }
 
 int QV::act(vector<double> input){
-    vector<double> qValues = nn->forwardPass(input);
+    vector<double> qValues = qn->forwardPass(input);
 
     int selectedAction = selectAction(qValues);
 
@@ -158,9 +138,13 @@ void QV::save(string filename)
     filestream << epsilon << " ";
     filestream << k_epsilon << " ";
 
-    string nnfilename = filename.append("nn");
+    string nnfilename = filename.append("qn");
     filestream << nnfilename << " ";
-    nn->save(nnfilename);
+    qn->save(nnfilename);
+
+    nnfilename = filename.append("vn");
+    filestream << nnfilename << " ";
+    vn->save(nnfilename);
 
     filestream << softMaxDecreasingPeriod << " ";
     filestream << minSoftMaxTemp << " ";
@@ -194,5 +178,8 @@ void QV::load(string filename)
 
     string nnfilename;
     filestream >> nnfilename;
-    nn = new Neural_network(nnfilename);
+    qn = new Neural_network(nnfilename);
+
+    filestream >> nnfilename;
+    vn = new Neural_network(nnfilename);
 }

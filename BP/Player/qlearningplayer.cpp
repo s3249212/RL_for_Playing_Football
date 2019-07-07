@@ -50,8 +50,8 @@ int QLearningPlayer::selectAction(vector<double> qValues)
     case Softmax:
         selectedAction = softmaxActionSelection(qValues);
         break;
-    case HighestQ:
-        selectedAction = highestQActionSelection(qValues);
+    case Egreedy:
+        selectedAction = eGreedyActionSelection(qValues);
         break;
     case Random:
     default:
@@ -76,7 +76,7 @@ int QLearningPlayer::softmaxActionSelection(vector<double> qValues)
     return weightedRandomSelection(probabilities);
 }
 
-int QLearningPlayer::highestQActionSelection(vector<double> qValues)
+int QLearningPlayer::eGreedyActionSelection(vector<double> qValues)
 {
     int selectedAction = -1;
 

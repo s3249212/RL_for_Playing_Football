@@ -75,7 +75,13 @@ SOURCES       = ../BP/main.cpp \
 		../BP/Player/mlpq.cpp \
 		../BP/Util/util_functions.cpp \
 		../BP/Player/qlearningplayer.cpp \
-		../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp qrc_res.cpp \
+		../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp \
+		../BP/World/Gridworld/gridworld_add_player.cpp \
+		../BP/World/Gridworld/gridworld_event_log.cpp \
+		../BP/World/Gridworld/gridworld_check_pixel.cpp \
+		../BP/World/Gridworld/gridworld_reset.cpp \
+		../BP/World/Gridworld/gridworld_simulation.cpp \
+		../BP/Player/qv.cpp qrc_res.cpp \
 		moc_gridworldview_agent.cpp \
 		moc_gridworldview_ball.cpp \
 		moc_gridworldview.cpp
@@ -107,6 +113,12 @@ OBJECTS       = main.o \
 		util_functions.o \
 		qlearningplayer.o \
 		visiongrid_ih.o \
+		gridworld_add_player.o \
+		gridworld_event_log.o \
+		gridworld_check_pixel.o \
+		gridworld_reset.o \
+		gridworld_simulation.o \
+		qv.o \
 		qrc_res.o \
 		moc_gridworldview_agent.o \
 		moc_gridworldview_ball.o \
@@ -191,7 +203,8 @@ DIST          = ../BP/tutorial.pro.user.ad5f1f3.4.8-pre1 \
 		../BP/Player/mlpq.h \
 		../BP/Util/util_functions.h \
 		../BP/Player/qlearningplayer.h \
-		../BP/Interaction_Handler/Gridworld/visiongrid_ih.h ../BP/main.cpp \
+		../BP/Interaction_Handler/Gridworld/visiongrid_ih.h \
+		../BP/Player/qv.h ../BP/main.cpp \
 		../BP/World/world.cpp \
 		../BP/World/Gridworld/gridworld.cpp \
 		../BP/World/Gridworld/gridworld_agent.cpp \
@@ -218,7 +231,13 @@ DIST          = ../BP/tutorial.pro.user.ad5f1f3.4.8-pre1 \
 		../BP/Player/mlpq.cpp \
 		../BP/Util/util_functions.cpp \
 		../BP/Player/qlearningplayer.cpp \
-		../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp
+		../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp \
+		../BP/World/Gridworld/gridworld_add_player.cpp \
+		../BP/World/Gridworld/gridworld_event_log.cpp \
+		../BP/World/Gridworld/gridworld_check_pixel.cpp \
+		../BP/World/Gridworld/gridworld_reset.cpp \
+		../BP/World/Gridworld/gridworld_simulation.cpp \
+		../BP/Player/qv.cpp
 QMAKE_TARGET  = tutorial
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = tutorial
@@ -389,8 +408,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../BP/res.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../BP/World/world.h ../BP/World/Gridworld/gridworld.h ../BP/World/Gridworld/gridworld_agent.h ../BP/World/Gridworld/gridworld_ball.h ../BP/World/Gridworld/gridworld_event.h ../BP/World/Gridworld/gridworld_score.h ../BP/View/view.h ../BP/View/Gridworld/gridworldview_agent.h ../BP/View/Gridworld/gridworldview_ball.h ../BP/View/Gridworld/gridworldview.h ../BP/View/Gridworld/gridworldview_score.h ../BP/Player/player.h ../BP/Player/randomplayer.h ../BP/Player/tabularq.h ../BP/Util/neural_network.h ../BP/Interaction_Handler/Gridworld/gridworld_ih.h ../BP/Interaction_Handler/Gridworld/tabularqih.h ../BP/Interaction_Handler/Gridworld/mlpqih.h ../BP/Interaction_Handler/Gridworld/randomih.h ../BP/Player/mlpq.h ../BP/Util/util_functions.h ../BP/Player/qlearningplayer.h ../BP/Interaction_Handler/Gridworld/visiongrid_ih.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../BP/main.cpp ../BP/World/world.cpp ../BP/World/Gridworld/gridworld.cpp ../BP/World/Gridworld/gridworld_agent.cpp ../BP/World/Gridworld/gridworld_ball.cpp ../BP/World/Gridworld/gridworld_event.cpp ../BP/World/Gridworld/gridworld_getset.cpp ../BP/View/view.cpp ../BP/View/Gridworld/gridworldview.cpp ../BP/View/Gridworld/gridworldview_agent.cpp ../BP/View/Gridworld/gridworldview_ball.cpp ../BP/View/Gridworld/gridworldview_score.cpp ../BP/Player/player.cpp ../BP/Player/randomplayer.cpp ../BP/Player/tabularq.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih.cpp ../BP/Interaction_Handler/Gridworld/tabularqih.cpp ../BP/Interaction_Handler/Gridworld/mlpqih.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_getset.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_input.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_reward.cpp ../BP/Interaction_Handler/Gridworld/randomih.cpp ../BP/Util/neural_network.cpp ../BP/World/Gridworld/gridworld_score.cpp ../BP/Player/mlpq.cpp ../BP/Util/util_functions.cpp ../BP/Player/qlearningplayer.cpp ../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../BP/World/world.h ../BP/World/Gridworld/gridworld.h ../BP/World/Gridworld/gridworld_agent.h ../BP/World/Gridworld/gridworld_ball.h ../BP/World/Gridworld/gridworld_event.h ../BP/World/Gridworld/gridworld_score.h ../BP/View/view.h ../BP/View/Gridworld/gridworldview_agent.h ../BP/View/Gridworld/gridworldview_ball.h ../BP/View/Gridworld/gridworldview.h ../BP/View/Gridworld/gridworldview_score.h ../BP/Player/player.h ../BP/Player/randomplayer.h ../BP/Player/tabularq.h ../BP/Util/neural_network.h ../BP/Interaction_Handler/Gridworld/gridworld_ih.h ../BP/Interaction_Handler/Gridworld/tabularqih.h ../BP/Interaction_Handler/Gridworld/mlpqih.h ../BP/Interaction_Handler/Gridworld/randomih.h ../BP/Player/mlpq.h ../BP/Util/util_functions.h ../BP/Player/qlearningplayer.h ../BP/Interaction_Handler/Gridworld/visiongrid_ih.h ../BP/Player/qv.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../BP/main.cpp ../BP/World/world.cpp ../BP/World/Gridworld/gridworld.cpp ../BP/World/Gridworld/gridworld_agent.cpp ../BP/World/Gridworld/gridworld_ball.cpp ../BP/World/Gridworld/gridworld_event.cpp ../BP/World/Gridworld/gridworld_getset.cpp ../BP/View/view.cpp ../BP/View/Gridworld/gridworldview.cpp ../BP/View/Gridworld/gridworldview_agent.cpp ../BP/View/Gridworld/gridworldview_ball.cpp ../BP/View/Gridworld/gridworldview_score.cpp ../BP/Player/player.cpp ../BP/Player/randomplayer.cpp ../BP/Player/tabularq.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih.cpp ../BP/Interaction_Handler/Gridworld/tabularqih.cpp ../BP/Interaction_Handler/Gridworld/mlpqih.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_getset.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_input.cpp ../BP/Interaction_Handler/Gridworld/gridworld_ih_reward.cpp ../BP/Interaction_Handler/Gridworld/randomih.cpp ../BP/Util/neural_network.cpp ../BP/World/Gridworld/gridworld_score.cpp ../BP/Player/mlpq.cpp ../BP/Util/util_functions.cpp ../BP/Player/qlearningplayer.cpp ../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp ../BP/World/Gridworld/gridworld_add_player.cpp ../BP/World/Gridworld/gridworld_event_log.cpp ../BP/World/Gridworld/gridworld_check_pixel.cpp ../BP/World/Gridworld/gridworld_reset.cpp ../BP/World/Gridworld/gridworld_simulation.cpp ../BP/Player/qv.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../BP/mainwindow.ui $(DISTDIR)/
 
 
@@ -505,11 +524,7 @@ gridworld.o: ../BP/World/Gridworld/gridworld.cpp ../BP/World/Gridworld/gridworld
 		../BP/Player/qlearningplayer.h \
 		../BP/Player/randomplayer.h \
 		../BP/Player/mlpq.h \
-		../BP/Util/neural_network.h \
-		../BP/Interaction_Handler/Gridworld/tabularqih.h \
-		../BP/Interaction_Handler/Gridworld/randomih.h \
-		../BP/Interaction_Handler/Gridworld/mlpqih.h \
-		../BP/Interaction_Handler/Gridworld/visiongrid_ih.h
+		../BP/Util/neural_network.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld.o ../BP/World/Gridworld/gridworld.cpp
 
 gridworld_agent.o: ../BP/World/Gridworld/gridworld_agent.cpp ../BP/World/Gridworld/gridworld_agent.h \
@@ -730,7 +745,8 @@ randomih.o: ../BP/Interaction_Handler/Gridworld/randomih.cpp ../BP/Interaction_H
 		../BP/Util/neural_network.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o randomih.o ../BP/Interaction_Handler/Gridworld/randomih.cpp
 
-neural_network.o: ../BP/Util/neural_network.cpp ../BP/Util/neural_network.h
+neural_network.o: ../BP/Util/neural_network.cpp ../BP/Util/neural_network.h \
+		../BP/Util/util_functions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o neural_network.o ../BP/Util/neural_network.cpp
 
 gridworld_score.o: ../BP/World/Gridworld/gridworld_score.cpp ../BP/World/Gridworld/gridworld_score.h
@@ -765,6 +781,91 @@ visiongrid_ih.o: ../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp ../BP/Int
 		../BP/Player/mlpq.h \
 		../BP/Util/neural_network.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o visiongrid_ih.o ../BP/Interaction_Handler/Gridworld/visiongrid_ih.cpp
+
+gridworld_add_player.o: ../BP/World/Gridworld/gridworld_add_player.cpp ../BP/World/Gridworld/gridworld.h \
+		../BP/World/world.h \
+		../BP/World/Gridworld/gridworld_agent.h \
+		../BP/World/Gridworld/gridworld_ball.h \
+		../BP/Interaction_Handler/Gridworld/gridworld_ih.h \
+		../BP/Player/player.h \
+		../BP/World/Gridworld/gridworld_score.h \
+		../BP/World/Gridworld/gridworld_event.h \
+		../BP/Player/tabularq.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/randomplayer.h \
+		../BP/Player/mlpq.h \
+		../BP/Util/neural_network.h \
+		../BP/Interaction_Handler/Gridworld/tabularqih.h \
+		../BP/Interaction_Handler/Gridworld/randomih.h \
+		../BP/Interaction_Handler/Gridworld/mlpqih.h \
+		../BP/Interaction_Handler/Gridworld/visiongrid_ih.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld_add_player.o ../BP/World/Gridworld/gridworld_add_player.cpp
+
+gridworld_event_log.o: ../BP/World/Gridworld/gridworld_event_log.cpp ../BP/World/Gridworld/gridworld.h \
+		../BP/World/world.h \
+		../BP/World/Gridworld/gridworld_agent.h \
+		../BP/World/Gridworld/gridworld_ball.h \
+		../BP/Interaction_Handler/Gridworld/gridworld_ih.h \
+		../BP/Player/player.h \
+		../BP/World/Gridworld/gridworld_score.h \
+		../BP/World/Gridworld/gridworld_event.h \
+		../BP/Player/tabularq.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/randomplayer.h \
+		../BP/Player/mlpq.h \
+		../BP/Util/neural_network.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld_event_log.o ../BP/World/Gridworld/gridworld_event_log.cpp
+
+gridworld_check_pixel.o: ../BP/World/Gridworld/gridworld_check_pixel.cpp ../BP/World/Gridworld/gridworld.h \
+		../BP/World/world.h \
+		../BP/World/Gridworld/gridworld_agent.h \
+		../BP/World/Gridworld/gridworld_ball.h \
+		../BP/Interaction_Handler/Gridworld/gridworld_ih.h \
+		../BP/Player/player.h \
+		../BP/World/Gridworld/gridworld_score.h \
+		../BP/World/Gridworld/gridworld_event.h \
+		../BP/Player/tabularq.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/randomplayer.h \
+		../BP/Player/mlpq.h \
+		../BP/Util/neural_network.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld_check_pixel.o ../BP/World/Gridworld/gridworld_check_pixel.cpp
+
+gridworld_reset.o: ../BP/World/Gridworld/gridworld_reset.cpp ../BP/World/Gridworld/gridworld.h \
+		../BP/World/world.h \
+		../BP/World/Gridworld/gridworld_agent.h \
+		../BP/World/Gridworld/gridworld_ball.h \
+		../BP/Interaction_Handler/Gridworld/gridworld_ih.h \
+		../BP/Player/player.h \
+		../BP/World/Gridworld/gridworld_score.h \
+		../BP/World/Gridworld/gridworld_event.h \
+		../BP/Player/tabularq.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/randomplayer.h \
+		../BP/Player/mlpq.h \
+		../BP/Util/neural_network.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld_reset.o ../BP/World/Gridworld/gridworld_reset.cpp
+
+gridworld_simulation.o: ../BP/World/Gridworld/gridworld_simulation.cpp ../BP/World/Gridworld/gridworld.h \
+		../BP/World/world.h \
+		../BP/World/Gridworld/gridworld_agent.h \
+		../BP/World/Gridworld/gridworld_ball.h \
+		../BP/Interaction_Handler/Gridworld/gridworld_ih.h \
+		../BP/Player/player.h \
+		../BP/World/Gridworld/gridworld_score.h \
+		../BP/World/Gridworld/gridworld_event.h \
+		../BP/Player/tabularq.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/randomplayer.h \
+		../BP/Player/mlpq.h \
+		../BP/Util/neural_network.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gridworld_simulation.o ../BP/World/Gridworld/gridworld_simulation.cpp
+
+qv.o: ../BP/Player/qv.cpp ../BP/Player/qv.h \
+		../BP/Player/qlearningplayer.h \
+		../BP/Player/player.h \
+		../BP/Util/neural_network.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qv.o ../BP/Player/qv.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
