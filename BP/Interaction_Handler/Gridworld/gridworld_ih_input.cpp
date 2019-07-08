@@ -1,3 +1,5 @@
+#include <string>
+#include <vector>
 #include "gridworld_ih.h"
 
 vector<double> Gridworld_IH::generateInput(){

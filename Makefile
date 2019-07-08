@@ -8,7 +8,7 @@ EXE     := $(BINDIR)$(NAME)
 SFILES  := cpp
 OFILES  := o
 CC      := g++
-CFLAGS  := -c -Wall -IBP -std=gnu++11
+CFLAGS  := -c -Wall -IBP -std=gnu++11 -pedantic -g
 
 SOURCES := $(shell find $(SRCDIR) -name "*.$(SFILES)")
 OBJECTS := $(patsubst $(SRCDIR)%.$(SFILES), $(OBJDIR)%.$(OFILES), $(SOURCES))

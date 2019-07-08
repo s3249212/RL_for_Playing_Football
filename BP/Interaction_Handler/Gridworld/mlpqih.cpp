@@ -1,3 +1,7 @@
+#include <array>
+#include <string>
+#include <vector>
+
 #include "mlpqih.h"
 
 #include "World/Gridworld/gridworld_agent.h"

@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "gridworld.h"
+#include "gridworld_event.h"
 
 void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
 {

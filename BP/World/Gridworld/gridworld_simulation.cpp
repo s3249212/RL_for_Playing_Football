@@ -1,4 +1,8 @@
+#include <array>
 #include <chrono>
+#include <ostream>
+#include <string>
+#include <vector>
 
 #include "gridworld.h"
 

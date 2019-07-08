@@ -1,3 +1,6 @@
+#include <array>
+#include <vector>
+
 #include "gridworld.h"
 
 void Gridworld::resetAfterMatch(){

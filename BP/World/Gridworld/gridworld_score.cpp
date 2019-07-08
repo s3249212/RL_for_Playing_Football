@@ -1,3 +1,5 @@
+#include <array>
+
 #include "gridworld_score.h"
 
 Gridworld_Score::Gridworld_Score()

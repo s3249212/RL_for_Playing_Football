@@ -1,5 +1,8 @@
 #include <array>
- #include "visiongrid_ih.h"
+#include <string>
+#include <vector>
+
+#include "visiongrid_ih.h"
 
 VisionGrid_IH::VisionGrid_IH(Gridworld* gridworld, MLPQ* player, int team, vector<int> gridSizes)
 {

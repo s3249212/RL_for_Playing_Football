@@ -1,4 +1,3 @@
-#include "neural_network.h"
 
 #include <iostream>
 #include <fstream>
@@ -6,6 +5,7 @@
 #include <cmath>
 #include <string>
 
+#include "neural_network.h"
 #include "Util/util_functions.h"
 
 double Neural_network::activationFunction(double input, int layerIdx){

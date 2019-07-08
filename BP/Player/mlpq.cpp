@@ -1,3 +1,7 @@
+#include <array>
+#include <string>
+#include <vector>
+
 #include "mlpq.h"
 
 #include "Util/neural_network.h"

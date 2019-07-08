@@ -1,5 +1,7 @@
 #include "gridworld_ih.h"
 
+#include <array>
+#include <string>
 #include <sstream>
 #include <iostream>
 
