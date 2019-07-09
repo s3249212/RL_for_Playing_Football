@@ -1,8 +1,10 @@
 #include "cnn.h"
-#
 
-cnn::cnn()
+
+using namespace std;
+
+CNN::CNN()
 {
-
+   
 }
 
