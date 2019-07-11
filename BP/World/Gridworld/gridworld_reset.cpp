@@ -10,7 +10,7 @@ void Gridworld::resetAfterMatch(){
 }
 
 void Gridworld::resetLocations(){
-    int nred = 0, nblue = 0;
+    /*int nred = 0, nblue = 0;
     for(Gridworld_Agent* agent: agents){
         int x;
         if(agent->getTeam() == 0){
@@ -23,7 +23,26 @@ void Gridworld::resetLocations(){
         agent->setCoord({x, 1});
     }
 
+    ball->setCoord({width / 2, height / 2});*/
+
     ball->setCoord({width / 2, height / 2});
+    for(int i = 0; i < agents.size(); i++){
+        int x;
+        int y;
+        bool isFree;
+        do{
+            x = rand() % (width - 2) + 1;
+            y = rand() % (height - 2) + 1;
+
+            isFree = (x != ball->getX() && y != ball->getY());
+            int j = 0;
+            while(j < i && isFree){
+                isFree = (x != agents[0]->getX() && y != agents[0]->getY());
+                j++;
+            }
+        } while(!isFree);
+        agents[i]->setCoord({x, y});
+    }
 }
 
 void Gridworld::updateAfterGoal(array<int, 2> coord)
