@@ -29,9 +29,9 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 7;
-    int width = 9;
-    int goallength = 2;
+    int height = 15;
+    int width = 15;
+    int goallength = 4;
 
     string playersavefilename;
 

@@ -32,7 +32,7 @@ protected:
     double k_epsilon = 0.0000001;
 
     double learning_rate = 0.5;
-    double discount_factor = 0.9; //discount factor
+    double discount_factor = 0.99; //discount factor
     double epsilon = 0.05; //initial epsilon value for random action selection
     double minEpsilon = 0;
     int epsilonDecreasingPeriod = 20000000;
