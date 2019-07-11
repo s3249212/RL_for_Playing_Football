@@ -25,11 +25,12 @@ double Neural_network::activationFunction(double input, int layerIdx){
 
 double Neural_network::dActivationFunction(double input, int layerIdx){
     Activation_t activation_type = activationfunctions[layerIdx - 1];
+    double output;
     switch(activation_type){
         case LINEAR:
             return 1;
         case SIGMOID:
-            double output = 1.0 / (1.0 + exp(-input));
+            output = 1.0 / (1.0 + exp(-input));
             return output * (1 - output);
         case RELU:
             return input >= 0? input: 0;
