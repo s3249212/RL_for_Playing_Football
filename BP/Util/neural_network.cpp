@@ -15,6 +15,11 @@ double Neural_network::activationFunction(double input, int layerIdx){
             return input;
         case SIGMOID:
             return 1.0 / (1.0 + exp(-input));
+        case RELU:
+            if(input >= 0){
+                return 1;
+            }
+            return 0;
     }
 }
 
@@ -26,6 +31,8 @@ double Neural_network::dActivationFunction(double input, int layerIdx){
         case SIGMOID:
             double output = 1.0 / (1.0 + exp(-input));
             return output * (1 - output);
+        case RELU:
+            return input >= 0? input: 0;
     }
 }
 

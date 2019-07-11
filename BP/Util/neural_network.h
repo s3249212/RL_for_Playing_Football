@@ -9,7 +9,7 @@ using namespace std;
 class Neural_network{
     public:
     enum Activation_t{
-        LINEAR, SIGMOID
+        LINEAR, SIGMOID, RELU
     };
 
     Neural_network(vector<int> layerSizes, vector<Activation_t> activationfunctions);
