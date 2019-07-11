@@ -36,8 +36,16 @@ void Gridworld::addPlayer(TabularQ *player, int team)
     addIH(ih);
 }
 
-void Gridworld::addPlayer(MLPQ *player, int team)
+void Gridworld::addPlayer(MLPQ *player, int team, int inputType)
 {
-    Gridworld_IH* ih = new VisionGrid_IH(this, player, team, player->getGridSizes());
+  Gridworld_IH* ih;
+  switch(inputType){
+  case 1:
+    ih = new VisionGrid_IH(this, player, team, player->getGridSizes());
+    break;
+  case 0:
+  default:
+    ih = new MLPQIH(this, player, team);
+  }
     addIH(ih);
 }

@@ -48,4 +48,5 @@ void Gridworld::updateAfterGoal(array<int, 2> coord)
     resetEventLog();*/
 
     resetLocations();
+yes
 }

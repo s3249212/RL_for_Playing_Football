@@ -2,10 +2,10 @@
 #define CNN_H
 
 
-class cnn
+class CNN
 {
 public:
-    cnn();
+    CNN();
 };
 
 #endif // CNN_H

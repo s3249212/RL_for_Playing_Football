@@ -20,6 +20,7 @@ double QLearningPlayer::learning_rate_f(){
     switch(learning_rate_change){
     case Exponential_decay:
         return exponential_decay(learning_rate, k_learning_rate, nSteps);
+    case Linear:
     case Constant:
     default:
         return learning_rate;
@@ -32,9 +33,16 @@ vector<int> QLearningPlayer::getGridSizes() const
 }
 
 double QLearningPlayer::epsilon_f(){
+  double epsilonTime;
     switch(epsilon_change){
     case Exponential_decay:
         return exponential_decay(epsilon, k_epsilon, nSteps);
+    case Linear:
+      epsilonTime = static_cast<double>(nSteps) / epsilonDecreasingPeriod;
+      if(epsilonTime > 1){
+	return minEpsilon;
+      }
+      return (1 - epsilonTime) * epsilon + epsilonTime * minEpsilon;
     case Constant:
     default:
         return epsilon;

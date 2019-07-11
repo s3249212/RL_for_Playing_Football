@@ -29,8 +29,8 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 11;
-    int width = 12;
+    int height = 7;
+    int width = 9;
     int goallength = 2;
 
     string playersavefilename;
@@ -62,7 +62,7 @@ public:
 
     void addPlayer(TabularQ* player, int team);
     void addPlayer(RandomPlayer* player, int team);
-    void addPlayer(MLPQ* player, int team);
+    void addPlayer(MLPQ* player, int team, int inputType = 0);
     vector<Gridworld_IH*> getihs();
     int getHeight();
     int getWidth();

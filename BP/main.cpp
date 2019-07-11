@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include <iostream>
 
 #include "World/Gridworld/gridworld.h"
 #if USEQT == 1
@@ -20,6 +21,7 @@
 #include "Player/randomplayer.h"
 #include "Player/tabularq.h"
 #include "Player/mlpq.h"
+#include "Player/qv.h"
 #include "Interaction_Handler/Gridworld/gridworld_ih.h"
 
 void threadFunction(Gridworld* gridworld){
@@ -28,6 +30,10 @@ void threadFunction(Gridworld* gridworld){
 
 int main(int argc, char *argv[])
 {
+  if(argc < 2){
+    return -1;
+  }
+  cout << argv[1];
     srand(time(NULL));
 
 #if USEQT == 1
@@ -35,18 +41,13 @@ int main(int argc, char *argv[])
 
     QApplication* a = new QApplication(argc, argv);
 #endif
-    Gridworld* gridworld = new Gridworld("/home/s3249212/");
+    Gridworld* gridworld = new Gridworld(argv[1]);
 
-    //"playersavefile_1561388108_0"
     MLPQ* player = new MLPQ();
-    gridworld->addPlayer(player, 0);
-    /*player = new MLPQ();
-    gridworld->addPlayer(player, 0);*/
+    gridworld->addPlayer(player, 0, 1);
 
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->addPlayer(player2, 1);
-    /*player2 = new RandomPlayer();
-    gridworld->addPlayer(player2, 1);*/
 
     gridworld->initialize();
 
@@ -58,11 +59,6 @@ int main(int argc, char *argv[])
 
     gridworld->runTraining();
 
-    //std::thread t1(threadFunction, gridworld);
-
-    //a->exec();
-
-    //t1.join();
     delete player;
     delete player2;
     delete gridworld;
