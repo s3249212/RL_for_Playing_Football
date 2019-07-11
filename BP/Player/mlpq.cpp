@@ -45,7 +45,7 @@ void MLPQ::initialize(int nInput, int nActions){
 
     vector<Neural_network::Activation_t> activationFunctions;
 
-    activationFunctions.push_back(Neural_network::SIGMOID);
+    activationFunctions.push_back(Neural_network::RELU);
     activationFunctions.push_back(Neural_network::LINEAR);
     nn = new Neural_network(layerSizes, activationFunctions);
 
