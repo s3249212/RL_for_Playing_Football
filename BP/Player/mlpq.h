@@ -28,7 +28,7 @@ public:
 private:
     Neural_network* nn;
 
-    int nHiddenLayers = 1;
+    int nHiddenLayers = 2;
     int nHiddenNeuronsPerLayer = 50;
 
     vector<double> prevInput;

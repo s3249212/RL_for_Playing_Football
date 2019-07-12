@@ -33,7 +33,7 @@ protected:
 
     double learning_rate = 0.5;
     double discount_factor = 0.99; //discount factor
-    double epsilon = 0.9; //initial epsilon value for random action selection
+    double epsilon = 0.5; //initial epsilon value for random action selection
     double minEpsilon = 0;
     int epsilonDecreasingPeriod = 180000000;
     int softMaxDecreasingPeriod = 180000000;
