@@ -2,6 +2,7 @@
 #define QLEARNINGPLAYER_H
 
 #include <string>
+#include <math.h>
 
 #include "player.h"
 
@@ -28,19 +29,19 @@ protected:
     Hyperparameter_Change_t learning_rate_change = Constant;
     Hyperparameter_Change_t epsilon_change = Linear;
 
-    double k_learning_rate = 0.0000000001;
-    double k_epsilon = 0.0000001;
+    double k_learning_rate = 8.2 * pow(10,-9);
+    double k_epsilon = 8.2 * pow(10,-9);
 
     double learning_rate = 0.5;
     double discount_factor = 0.99; //discount factor
-    double epsilon = 0.5; //initial epsilon value for random action selection
+    double epsilon = 0.9; //initial epsilon value for random action selection
     double minEpsilon = 0;
-    int epsilonDecreasingPeriod = 180000000;
-    int softMaxDecreasingPeriod = 180000000;
-    double maxSoftMaxTemp = 0.2;
+    int epsilonDecreasingPeriod = 280000000 / 3;
+    int softMaxDecreasingPeriod = 280000000 / 3;
+    double maxSoftMaxTemp = 2;
     double minSoftMaxTemp = 0.2;
 
-    vector<int> gridSizes = {1, 1, 10};
+    vector<int> gridSizes = {1, 1, 3, 20};
 
     int nActions;
 

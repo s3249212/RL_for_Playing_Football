@@ -44,9 +44,13 @@ int main(int argc, char *argv[])
     Gridworld* gridworld = new Gridworld(argv[1]);
 
     MLPQ* player = new MLPQ();
-    gridworld->addPlayer(player, 0, 1);
+    gridworld->addPlayer(player, 0, 0);
+    gridworld->addPlayer(player, 0, 0);
+    gridworld->addPlayer(player, 0, 0);
 
     RandomPlayer* player2 = new RandomPlayer();
+    gridworld->addPlayer(player2, 1);
+    gridworld->addPlayer(player2, 1);
     gridworld->addPlayer(player2, 1);
 
     gridworld->initialize();

@@ -31,7 +31,7 @@ private:
 
     int height = 15;
     int width = 15;
-    int goallength = 4;
+    int goallength = 6;
 
     string playersavefilename;
 
