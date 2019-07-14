@@ -49,3 +49,41 @@ void Gridworld::addPlayer(MLPQ *player, int team, int inputType)
   }
     addIH(ih);
 }
+
+void Gridworld::setType(MLPQ* player, int team, int inputType, int nPlayers){
+  for(int i = 0; i < nPlayers; i++){
+    Gridworld_IH* ih;
+
+    switch(inputType){
+    case 1:
+      ih = new VisionGrid_IH(this, player, team, player->getGridSizes());
+      ih->initialize();
+      break;
+    case 0:
+    default:
+      ih = new MLPQIH(this, player, team);
+      ih->initialize();
+    }
+
+    if(team == 0){
+      leftType.push_back(ih);
+    } else {
+      rightType.push_back(ih);
+    }
+  }
+}
+
+void Gridworld::setType(RandomPlayer* player, int team, int nPlayers){
+  for(int i = 0; i < nPlayers; i++){
+    Gridworld_IH* ih;
+
+    ih = new RandomIH(this, player, team);
+    ih->initialize();
+
+    if(team == 0){
+      leftType.push_back(ih);
+    } else {
+      rightType.push_back(ih);
+    }
+  }
+}

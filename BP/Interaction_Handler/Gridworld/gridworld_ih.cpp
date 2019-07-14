@@ -53,6 +53,10 @@ vector<Gridworld_Agent*> Gridworld_IH::getAgents(){
     return agents;
 }
 
+void Gridworld_IH::clearAgents(){
+    agents.clear();
+}
+
 void Gridworld_IH::save(string filename)
 {
     player->save(filename);

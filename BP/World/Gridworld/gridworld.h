@@ -33,6 +33,13 @@ private:
     int width = 15;
     int goallength = 6;
 
+    int maxHeight = 15;
+    int minHeight = 6;
+    int maxWidth = 25;
+    int minWidth = 6;
+
+    int minTeamSize = 1;
+
     string playersavefilename;
 
     vector<Gridworld_Agent*> agents;
@@ -42,6 +49,15 @@ private:
     vector<Gridworld_Event*> eventLog;
 
     vector<Gridworld_IH*> ihs;
+
+    vector<Gridworld_IH*> leftType;
+    vector<Gridworld_IH*> rightType;
+
+    bool varyFieldSizes = true;
+    bool varyTeamSizes = true;
+    bool hasToPlayEqually = true;
+
+    bool randomInitialization = true;
 
     Gridworld_Score* score;
 
@@ -63,6 +79,8 @@ public:
     void addPlayer(TabularQ* player, int team);
     void addPlayer(RandomPlayer* player, int team);
     void addPlayer(MLPQ* player, int team, int inputType = 0);
+    void setType(MLPQ* player, int team, int inputType, int nPlayers);
+    void setType(RandomPlayer* player, int team, int nPlayers);
     vector<Gridworld_IH*> getihs();
     int getHeight();
     int getWidth();
@@ -95,6 +113,8 @@ public:
     void runTraining();
     void runStep();
 
+    void changeFieldSize();
+    void changeTeamSizes();
     void resetLocations();
     void resetAfterMatch();
 

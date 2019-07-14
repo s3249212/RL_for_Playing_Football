@@ -19,6 +19,7 @@ Gridworld::Gridworld(string savefilename){
     cout << t << endl << endl;
     savefile.open(savefilename + "savefile_" + to_string(t));
     playersavefilename = savefilename + "playersavefile_" + to_string(t) + "_";
+
 }
 
 Gridworld::~Gridworld(){
@@ -36,7 +37,13 @@ Gridworld::~Gridworld(){
 
 void Gridworld::initialize()
 {
+    if(varyFieldSizes){
+        changeFieldSize();
+    }
+    if(varyTeamSizes){
+        changeTeamSizes();
+    }
     for(Gridworld_IH* ih: ihs){
-        ih->initialize();
+        //ih->initialize();
     }
 }

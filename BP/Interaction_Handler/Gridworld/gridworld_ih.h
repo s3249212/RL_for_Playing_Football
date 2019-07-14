@@ -51,6 +51,8 @@ public:
 
     double generateRewardEndEpisode();
 
+    void clearAgents();
+
 protected:
     Player* player;
     Gridworld* world;
