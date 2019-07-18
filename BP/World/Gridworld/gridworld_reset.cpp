@@ -18,7 +18,7 @@ void Gridworld::resetAfterMatch(){
 void Gridworld::changeFieldSize(){
     width = 2 * (rand() % ((maxWidth - minWidth) / 2)) + minWidth;
     height = 2 * (rand() % ((maxHeight - minHeight) / 2)) + minHeight;
-    goallength = rand() % ((width - 2) / 2 ) + 1;
+    goallength = rand() % ((height - 2) / 2 ) + 1;
 }
 
 void Gridworld::changeTeamSizes(){
