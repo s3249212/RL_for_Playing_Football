@@ -15,8 +15,8 @@ public:
 
     void initialize(int nInput, int nActions);
 
-    void train(double reward);
-    void train(vector<double> input, double reward);
+    void train(vector<double> prevInput, int prevAction, double reward);
+    void train(vector<double> prevInput, int prevAction, vector<double> input, double reward);
 
     int act(vector<double> input);
 
@@ -28,11 +28,10 @@ public:
 private:
     Neural_network* nn;
 
+    vector<Neural_network::Activation_t> activationFunctions = {Neural_network::RELU, Neural_network::LINEAR};
+
     int nHiddenLayers = 1;
     int nHiddenNeuronsPerLayer = 50;
-
-    vector<double> prevInput;
-    int prevAction = -1;
 };
 
 #endif // MLPQ_H

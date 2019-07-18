@@ -11,15 +11,16 @@
 
 using namespace std;
 
-Gridworld::Gridworld(string savefilename){
+Gridworld::Gridworld(string savefilename):
+savefilename(savefilename)
+{
     ball = new Gridworld_Ball(this, {width / 2, height/2});
     score = new Gridworld_Score();
 
-    int t = static_cast<int>(time(NULL));
-    cout << t << endl << endl;
-    savefile.open(savefilename + "savefile_" + to_string(t));
-    playersavefilename = savefilename + "playersavefile_" + to_string(t) + "_";
-
+    initializationTime = static_cast<int>(time(NULL));
+    cout << initializationTime << endl << endl;
+    savefile.open(savefilename + "savefile_" + to_string(initializationTime));
+    playersavefilename = savefilename + "playersavefile_" + to_string(initializationTime) + "_";
 }
 
 Gridworld::~Gridworld(){

@@ -74,6 +74,9 @@ private:
     enum Event_actor{
         SAME_PLAYER = 0, SAME_TEAM, PLAYER_TO_OPPONENT, OPPOSITE_TEAM
     };
+
+    vector<double> prevInput;
+    int prevAction = -1;
     
     int** rewards;
 

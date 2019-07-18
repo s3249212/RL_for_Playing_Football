@@ -1,3 +1,4 @@
+#define USEQT 0
 #if USEQT == 1
 #include "gridworldview.h"
 #include <QApplication>

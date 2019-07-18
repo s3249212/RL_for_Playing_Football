@@ -10,9 +10,6 @@
 class TabularQ : public QLearningPlayer
 {
 private:
-    int prevAction = -1;
-    int prevState = -1;
-
     double** qTable;
     int nStates; 
 
@@ -27,8 +24,8 @@ public:
 
     void initialize(int nStates, int nActions);
 
-    void train(double reward);
-    void train(vector<double> input, double reward);
+    void train(vector<double> prevInput, int prevAction, double reward);
+    void train(vector<double> prevInput, int prevAction, vector<double> input, double reward);
 
     void resetAfterEpisode();
 

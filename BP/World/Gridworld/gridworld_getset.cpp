@@ -43,7 +43,12 @@ int Gridworld::getHeight(){
 }
 
 void Gridworld::setWidth(int width){
-  this->width = width;
+    this->width = width;
+}
+
+void Gridworld::setGoalLength(int goalLength)
+{
+    this->goallength = goalLength;
 }
 
 void Gridworld::setHeight(int height){
@@ -60,20 +65,22 @@ void Gridworld::setNPlayers(int nPlayers){
     ihs.clear();
     agents.clear();
 
-	for(int i = 0; i < newTeamSize; i++){
+    for(int i = 0; i < nPlayers; i++){
 		addIH(leftType[i]);
 		addIH(rightType[i]);
 	}
 }
 
-void setVariation(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually = true){
-  this->varyFieldSizes = varyFieldSizes;
-  this->varyTeamSizes = varyTeamSizes;
-  this->hasToPlayEqually = hasToPlayEqually;
+void Gridworld::setVariations(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually, bool randomInitialization){
+    this->varyFieldSizes = varyFieldSizes;
+    this->varyTeamSizes = varyTeamSizes;
+    this->hasToPlayEqually = hasToPlayEqually;
+    this->randomInitialization = randomInitialization;
 }
 
-void setSaveFile(string name){
-	
+void Gridworld::setSaveFile(string name){
+    savefile.close();
+    savefile.open(savefilename + "savefile_" + to_string(initializationTime)+ "_" + name);
 }
 
 array<int, 2> Gridworld::getScore()
@@ -88,6 +95,16 @@ vector<Gridworld_Event*> Gridworld::getEventLog(){
 vector<Gridworld_IH *> Gridworld::getihs()
 {
     return ihs;
+}
+
+vector<Gridworld_IH *> Gridworld::getLeftType()
+{
+    return leftType;
+}
+
+vector<Gridworld_IH *> Gridworld::getRightType()
+{
+    return rightType;
 }
 
 array<bool, 6> Gridworld::getPixelData(array<int, 2> coord, int team){

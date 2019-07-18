@@ -1,4 +1,5 @@
 #include <array>
+#include <iostream>
 #include <vector>
 
 #include "gridworld.h"
@@ -62,7 +63,7 @@ void Gridworld::resetLocations(){
             do{
                 x = rand() % (width - 2) + 1;
                 y = rand() % (height - 2) + 1;
-
+                //std::cout << x << std::endl;
                 isFree = (x != ball->getX() && y != ball->getY());
                 int j = 0;
                 while(j < i && isFree){

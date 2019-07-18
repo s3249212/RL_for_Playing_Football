@@ -42,7 +42,7 @@ void QV::initialize(int nInput, int nActions){
     vn = new Neural_network(layerSizes, activationFunctions);
 }
 
-void QV::train(double reward){
+void QV::train(vector<double> prevInput, int prevAction, double reward){
     if(prevInput.size() == 0 || prevAction < 0){
         return;
     }
@@ -56,7 +56,7 @@ void QV::train(double reward){
     qn->backwardPass(output);
 }
 
-void QV::train(vector<double> input, double reward)
+void QV::train(vector<double> prevInput, int prevAction, vector<double> input, double reward)
 {
     if(prevInput.size() == 0 || prevAction < 0){
         return;

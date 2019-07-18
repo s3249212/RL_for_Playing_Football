@@ -47,6 +47,9 @@ int main(int argc, char *argv[])
     MLPQ* player = new MLPQ();
     gridworld->setType(player, 0, 1, 7);
 
+    /*RandomPlayer* player = new RandomPlayer();
+    gridworld->setType(player, 0, 7);*/
+
     RandomPlayer* player2 = new RandomPlayer();
     gridworld->setType(player2, 1, 7);
 
@@ -56,12 +59,13 @@ int main(int argc, char *argv[])
     view = new GridworldView();
     view->setWorld(gridworld);
     view->show();
+    a->exec();
 #endif
 
     gridworld->runTraining();
 
     //Run tests on different field sizes and team sizes
-    for(Gridworld_IH* ih: gridworld->getLeftType(){
+    for(Gridworld_IH* ih: gridworld->getLeftType()){
 		ih->setMode(Gridworld_IH::TEST);
     }
 
@@ -73,21 +77,27 @@ int main(int argc, char *argv[])
     
     int nTestPerSetting = 100;
     vector<int> nPlayersToBeTested = {1, 2, 5, 7};
-    vector<array<int, 2>> sizes;
-    sizes.push_back({9, 9});
-    sizes.push_back({15, 15});
-    sizes.push_back({25, 25});
+    vector<array<int, 3>> sizes;
+    sizes.push_back({9, 9, 3});
+    sizes.push_back({15, 15, 5});
+    sizes.push_back({25, 25, 5});
     
 
-	for(array<int, 2> size: sizes){
-		gridworld->setwidth(size[0]);
+    int cnt = 0, nTests = sizes.size() * nPlayersToBeTested.size() * nTestPerSetting;
+    cout << "Running tests..." << endl;
+    for(array<int, 3> size: sizes){
+        gridworld->setWidth(size[0]);
 		gridworld->setHeight(size[1]);
+        gridworld->setGoalLength(size[2]);
 		for(int nPlayers: nPlayersToBeTested){
-			gridworld->setNPlayers(nplayers);
+            gridworld->setNPlayers(nPlayers);
+            gridworld->setSaveFile(to_string(size[0]) + "_" + to_string(size[1]) + "_" + to_string(nPlayers));
 			for(int i = 0 ; i < nTestPerSetting; i++){
-				gridworld->runMatch();
+                cout << "Test " << cnt + 1 << " out of " << nTests << " total. Width: " << size[0] << ", height: " << size[1] << ", goal length: " << size[2] << ", number of players: " << nPlayers << ", match " << i + 1 << " out of " << nTestPerSetting << "." << endl;
+                gridworld->runMatch(0);
 				gridworld->saveStatistics();
 				gridworld->resetAfterMatch();
+                cnt++;
 			}
 		}
 	}

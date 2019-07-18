@@ -15,8 +15,8 @@ public:
 
     void initialize(int nInput, int nActions);
 
-    void train(double reward);
-    void train(vector<double> input, double reward);
+    void train(vector<double> prevInput, int prevAction, double reward);
+    void train(vector<double> prevInput, int prevAction, vector<double> input, double reward);
 
     int act(vector<double> input);
 

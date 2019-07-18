@@ -9,7 +9,7 @@ void Gridworld::addEvent(Gridworld_Event::Event_type event_type, int team)
     Gridworld_Event* event = new Gridworld_Event();
     event->event_type = event_type;
     event->team = team;
-    event->player = ih->getPlayer();
+    event->ih = ih;
     eventLog.push_back(event);
 }
 

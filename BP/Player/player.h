@@ -12,8 +12,8 @@ public:
     Player();
     virtual ~Player();
 
-    virtual void train(double reward) = 0;
-    virtual void train(vector<double> input, double reward) = 0;
+    virtual void train(vector<double> prevInput, int prevAction, double reward) = 0;
+    virtual void train(vector<double> prevInput, int prevAction, vector<double> input, double reward) = 0;
     virtual int act(vector<double> input) = 0;
     virtual void resetAfterEpisode() = 0;
     virtual void save(string filename) = 0;

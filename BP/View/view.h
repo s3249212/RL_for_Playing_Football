@@ -1,3 +1,4 @@
+#define USEQT 0
 #if USEQT == 1
 #ifndef VIEW_H
 #define VIEW_H

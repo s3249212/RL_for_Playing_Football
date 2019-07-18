@@ -1,7 +1,7 @@
 #ifndef GRIDWORLD_EVENT_H
 #define GRIDWORLD_EVENT_H
 
-#include "Player/player.h"
+class Gridworld_IH;
 
 class Gridworld_Event
 {    
@@ -10,7 +10,7 @@ public:
         GOAL = 0, TOUCH, PASS
     };
 
-    Player* player;
+    Gridworld_IH* ih;
     Event_type event_type;
     int team;
 

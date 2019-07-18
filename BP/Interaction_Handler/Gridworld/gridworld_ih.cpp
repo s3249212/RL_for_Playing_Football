@@ -18,7 +18,9 @@ void Gridworld_IH::updateEndEpisode()
 
     totalreward += reward;
 
-    player->train(reward);
+    if(mode == TRAINING){
+        player->train(prevInput, prevAction, reward);
+    }
 }
 
 void Gridworld_IH::update(){
@@ -28,16 +30,29 @@ void Gridworld_IH::update(){
     totalreward += reward;
 
     if(mode == TRAINING){
-        player->train(input, reward);
+        player->train(prevInput, prevAction, input, reward);
     }
 
     int output = player->act(input);
+
+
+    prevAction = output;
+
+    if(output < 0){
+        cout << "Selected action: "<< output;
+        exit(0);
+    }
+
+    prevInput = input;
 
     handleOutput(output);
 }
 
 void Gridworld_IH::resetAfterEpisode()
 {
+    prevInput.clear();
+    prevAction = 0;
+
     player->resetAfterEpisode();
 }
 

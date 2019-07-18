@@ -8,12 +8,12 @@ RandomPlayer::RandomPlayer()
 
 }
 
-void RandomPlayer::train(double reward)
+void RandomPlayer::train(vector<double> prevInput, int prevAction, double reward)
 {
 
 }
 
-void RandomPlayer::train(vector<double> input, double reward){
+void RandomPlayer::train(vector<double> prevInput, int prevAction, vector<double> input, double reward){
 
 }
 

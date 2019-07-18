@@ -46,14 +46,17 @@ void TabularQ::initialize(int nStates, int nActions){
     }
 }
 
-void TabularQ::train(double reward){
+void TabularQ::train(vector<double> prevInput, int prevAction, double reward){
+    int prevState = static_cast<int>(prevInput[0]);
+
     if(prevAction != -1){
         qTable[prevState][prevAction] *= 1 - learning_rate_f();
         qTable[prevState][prevAction] += learning_rate_f() * reward;
     }
 }
 
-void TabularQ::train(vector<double> input, double reward){
+void TabularQ::train(vector<double> prevInput, int prevAction, vector<double> input, double reward){
+    int prevState = static_cast<int>(prevInput[0]);
     int currentState = static_cast<int>(input.at(0));
 
     if(prevAction != -1){
@@ -86,8 +89,6 @@ int TabularQ::act(vector<double> input){
     vector<double> qValues = getQValues(currentState);
 
     int selectedAction = selectAction(qValues);
-
-    prevAction = selectedAction;
 
     nSteps++;
 
@@ -160,8 +161,6 @@ void TabularQ::load(string filename)
 
 void TabularQ::resetAfterEpisode()
 {
-    prevAction = -1;
-    prevState = -1;
 }
 
 void TabularQ::printQTable(){

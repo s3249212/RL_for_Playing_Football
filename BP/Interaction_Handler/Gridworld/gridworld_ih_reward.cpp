@@ -28,13 +28,13 @@ int Gridworld_IH::rewardGoalTouchEndEpisode(){
         Event_actor team;
 
         if(event->team == this->team){
-            if(event->player == player){
+            if(event->ih == this){
                 team = SAME_PLAYER;
             } else {
                 team = SAME_TEAM;
             }
         } else {
-            if(event->player == player){
+            if(event->ih == this){
                 team = PLAYER_TO_OPPONENT;
             } else {
                 team = OPPOSITE_TEAM;
@@ -56,13 +56,13 @@ int Gridworld_IH::rewardGoalTouch(){
         Event_actor team;
 
         if(event->team == this->team){
-            if(event->player == player){
+            if(event->ih == this){
                 team = SAME_PLAYER;
             } else {
                 team = SAME_TEAM;
             }
         } else {
-            if(event->player == player){
+            if(event->ih == this){
                 team = PLAYER_TO_OPPONENT;
             } else {
                 team = OPPOSITE_TEAM;
@@ -71,7 +71,7 @@ int Gridworld_IH::rewardGoalTouch(){
 
         reward += rewards[team][event->event_type];
 
-        if(event->player == player){
+        if(event->ih == this){
             world->removeFromEventLog(event);
         }
     }

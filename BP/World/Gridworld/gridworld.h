@@ -8,9 +8,9 @@
 #include "../world.h"
 #include "gridworld_agent.h"
 #include "gridworld_ball.h"
-#include "Interaction_Handler/Gridworld/gridworld_ih.h"
 #include "gridworld_score.h"
 #include "gridworld_event.h"
+#include "Interaction_Handler/Gridworld/gridworld_ih.h"
 
 #include "Player/tabularq.h"
 #include "Player/randomplayer.h"
@@ -40,7 +40,10 @@ private:
 
     int minTeamSize = 1;
 
+    string savefilename;
     string playersavefilename;
+
+    int initializationTime = 0;
 
     vector<Gridworld_Agent*> agents;
 
@@ -57,15 +60,13 @@ private:
     bool varyTeamSizes = true;
     bool hasToPlayEqually = true;
 
-    bool randomInitialization = true;
+    bool randomInitialization = false;
 
     Gridworld_Score* score;
 
     Gridworld_IH* ih;
 
-    void runMatch(bool training);
 
-    void saveStatistics();
     void writeStatistics();
 
     void resetEventLog();
@@ -91,10 +92,13 @@ public:
 
     void setHeight(int height);
     void setWidth(int width);
+    void setGoalLength(int goalLength);
 
-    void setNPLayers(int nPlayers);
+    void setNPlayers(int nPlayers);
 
-    void setVariation(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually = true);
+    void setVariations(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually = true, bool randomInitialization = true);
+
+    void saveStatistics();
 
     vector<array<int, 2>> getTeam(int x);
     vector<array<int, 2>> getBlueTeam();
@@ -122,6 +126,7 @@ public:
     void addEvent(Gridworld_Event::Event_type event_type, int team);
 
     void runTraining();
+    void runMatch(bool training);
     void runStep();
 
     void changeFieldSize();
@@ -133,6 +138,7 @@ public:
 
     array<bool, 6> getPixelData(array<int, 2> coord, int team);
     vector<Gridworld_Agent*> getAgents();
+    void setSaveFile(string name);
 };
 
 #endif // GRIDWORLD_H

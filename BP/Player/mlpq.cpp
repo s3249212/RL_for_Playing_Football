@@ -43,15 +43,11 @@ void MLPQ::initialize(int nInput, int nActions){
     }
     layerSizes.push_back(nActions);
 
-    vector<Neural_network::Activation_t> activationFunctions;
-
-    activationFunctions.push_back(Neural_network::RELU);
-    activationFunctions.push_back(Neural_network::LINEAR);
     nn = new Neural_network(layerSizes, activationFunctions);
 
 }
 
-void MLPQ::train(double reward){
+void MLPQ::train(vector<double> prevInput, int prevAction, double reward){
     if(prevInput.size() == 0 || prevAction < 0){
         return;
     }
@@ -65,7 +61,7 @@ void MLPQ::train(double reward){
     nn->backwardPass(output);
 }
 
-void MLPQ::train(vector<double> input, double reward)
+void MLPQ::train(vector<double> prevInput, int prevAction, vector<double> input, double reward)
 {
     if(prevInput.size() == 0 || prevAction < 0){
         return;
@@ -77,62 +73,24 @@ void MLPQ::train(vector<double> input, double reward)
 
     maxQValue = output[0];
     for(int i = 1; i < nActions; i++){
-        //cout << output[i] << "\t";
         if(output[i] > maxQValue){
             maxQValue = output[i];
         }
     }
-    //cout << endl;
-    //cout << "Max Q Value: " << maxQValue << endl;
 
     output = nn->forwardPass(prevInput);
 
     double target = reward + discount_factor * maxQValue;
 
-    /*cout << "Reward: " << reward << " discountfactor: " << discount_factor << " maxQValue: " << maxQValue << " target: " << target << endl;
-    //cout << endl;
-
-    cout << "BackwardPass results:" << endl;
-    cout << "Previous output" << endl;
-    for(double d: output){
-        cout << d << "\t";
-    }
-    cout << endl;*/
-
     output[prevAction] = target;
 
-    /*cout << "Target:"<< endl;
-    for(double d: output){
-        cout << d << "\t";
-    }
-    cout << endl;*/
-
     nn->backwardPass(output);
-
-    /*output = nn->forwardPass(prevInput);
-
-    cout << "New output:" << endl;
-    for(double d: output){
-        cout << d << "\t";
-    }
-    cout << endl << endl;*/
-
-    //nn->print();
 }
 
 int MLPQ::act(vector<double> input){
     vector<double> qValues = nn->forwardPass(input);
 
     int selectedAction = selectAction(qValues);
-
-    prevAction = selectedAction;
-
-    if(selectedAction < 0){
-        cout << "Selected action: "<< selectedAction;
-        exit(0);
-    }
-
-    prevInput = input;
 
     nSteps++;
 
@@ -141,8 +99,6 @@ int MLPQ::act(vector<double> input){
 
 void MLPQ::resetAfterEpisode()
 {
-    prevAction = -1;
-    prevInput.clear();
 }
 
 void MLPQ::save(string filename)
