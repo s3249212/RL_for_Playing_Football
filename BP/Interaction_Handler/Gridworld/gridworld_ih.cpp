@@ -27,9 +27,9 @@ void Gridworld_IH::update(){
 
     totalreward += reward;
 
-    //if(mode == TRAINING){
+    if(mode == TRAINING){
         player->train(input, reward);
-    //}
+    }
 
     int output = player->act(input);
 

@@ -1,4 +1,5 @@
 #include <array>
+#include <string>
 #include <vector>
 
 #include "gridworld.h"
@@ -39,6 +40,40 @@ int Gridworld::getWidth(){
 
 int Gridworld::getHeight(){
     return height;
+}
+
+void Gridworld::setWidth(int width){
+  this->width = width;
+}
+
+void Gridworld::setHeight(int height){
+  this->height = height;
+}
+
+void Gridworld::setNPlayers(int nPlayers){
+	for(Gridworld_IH* ih: ihs){
+        for(Gridworld_Agent* a: ih->getAgents()){
+            delete a;
+        }
+        ih->clearAgents();
+    }
+    ihs.clear();
+    agents.clear();
+
+	for(int i = 0; i < newTeamSize; i++){
+		addIH(leftType[i]);
+		addIH(rightType[i]);
+	}
+}
+
+void setVariation(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually = true){
+  this->varyFieldSizes = varyFieldSizes;
+  this->varyTeamSizes = varyTeamSizes;
+  this->hasToPlayEqually = hasToPlayEqually;
+}
+
+void setSaveFile(string name){
+	
 }
 
 array<int, 2> Gridworld::getScore()
