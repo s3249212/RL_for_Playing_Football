@@ -63,7 +63,7 @@ protected:
     int totalreward = 0;
 
 private:
-    Mode mode;
+    Mode mode = TRAINING;
 
     int requiredNumberOfAgents = 1;
 

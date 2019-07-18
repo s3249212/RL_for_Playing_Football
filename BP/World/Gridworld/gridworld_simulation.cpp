@@ -51,7 +51,7 @@ void Gridworld::runMatch(bool training = 0){
     }
 
     for(Gridworld_IH* ih: ihs){
-        ih->setMode(mode);
+      //ih->setMode(mode);
     }
 
     for(int i = 0; i < 10000; i++){

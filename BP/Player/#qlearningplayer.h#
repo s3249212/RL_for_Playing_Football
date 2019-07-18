@@ -18,7 +18,7 @@ public:
 
 protected:
     enum ActionSelection_t {
-        Random = 0, Egreedy, Softmax
+      Random = 0, Egreedy, Softmax
     };
 
     enum Hyperparameter_Change_t {

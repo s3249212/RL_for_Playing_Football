@@ -29,11 +29,11 @@ private:
         GOAL_BLUE = 0, GOAL_RED
     };
 
-    int height = 15;
-    int width = 15;
-    int goallength = 6;
+    int height = 9;
+    int width = 9;
+    int goallength = 2;
 
-    int maxHeight = 15;
+    int maxHeight = 25;
     int minHeight = 6;
     int maxWidth = 25;
     int minWidth = 6;
@@ -81,9 +81,20 @@ public:
     void addPlayer(MLPQ* player, int team, int inputType = 0);
     void setType(MLPQ* player, int team, int inputType, int nPlayers);
     void setType(RandomPlayer* player, int team, int nPlayers);
+
     vector<Gridworld_IH*> getihs();
+    vector<Gridworld_IH*> getLeftType();
+    vector<Gridworld_IH*> getRightType();
+
     int getHeight();
     int getWidth();
+
+    void setHeight(int height);
+    void setWidth(int width);
+
+    void setNPLayers(int nPlayers);
+
+    void setVariation(bool varyFieldSizes, bool varyTeamSizes, bool hasToPlayEqually = true);
 
     vector<array<int, 2>> getTeam(int x);
     vector<array<int, 2>> getBlueTeam();

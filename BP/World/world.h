@@ -19,7 +19,7 @@ public:
 protected:
     std::ofstream savefile;
 
-    int nBlocks = 300 / 3;
+    int nBlocks = 300;
 
     int nTrainingPerBlock = 0;
     int nTestPerBlock = 100;
